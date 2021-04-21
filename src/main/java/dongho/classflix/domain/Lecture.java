@@ -3,7 +3,7 @@ package dongho.classflix.domain;
 import lombok.Getter;
 
 import javax.persistence.*;
-
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,20 +11,24 @@ import static javax.persistence.CascadeType.*;
 
 @Entity
 @Getter
-public class Member {
+public class Lecture {
+
     @Id
     @GeneratedValue
-    @Column(name = "member_id")
+    @Column(name = "lecture_id")
     private Long id;
-    private String userName;
-    private int age;
 
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private String lectureName;
 
-    private String career;
+    private String teacherName;
 
-    @OneToMany(mappedBy = "member")
+    private String siteName;
+
+    private URI uri;
+
+    private String content;
+
+    @OneToMany(mappedBy = "lecture", cascade = ALL)
     private List<Review> reviews = new ArrayList<>();
 
 }
