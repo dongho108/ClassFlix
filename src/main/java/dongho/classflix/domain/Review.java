@@ -4,10 +4,7 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import javax.swing.*;
-
 import java.time.LocalDateTime;
-
-import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.*;
 
 @Entity
@@ -26,6 +23,9 @@ public class Review {
     private JPasswordField password;
 
     private String content;
+
+    @Enumerated(EnumType.STRING)
+    private Star star;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "lecture_id")
