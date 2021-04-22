@@ -27,6 +27,8 @@ public class Lecture {
     private String siteName;
     private URI uri;
 
+    private Integer averageRating;
+    private Integer reviewNum;
 
     @OneToMany(mappedBy = "lecture", cascade = ALL)
     private List<Review> reviews = new ArrayList<>();
@@ -38,5 +40,27 @@ public class Lecture {
         this.lectureName = lectureName;
         this.teacherName = teacherName;
         this.content = content;
+    }
+
+    public void addReview(Integer rating) {
+        this.reviewNum += 1;
+        updateAverageRating(rating);
+    }
+
+    public void removeReview(Integer rating) {
+        int restReview = this.reviewNum - 1;
+        if (restReview < 0) {
+            throw new NotEnoughReviewException("review is empty");
+        }
+        this.reviewNum -= 1;
+        updateAverageRating(rating);
+    }
+
+    public void updateAverageRating(Integer rating) {
+        if (reviewNum == 0) {
+            this.averageRating = 0;
+        } else {
+            this.averageRating = (averageRating + rating) / reviewNum;
+        }
     }
 }
