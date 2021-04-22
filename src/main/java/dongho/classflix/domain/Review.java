@@ -20,7 +20,7 @@ public class Review {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private JPasswordField password;
+    private String password;
 
     private String content;
 
@@ -32,4 +32,16 @@ public class Review {
     private Lecture lecture;
 
     private LocalDateTime reviewDate;
+
+    protected Review() {
+    }
+
+    public Review(Member member, String password, String content, Star star, Lecture lecture, LocalDateTime reviewDate) {
+        this.member = member;
+        this.password = password;
+        this.content = content;
+        this.star = star;
+        this.lecture = lecture;
+        this.reviewDate = reviewDate;
+    }
 }
