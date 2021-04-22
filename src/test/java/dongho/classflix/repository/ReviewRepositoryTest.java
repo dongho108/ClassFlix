@@ -42,7 +42,7 @@ class ReviewRepositoryTest {
         Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
         em.persist(lecture);
 
-        Review review = new Review(member, "1234", "good", Star.FOUR, lecture, LocalDateTime.now());
+        Review review = new Review(member, "1234", "good", 4, lecture, LocalDateTime.now());
         //when
 
         Long savedId = reviewRepository.save(review);
