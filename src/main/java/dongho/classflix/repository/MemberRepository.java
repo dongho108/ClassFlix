@@ -23,6 +23,12 @@ public class MemberRepository {
         return em.find(Member.class, id);
     }
 
+    public List<Member> findByName(String name) {
+        return em.createQuery("select m from Member m where m.userName = :name", Member.class)
+                .setParameter("name", name)
+                .getResultList();
+    }
+
     public List<Member> findAll() {
         return em.createQuery("select m from Member m", Member.class)
                 .getResultList();
