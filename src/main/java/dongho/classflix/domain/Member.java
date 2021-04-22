@@ -25,4 +25,12 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Review> reviews = new ArrayList<>();
 
+    protected Member() {
+    }
+
+    public Member(String userName, int age, Gender gender) {
+        this.userName = userName;
+        this.age = age;
+        this.gender = gender;
+    }
 }

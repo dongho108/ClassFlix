@@ -20,15 +20,23 @@ public class Lecture {
     private Long id;
 
     private String lectureName;
-
-    private byte[] RepresentImage;
-
     private String teacherName;
+    private String content;
+
+    private byte[] representImage;
     private String siteName;
     private URI uri;
-    private String content;
+
 
     @OneToMany(mappedBy = "lecture", cascade = ALL)
     private List<Review> reviews = new ArrayList<>();
 
+    protected Lecture() {
+    }
+
+    public Lecture(String lectureName, String teacherName, String content) {
+        this.lectureName = lectureName;
+        this.teacherName = teacherName;
+        this.content = content;
+    }
 }
