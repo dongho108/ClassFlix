@@ -24,8 +24,7 @@ public class Review {
 
     private String content;
 
-    @Enumerated(EnumType.STRING)
-    private Star star;
+    private Integer rating;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "lecture_id")
@@ -36,11 +35,11 @@ public class Review {
     protected Review() {
     }
 
-    public Review(Member member, String password, String content, Star star, Lecture lecture, LocalDateTime reviewDate) {
+    public Review(Member member, String password, String content, Integer rating, Lecture lecture, LocalDateTime reviewDate) {
         this.member = member;
         this.password = password;
         this.content = content;
-        this.star = star;
+        this.rating = rating;
         this.lecture = lecture;
         this.reviewDate = reviewDate;
     }
