@@ -27,8 +27,8 @@ public class Lecture {
     private String siteName;
     private URI uri;
 
-    private Integer averageRating;
-    private Integer reviewNum;
+    private double averageRating;
+    private int reviewNum;
 
     @OneToMany(mappedBy = "lecture", cascade = ALL)
     private List<Review> reviews = new ArrayList<>();
@@ -60,7 +60,8 @@ public class Lecture {
         if (reviewNum == 0) {
             this.averageRating = 0;
         } else {
-            this.averageRating = (averageRating + rating) / reviewNum;
+            double average = (averageRating + rating) / reviewNum;
+            this.averageRating = Math.floor(average);
         }
     }
 }
