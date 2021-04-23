@@ -43,4 +43,9 @@ public class Review {
         this.lecture = lecture;
         this.reviewDate = reviewDate;
     }
+
+    public void changeContentAndRating(String content, Integer rating) {
+        this.content = content;
+        this.rating = rating;
+    }
 }
