@@ -13,11 +13,13 @@ public class LectureRepository {
 
     private final EntityManager em;
 
-    // 강의 저장
+
+    // 강의 등록
     public Long save(Lecture lecture) {
         em.persist(lecture);
         return lecture.getId();
     }
+
 
     // 강의 조회
     public Lecture findById(Long id) {
@@ -26,6 +28,12 @@ public class LectureRepository {
 
     public List<Lecture> findAll() {
         return em.createQuery("select l from Lecture l", Lecture.class)
+                .getResultList();
+    }
+
+    public List<Lecture> findByName(String name) {
+        return em.createQuery("select l from Lecture l where l.lectureName = :name", Lecture.class)
+                .setParameter("name", name)
                 .getResultList();
     }
 
