@@ -25,11 +25,13 @@ public class MemberService {
     }
 
     // 회원 전체 조회
+    @Transactional(readOnly = true)
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
 
     // 회원 하나 조회
+    @Transactional(readOnly = true)
     public Member findOne(Long memberId) {
         return memberRepository.findById(memberId);
     }
