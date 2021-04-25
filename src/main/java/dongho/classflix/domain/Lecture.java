@@ -64,4 +64,14 @@ public class Lecture {
             this.averageRating = Math.floor(average);
         }
     }
+
+    public void changeLectureData(String lectureName, String teacherName, String content, byte[] representImage, String siteName, URI uri) {
+        this.lectureName = lectureName;
+        this.teacherName = teacherName;
+        this.content = content;
+        this.representImage = representImage;
+        this.siteName = siteName;
+        this.uri = uri;
+    }
+
 }
