@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -24,7 +26,7 @@ class LectureRepositoryTest {
     @Test
     public void 강의저장조회() throws Exception {
         //given
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
 
         //when
         Long savedId = lectureRepository.save(lecture);

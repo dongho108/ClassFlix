@@ -31,9 +31,11 @@ public class LectureRepository {
                 .getResultList();
     }
 
-    public List<Lecture> findByName(String name) {
-        return em.createQuery("select l from Lecture l where l.lectureName = :name", Lecture.class)
-                .setParameter("name", name)
+    public List<Lecture> findByName(String lectureName, String teacherName) {
+        return em.createQuery("select l from Lecture l " +
+                "where l.lectureName = :lectureName and l.teacherName = :teacherName", Lecture.class)
+                .setParameter("lectureName", lectureName)
+                .setParameter("teacherName", teacherName)
                 .getResultList();
     }
 
