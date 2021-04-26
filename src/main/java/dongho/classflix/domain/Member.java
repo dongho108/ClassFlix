@@ -3,6 +3,7 @@ package dongho.classflix.domain;
 import lombok.Getter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,9 @@ public class Member {
     @GeneratedValue
     @Column(name = "member_id")
     private Long id;
+
     private String userName;
+
     private int age;
 
     @Enumerated(EnumType.STRING)
@@ -32,5 +35,12 @@ public class Member {
         this.userName = userName;
         this.age = age;
         this.gender = gender;
+    }
+
+    public Member(String userName, int age, Gender gender, String career) {
+        this.userName = userName;
+        this.age = age;
+        this.gender = gender;
+        this.career = career;
     }
 }
