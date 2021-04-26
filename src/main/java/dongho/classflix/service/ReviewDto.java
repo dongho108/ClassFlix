@@ -1,4 +1,4 @@
-package dongho.classflix;
+package dongho.classflix.service;
 
 
 import lombok.Getter;
@@ -14,4 +14,11 @@ public class ReviewDto {
     private String content;
     private int rating;
     private LocalDateTime reviewDate;
+
+    public ReviewDto(String password, String content, int rating, LocalDateTime reviewDate) {
+        this.password = password;
+        this.content = content;
+        this.rating = rating;
+        this.reviewDate = reviewDate;
+    }
 }

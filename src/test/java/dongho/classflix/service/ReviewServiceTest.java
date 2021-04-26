@@ -4,8 +4,6 @@ import dongho.classflix.domain.Gender;
 import dongho.classflix.domain.Lecture;
 import dongho.classflix.domain.Member;
 import dongho.classflix.domain.Review;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AssertionsKt;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,23 +36,23 @@ class ReviewServiceTest {
         Member member = new Member("dongho", 25, Gender.MALE);
         em.persist(member);
 
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
         em.persist(lecture);
 
         //when
-        Review review1 = new Review(member, "1234", "good", 4, lecture, LocalDateTime.now());
-        reviewService.create(review1);
+        ReviewDto reviewDto1 = new ReviewDto("1234", "good", 4, LocalDateTime.now());
+        Long reviewId1 = reviewService.create(member.getId(), lecture.getId(), reviewDto1);
 
-        Review review2 = new Review(member, "1234", "bad", 1, lecture, LocalDateTime.now());
-        reviewService.create(review2);
+        ReviewDto reviewDto2 = new ReviewDto("1234", "bad", 4, LocalDateTime.now());
+        Long reviewId2 = reviewService.create(member.getId(), lecture.getId(), reviewDto2);
 
-        Review findReview1 = reviewService.findOne(review1.getId());
-        Review findReview2 = reviewService.findOne(review1.getId());
+        Review findReview1 = reviewService.findOne(reviewId1);
+        Review findReview2 = reviewService.findOne(reviewId2);
         List<Review> reviews = reviewService.findAll();
 
         //then
-        assertThat(findReview1).isEqualTo(review1);
-        assertThat(findReview2).isEqualTo(review2);
+        assertThat(findReview1.getId()).isEqualTo(reviewId1);
+        assertThat(findReview2.getId()).isEqualTo(reviewId2);
         assertThat(reviews.size()).isEqualTo(2);
     }
 
@@ -65,25 +63,26 @@ class ReviewServiceTest {
         Member member = new Member("dongho", 25, Gender.MALE);
         em.persist(member);
 
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
         em.persist(lecture);
 
         //when
-        Review review1 = new Review(member, "1234", "good", 4, lecture, LocalDateTime.now());
-        reviewService.create(review1);
+        ReviewDto reviewDto1 = new ReviewDto("1234", "good", 4, LocalDateTime.now());
+        Long reviewId1 = reviewService.create(member.getId(), lecture.getId(), reviewDto1);
 
-        Review review2 = new Review(member, "1234", "bad", 1, lecture, LocalDateTime.now());
-        reviewService.create(review2);
+        ReviewDto reviewDto2 = new ReviewDto("1234", "bad", 4, LocalDateTime.now());
+        Long reviewId2 = reviewService.create(member.getId(), lecture.getId(), reviewDto2);
 
-        reviewService.update(review1.getId(), "1234", "very good", 5);
+        reviewService.update(reviewId1, "1234", "very good", 5);
         assertThrows(NotEqualPasswordException.class, () -> {
-            reviewService.update(review2.getId(), "1111", "so bad", 1);
+            reviewService.update(reviewId2, "1111", "so bad", 1);
         });
+
+        Review review1 = reviewService.findOne(reviewId1);
 
         //then
         assertThat(review1.getContent()).isEqualTo("very good");
         assertThat(review1.getRating()).isEqualTo(5);
-
 
     }
 
