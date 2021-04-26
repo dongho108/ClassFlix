@@ -19,16 +19,20 @@ public class LectureService {
 
     // 조인
     public Long join(Lecture lecture) {
-        List<Lecture> findLectures = lectureRepository.findByName(lecture.getLectureName());
-        if (!findLectures.isEmpty()) {
-            throw new IllegalStateException("이미 존재하는 강의입니다.");
-        }
+        validateDuplicateLecture(lecture);
         return lectureRepository.save(lecture);
     }
 
+    private void validateDuplicateLecture(Lecture lecture) {
+        List<Lecture> findLectures = lectureRepository.findByName(lecture.getLectureName(), lecture.getTeacherName());
+        if (!findLectures.isEmpty()) {
+            throw new IllegalStateException("이미 존재하는 강의입니다.");
+        }
+    }
+
     // 업데이트
-    public void update(Long id, String lectureName, String teacherName, String content, byte[] representImage, String siteName, URI uri) {
+    public void update(Long id, LectureDto lectureDto) {
         Lecture findLecture = lectureRepository.findById(id);
-        findLecture.changeLectureData(lectureName, teacherName, content, representImage, siteName, uri);
+        findLecture.changeLectureData(lectureDto.getLectureName(), lectureDto.getTeacherName(), lectureDto.getContent(), lectureDto.getRepresentImage(), lectureDto.getSiteName(), lectureDto.getUri());
     }
 }

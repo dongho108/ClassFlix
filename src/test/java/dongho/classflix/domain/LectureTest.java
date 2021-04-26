@@ -26,7 +26,7 @@ class LectureTest {
         Member member = new Member("dongho", 25, Gender.MALE);
         em.persist(member);
 
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
         em.persist(lecture);
 
         Review review1 = new Review(member, "1234", "good", 4, lecture, LocalDateTime.now());
@@ -51,7 +51,7 @@ class LectureTest {
         Member member = new Member("dongho", 25, Gender.MALE);
         em.persist(member);
 
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
         em.persist(lecture);
 
         Review review1 = new Review(member, "1234", "good", 4, lecture, LocalDateTime.now());
@@ -82,7 +82,7 @@ class LectureTest {
         Member member = new Member("dongho", 25, Gender.MALE);
         em.persist(member);
 
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
         em.persist(lecture);
 
         Review review1 = new Review(member, "1234", "good", 4, lecture, LocalDateTime.now());
