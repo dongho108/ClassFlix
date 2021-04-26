@@ -3,8 +3,10 @@ package dongho.classflix.domain;
 import lombok.Getter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.awt.*;
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,12 +22,15 @@ public class Lecture {
     private Long id;
 
     private String lectureName;
+
     private String teacherName;
+
     private String content;
 
     private byte[] representImage;
     private String siteName;
     private URI uri;
+    private LocalDateTime lectureDateTime;
 
     private double averageRating;
     private int reviewNum;
@@ -36,10 +41,20 @@ public class Lecture {
     protected Lecture() {
     }
 
-    public Lecture(String lectureName, String teacherName, String content) {
+    public Lecture(String lectureName, String teacherName, String content, LocalDateTime lectureDateTime) {
         this.lectureName = lectureName;
         this.teacherName = teacherName;
         this.content = content;
+        this.lectureDateTime = lectureDateTime;
+    }
+
+    public Lecture(String lectureName, String teacherName, String content, byte[] representImage, String siteName, URI uri) {
+        this.lectureName = lectureName;
+        this.teacherName = teacherName;
+        this.content = content;
+        this.representImage = representImage;
+        this.siteName = siteName;
+        this.uri = uri;
     }
 
     public void addReview(Integer rating) {

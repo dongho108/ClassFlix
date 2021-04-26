@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import javax.swing.*;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import static javax.persistence.FetchType.*;
 
