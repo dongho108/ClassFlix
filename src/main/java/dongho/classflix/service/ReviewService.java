@@ -1,6 +1,5 @@
 package dongho.classflix.service;
 
-import dongho.classflix.ReviewDto;
 import dongho.classflix.domain.Lecture;
 import dongho.classflix.domain.Member;
 import dongho.classflix.domain.Review;
@@ -11,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
