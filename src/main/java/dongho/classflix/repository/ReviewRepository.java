@@ -28,11 +28,10 @@ public class ReviewRepository {
                 .getResultList();
     }
 
-    // 멤버가 강의에 단 리뷰
+    // 강의에 달린 리뷰
     public List<Review> findAllWithMemberLecture() {
         return em.createQuery(
                 "select r from Review r" +
-                        " join fetch r.member m" +
                         " join fetch r.lecture l", Review.class
         ).getResultList();
     }
