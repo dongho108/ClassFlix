@@ -1,11 +1,150 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"><head>
-    <title>Hello</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
 </head>
 <body>
-<div>Class Flix</div>
-<div>나에게 필요한 강의찾기를 편리하게</div>
+<style type="text/css">
+    .jumbotron {
+        text-shadow: black 0.2em 0.2em 0.2em;
+        color: red;
+    }
+
+    .lecture-images {
+        width: 128px;
+        height: 83px;
+    }
+    .panel-heading {
+        font-weight: bold;
+        background-color: white;
+    }
+    .lecture-title {
+        font-weight: bold;
+    }
+    .star_rating {font-size:0; letter-spacing:-4px;}
+    .star_rating a {
+        font-size:22px;
+        letter-spacing:0;
+        display:inline-block;
+        margin-left:5px;
+        color:#ccc;
+        text-decoration:none;
+    }
+    .star_rating a:first-child {margin-left:0;}
+    .star_rating a.on {color:#E1BC3F;}
+
+</style>
+<div th:replace="fragments/bodyHeader :: bodyHeader" />
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="text-center"> CLASS FLIX</h1>
+        <p class="text-center" style="text-shadow: none"> 인강 추천좀 </p>
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">IT 분야 인기 강의</div>
+            <div class="panel-body">
+                <div class="col-md-3">
+                    <img class="lecture-images" src="/images/springInstroduction.png" alt="스프링입문">
+                    <h5 class="lecture-title">스프링입문</h5>
+                    <p class="star_rating">
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <img class="lecture-images" src="/images/springCore.jpeg" alt="스프링코어">
+                    <h5 class="lecture-title" >스프링코어</h5>
+                    <p class="star_rating">
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#">★</a>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <img class="lecture-images" src="/images/jpa.png" alt="jpa기초">
+                    <h5 class="lecture-title" >JPA기초</h5>
+                    <p class="star_rating">
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#">★</a>
+                        <a href="#">★</a>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <img class="lecture-images" src="/images/jpaPrac1.png" alt="jpa활용1">
+                    <h5 class="lecture-title" >JPA활용1</h5>
+                    <p class="star_rating">
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">요리 분야 인기 강의</div>
+            <div class="panel-body">
+                <div class="col-md-3">
+                    <img class="lecture-images" src="/images/springInstroduction.png" alt="스프링입문">
+                    <h5 class="lecture-title">스프링입문</h5>
+                    <p class="star_rating">
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <img class="lecture-images" src="/images/springCore.jpeg" alt="스프링코어">
+                    <h5 class="lecture-title" >스프링코어</h5>
+                    <p class="star_rating">
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#">★</a>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <img class="lecture-images" src="/images/jpa.png" alt="jpa기초">
+                    <h5 class="lecture-title" >JPA기초</h5>
+                    <p class="star_rating">
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#">★</a>
+                        <a href="#">★</a>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <img class="lecture-images" src="/images/jpaPrac1.png" alt="jpa활용1">
+                    <h5 class="lecture-title" >JPA활용1</h5>
+                    <p class="star_rating">
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer" />
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 </body>
 </html>
