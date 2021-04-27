@@ -1,10 +1,188 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"><head>
-    <title>Hello</title>
+    <title>CLASS FLIX</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width" initial-scale="1">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/classflix.css">
 </head>
 <body>
-Hello
-<!--<a href="/hello">hello</a>-->
+<style type="text/css">
+    .jumbotron {
+        text-shadow: black 0.2em 0.2em 0.2em;
+        color: red;
+    }
+
+    .lecture-images {
+        width: 128px;
+        height: 83px;
+    }
+    .panel-heading {
+        font-weight: bold;
+        background-color: white;
+    }
+    .lecture-title {
+        font-weight: bold;
+    }
+    .star_rating {font-size:0; letter-spacing:-4px;}
+    .star_rating a {
+        font-size:22px;
+        letter-spacing:0;
+        display:inline-block;
+        margin-left:5px;
+        color:#ccc;
+        text-decoration:none;
+    }
+    .star_rating a:first-child {margin-left:0;}
+    .star_rating a.on {color:#E1BC3F;}
+
+</style>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">CLASS FLIX</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">회원가입<span class="sr-only"></span></a></li>
+                <li><a href="#">강의등록</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="text-center"> CLASS FLIX</h1>
+        <p class="text-center" style="text-shadow: none"> 인강 추천좀 </p>
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">IT 분야 인기 강의</div>
+            <div class="panel-body">
+                <div class="col-md-3">
+                    <img class="lecture-images" src="images/springInstroduction.png" alt="스프링입문">
+                    <h5 class="lecture-title">스프링입문</h5>
+                    <p class="star_rating">
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <img class="lecture-images" src="images/springCore.jpeg" alt="스프링코어">
+                    <h5 class="lecture-title" >스프링코어</h5>
+                    <p class="star_rating">
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#">★</a>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <img class="lecture-images" src="images/jpa.png" alt="jpa기초">
+                    <h5 class="lecture-title" >JPA기초</h5>
+                    <p class="star_rating">
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#">★</a>
+                        <a href="#">★</a>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <img class="lecture-images" src="images/jpaPrac1.png" alt="jpa활용1">
+                    <h5 class="lecture-title" >JPA활용1</h5>
+                    <p class="star_rating">
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">요리 분야 인기 강의</div>
+            <div class="panel-body">
+                <div class="col-md-3">
+                    <img class="lecture-images" src="images/springInstroduction.png" alt="스프링입문">
+                    <h5 class="lecture-title">스프링입문</h5>
+                    <p class="star_rating">
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <img class="lecture-images" src="images/springCore.jpeg" alt="스프링코어">
+                    <h5 class="lecture-title" >스프링코어</h5>
+                    <p class="star_rating">
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#">★</a>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <img class="lecture-images" src="images/jpa.png" alt="jpa기초">
+                    <h5 class="lecture-title" >JPA기초</h5>
+                    <p class="star_rating">
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#">★</a>
+                        <a href="#">★</a>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <img class="lecture-images" src="images/jpaPrac1.png" alt="jpa활용1">
+                    <h5 class="lecture-title" >JPA활용1</h5>
+                    <p class="star_rating">
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                        <a href="#" class="on">★</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer style="background-color: #000000; color: #ffffff">
+    <div class="container">
+        <br>
+        <div calss="row">
+            <div class="col-sm-4" style="text-align: center;"><h5>Copyright &copy; 2021</h5><h5>김동호(Dongho Kim)</h5></div>
+            <div class="col-sm-4"><h4>대표자 소개</h4><p>저는 CLASS FLIX의 대표 김동호입니다. 홍익대학교 컴퓨터공학과에 재학중입니다.</p></div>
+            <div class="col-sm-4"><h4 style="text-align: center;">SNS</h4>
+                <div class="list-group">
+                    <a href="https://www.youtube.com/channel/UCzPBLnZ88905X61WRQy9EpQ" class="list-group-item">유투브</a>
+                    <a href="https://www.github.com/dongho108" class="list-group-item">깃허브</a>
+                    <a href="https://ksabs.tistory.com/" class="list-group-item">블로그</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
 </body>
 </html>
