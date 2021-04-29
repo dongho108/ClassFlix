@@ -1,20 +1,42 @@
 package dongho.classflix.controller;
 
+import dongho.classflix.controller.dto.HomeLectureDto;
+import dongho.classflix.domain.Lecture;
 import dongho.classflix.service.LectureService;
 import dongho.classflix.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class HomeController {
 
-    private LectureService lectureService;
+    private final LectureService lectureService;
 
     @RequestMapping("/")
-    public String home() {
+    public String home(Model model) {
+        log.info("hello");
+        List<Lecture> lectures = lectureService.findAll();
+
+        List<HomeLectureDto> HomeLectureDtos = new ArrayList<>();
+
+        for (int i = 0; i < lectures.size(); i++) {
+            HomeLectureDto lectureDto = new HomeLectureDto();
+            lectureDto.setLectureName(lectures.get(i).getLectureName());
+            HomeLectureDtos.add(lectureDto);
+        }
+
+        model.addAttribute("lectures", HomeLectureDtos);
         return "home";
     }
+
+
 }

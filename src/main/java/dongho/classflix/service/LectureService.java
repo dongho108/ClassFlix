@@ -35,4 +35,10 @@ public class LectureService {
         Lecture findLecture = lectureRepository.findById(id);
         findLecture.changeLectureData(lectureDto.getLectureName(), lectureDto.getTeacherName(), lectureDto.getContent(), lectureDto.getRepresentImage(), lectureDto.getSiteName(), lectureDto.getUri());
     }
+
+    // 조회
+    @Transactional(readOnly = true)
+    public List<Lecture> findAll() {
+        return lectureRepository.findAll();
+    }
 }
