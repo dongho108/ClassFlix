@@ -23,14 +23,16 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home(Model model) {
-        log.info("hello");
         List<Lecture> lectures = lectureService.findAll();
 
         List<HomeLectureDto> HomeLectureDtos = new ArrayList<>();
 
         for (int i = 0; i < lectures.size(); i++) {
             HomeLectureDto lectureDto = new HomeLectureDto();
+            lectureDto.setRepresentImage(lectures.get(i).getRepresentImage());
             lectureDto.setLectureName(lectures.get(i).getLectureName());
+            lectureDto.setAverageRating(lectures.get(i).getAverageRating());
+
             HomeLectureDtos.add(lectureDto);
         }
 
