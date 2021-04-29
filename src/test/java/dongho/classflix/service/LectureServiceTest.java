@@ -78,4 +78,14 @@ class LectureServiceTest {
         assertThat(lectures.get(2).getLectureName()).isEqualTo(lecture3.getLectureName());
         assertThat(lectures.get(3).getLectureName()).isEqualTo(lecture4.getLectureName());
     }
+
+    @Test
+    public void 강의사진저장조회() throws Exception {
+        //given
+        Lecture lecture1 = new Lecture("스프링입문", "김영한", "좋아요", LocalDateTime.now());
+
+        //when
+
+        //then
+    }
 }
