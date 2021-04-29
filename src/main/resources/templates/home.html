@@ -48,11 +48,13 @@
                     <img class="lecture-images" src="/images/springInstroduction.png" alt="스프링입문">
                     <h5 th:text="${lecture.getLectureName()}" class="lecture-title">스프링입문</h5>
                     <p class="star_rating">
-                        <a href="#" class="on">★</a>
-                        <a href="#" class="on">★</a>
-                        <a href="#" class="on">★</a>
-                        <a href="#" class="on">★</a>
-                        <a href="#" class="on">★</a>
+                        <a href="#" class="on" th:each="num : ${#numbers.sequence(0, lecture.getAverageRating()-1)}">★</a>
+<!--                        <a href="#" th:each="num : ${#numbers.sequence(0, lecture.getAverageRating()-1)}">★</a>-->
+<!--                        <a href="#" class="on">★</a>-->
+<!--                        <a href="#" class="on">★</a>-->
+<!--                        <a href="#" class="on">★</a>-->
+<!--                        <a href="#" class="on">★</a>-->
+<!--                        <a href="#" class="on">★</a>-->
                     </p>
                 </div>
 <!--                <div class="col-md-3">-->

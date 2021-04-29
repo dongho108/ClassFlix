@@ -48,6 +48,14 @@ public class Lecture {
         this.lectureDateTime = lectureDateTime;
     }
 
+    public Lecture(String lectureName, String teacherName, String content, LocalDateTime lectureDateTime, double averageRating) {
+        this.lectureName = lectureName;
+        this.teacherName = teacherName;
+        this.content = content;
+        this.lectureDateTime = lectureDateTime;
+        this.averageRating = averageRating;
+    }
+
     public Lecture(String lectureName, String teacherName, String content, byte[] representImage, String siteName, URI uri) {
         this.lectureName = lectureName;
         this.teacherName = teacherName;
