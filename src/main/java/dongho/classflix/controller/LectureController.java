@@ -1,13 +1,21 @@
 package dongho.classflix.controller;
 
-import dongho.classflix.controller.dto.LectureForm;
+import dongho.classflix.domain.Lecture;
+import dongho.classflix.service.LectureService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
+
 @Controller
+@RequiredArgsConstructor
 public class LectureController {
+
+    private final LectureService lectureService;
 
     @GetMapping("/lectures/new")
     public String createForm(Model model) {
@@ -16,5 +24,12 @@ public class LectureController {
     }
 
     @PostMapping("/lectures/new")
-    public
+    public String create(@Valid LectureForm form, BindingResult result) {
+        if (result.hasErrors()) {
+            return "lectures/lectureForm";
+        }
+        Lecture lecture = new Lecture(form.getLectureName(), form.getTeacherName(), form.getContent(), form.getRepresentImage(), form.getSiteName(), form.getUri());
+        lectureService.join(lecture);
+        return "redirect:/";
+    }
 }
