@@ -48,12 +48,15 @@ public class Lecture {
         this.lectureDateTime = lectureDateTime;
     }
 
-    public Lecture(String lectureName, String teacherName, String content, LocalDateTime lectureDateTime, double averageRating) {
+    // 테스트 데이터용
+    public Lecture(String lectureName, String teacherName, String content, LocalDateTime lectureDateTime, double averageRating, String siteName, URI uri) {
         this.lectureName = lectureName;
         this.teacherName = teacherName;
         this.content = content;
         this.lectureDateTime = lectureDateTime;
         this.averageRating = averageRating;
+        this.siteName = siteName;
+        this.uri = uri;
     }
 
     public Lecture(String lectureName, String teacherName, String content, byte[] representImage, String siteName, URI uri) {

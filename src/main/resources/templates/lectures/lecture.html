@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<style>
+    .fieldError {
+        border-color: #bd2130;
+    }
+    .star_rating {font-size:0; letter-spacing:-4px;}
+    .star_rating a {
+        font-size:22px;
+        letter-spacing:0;
+        display:inline-block;
+        margin-left:5px;
+        color:#ccc;
+        text-decoration:none;
+    }
+    .star_rating a:first-child {margin-left:0;}
+    .star_rating a.on {color:#E1BC3F;}
+</style>
+<body>
+<div th:replace="fragments/bodyHeader :: bodyHeader"/>
+<div class="container">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    강의소개
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="media">
+                    <div class="col-md-6" >
+                        <div class="media-left">
+                        <a href="">
+                            <img src="/images/springInstroduction.png" class="img-responsive" alt="">
+                        </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                    <div class="media-body">
+                        <h4 th:text="${lectureDto.getLectureName()}">강의이름</h4>
+                        <h4 th:text="${lectureDto.getTeacherName()}">강의자</h4>
+                        <p class="star_rating">
+                            <a th:if="${lectureDto.getAverageRating() != 0}" class="on"  th:each="num : ${#numbers.sequence(0, lectureDto.getAverageRating()-1)}">★</a>
+                        </p>
+                        <h4 th:text="|${lectureDto.getReviewNum()}개의 수강평|">n개의 수강평</h4>
+                        <h4 th:href="@{${lectureDto.getUri()}}" th:text="${lectureDto.getSiteName()}" target='_blank'>원래사이트</h4>
+                        <a th:href="@{${lectureDto.getUri()}}" th:text="${lectureDto.getUri()}" target='_blank'>원래사이트url</a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <hr>
+                <div th:text="${lectureDto.getContent()}">content </div>
+            </div>
+
+        </div>
+    </div>
+</div> <!-- /container -->
+<div class="container">
+    <hr>
+    <form>
+        <div class="form-group">
+            <label for="formMemberSelect">회원선택</label>
+            <select id="formMemberSelect">
+                <option value="">==회원선택==</option>
+                <option th:each="member : ${memberDtos}" th:text="${member.getUserName()}" value="">동호</option>
+<!--                <option th:text="" value="">영한</option>-->
+<!--                <option value="">동영</option>-->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="formPassword">비밀번호입력</label>
+            <input type="password" id="formPassword">
+        </div>
+        <div class="form-group">
+            <label for="formStarRating">별점</label>
+            <select id="formStarRating">
+                <option value="1">★</option>
+                <option value="2">★★</option>
+                <option value="3">★★★</option>
+                <option value="4">★★★★</option>
+                <option value="5" selected>★★★★★</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>후기: </label>
+            <textarea class="form-control" rows="5" id="commentContent" name="commentContent"></textarea>
+            <button type="submit" class="btn pull-right">등록</button>
+        </div>
+    </form>
+
+
+<!--    <div class="card-header bg-light">-->
+<!--        <i class="fa fa-comment fa"></i> 리뷰등록-->
+<!--    </div>-->
+<!--    <div class="card-body">-->
+<!--        <ul class="list-group list-group-flush">-->
+<!--            <li class="list-group-item">-->
+<!--                <form action="/lectures/new">-->
+<!--                <div class="form-inline mb-2">-->
+<!--                    <div class="dropdown">-->
+<!--                        <button class="btn btn-default dropdown-toggle" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                            회원선택-->
+<!--                            <span class="caret"></span>-->
+<!--                        </button>-->
+<!--                        <ul class="dropdown-menu" aria-labelledby="dLabel">-->
+<!--                            <li>동호</li>-->
+<!--                            <li>영한</li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                    <label for="starRating"><i class="fa fa-user-circle-o fa-2x"></i></label>-->
+<!--                    <input type="text" class="form-control ml-2" placeholder="star rating" id="starRating">-->
+<!--                    <label for="replyPassword" class="ml-4"><i class="fa fa-unlock-alt fa-2x"></i></label>-->
+<!--                    <input type="password" class="form-control ml-2" placeholder="Enter password" id="replyPassword">-->
+<!--                </div>-->
+<!--                </form>-->
+<!--                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>-->
+<!--                <button type="submit" class="btn btn-primary">리뷰등록</button>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+</div>
+<div th:replace="fragments/footer :: footer" />
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+</body>
+</html>
