@@ -35,8 +35,12 @@
             <input type="file" th:field="*{representImage}" accept="image/*" class="form-control" placeholder="강의 대표사진을 업로드해주세요">
         </div>
         <div class="form-group">
-            <label th:for="siteName">강의 사이트 주소</label>
-            <input type="url" th:field="*{siteName}" class="form-control" placeholder="강의 사이트의 주소를 입력해주세요">
+            <label th:for="siteName">강의 사이트 이름</label>
+            <input type="text" th:field="*{siteName}" class="form-control" placeholder="강의 사이트의 이름을 입력해주세요">
+        </div>
+        <div class="form-group">
+            <label th:for="uri">강의 사이트 주소</label>
+            <input type="url" th:field="*{uri}" class="form-control" placeholder="강의 사이트의 주소를 입력해주세요">
         </div>
         <div class="text-center">
             <button type="submit" class="btn btn-primary">등록하기</button>

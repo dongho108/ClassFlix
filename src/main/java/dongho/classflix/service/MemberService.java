@@ -36,7 +36,6 @@ public class MemberService {
         return memberRepository.findById(memberId);
     }
 
-
     private void validateDuplicateMember(Member member) {
         List<Member> findMembers = memberRepository.findByName(member.getUserName());
         if (!findMembers.isEmpty()) {

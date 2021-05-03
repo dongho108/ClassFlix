@@ -19,6 +19,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 
 @Component
@@ -28,7 +30,7 @@ public class InitDB {
     private final InitService initService;
 
     @PostConstruct
-    public void init() {
+    public void init() throws URISyntaxException {
         initService.dbInit1();
     }
 
@@ -39,11 +41,13 @@ public class InitDB {
     static class InitService {
         private final EntityManager em;
 
-        public void dbInit1(){
-            Lecture lecture1 = new Lecture("스프링입문", "김영한", "좋아요", LocalDateTime.now(), 5);
-            Lecture lecture2 = new Lecture("스프링코어", "김영한", "나빠요", LocalDateTime.now(), 4);
-            Lecture lecture3 = new Lecture("jpa기초", "김영한", "그냥그래요", LocalDateTime.now(),3);
-            Lecture lecture4 = new Lecture("jpa활용", "김영한", "좋아요", LocalDateTime.now(), 2);
+        public void dbInit1() throws URISyntaxException {
+            URI uri = new URI("https://www.inflearn.com/");
+
+            Lecture lecture1 = new Lecture("스프링입문", "김영한", "좋아요", LocalDateTime.now(), 5, "인프런", uri);
+            Lecture lecture2 = new Lecture("스프링코어", "김영한", "나빠요", LocalDateTime.now(), 4, "클래스101", uri);
+            Lecture lecture3 = new Lecture("jpa기초", "김영한", "그냥그래요", LocalDateTime.now(), 3, "패스트캠퍼스", uri);
+            Lecture lecture4 = new Lecture("jpa활용", "김영한", "좋아요", LocalDateTime.now(), 2, "CLass Flix", uri);
 
             em.persist(lecture1);
             em.persist(lecture2);
