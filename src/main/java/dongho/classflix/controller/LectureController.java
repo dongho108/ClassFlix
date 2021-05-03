@@ -45,12 +45,12 @@ public class LectureController {
     }
 
     @GetMapping("/lectures/{lectureId}")
-    public String lectureInfo(@PathVariable("lectureId") Long lectureId, Model model1, Model model2) {
+    public String lectureInfo(@PathVariable("lectureId") Long lectureId, Model lectureModel, Model memberModel, Model reviewModel) {
         Lecture lecture = lectureService.findById(lectureId);
         LectureInfoDto lectureInfoDto = new LectureInfoDto();
 
         setLectureInfoDto(lecture, lectureInfoDto);
-        model1.addAttribute("lectureDto", lectureInfoDto);
+        lectureModel.addAttribute("lectureDto", lectureInfoDto);
 
         List<LectureInfoMemberDto> lectureInfoMemberDtos = new ArrayList<>();
         List<Member> members = memberService.findMembers();
@@ -61,11 +61,20 @@ public class LectureController {
             lectureInfoMemberDtos.add(lectureInfoMemberDto);
         }
 
-        model2.addAttribute("memberDtos", lectureInfoMemberDtos);
+        memberModel.addAttribute("memberDtos", lectureInfoMemberDtos);
+
+        reviewModel.addAttribute("reviewForm", new ReviewForm());
+
         return "lectures/lecture";
     }
 
+    @PostMapping("/lecutres/{lectureId}")
+//    private String createReview(@PathVariable("lectureId") Long lectureId, ) {
+//
+//    }
+
     private void setLectureInfoDto(Lecture lecture, LectureInfoDto lectureInfoDto) {
+
         lectureInfoDto.setAverageRating(lecture.getAverageRating());
         lectureInfoDto.setContent(lecture.getContent());
         lectureInfoDto.setLectureName(lecture.getLectureName());
