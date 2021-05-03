@@ -29,6 +29,7 @@ public class HomeController {
 
         for (int i = 0; i < lectures.size(); i++) {
             HomeLectureDto lectureDto = new HomeLectureDto();
+            lectureDto.setId(lectures.get(i).getId());
             lectureDto.setRepresentImage(lectures.get(i).getRepresentImage());
             lectureDto.setLectureName(lectures.get(i).getLectureName());
             lectureDto.setAverageRating(lectures.get(i).getAverageRating());

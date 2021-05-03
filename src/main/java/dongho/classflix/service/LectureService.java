@@ -41,4 +41,8 @@ public class LectureService {
     public List<Lecture> findAll() {
         return lectureRepository.findAll();
     }
+
+    public Lecture findById(Long id) {
+        return lectureRepository.findById(id);
+    }
 }
