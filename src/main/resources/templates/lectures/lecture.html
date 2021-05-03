@@ -42,6 +42,7 @@
                         <h4 th:text="${lectureDto.getTeacherName()}">강의자</h4>
                         <p class="star_rating">
                             <a th:if="${lectureDto.getAverageRating() != 0}" class="on"  th:each="num : ${#numbers.sequence(0, lectureDto.getAverageRating()-1)}">★</a>
+                            <a th:unless="${lectureDto.getAverageRating() != 0}">★★★★★</a>
                         </p>
                         <h4 th:text="|${lectureDto.getReviewNum()}개의 수강평|">n개의 수강평</h4>
                         <h4 th:href="@{${lectureDto.getUri()}}" th:text="${lectureDto.getSiteName()}" target='_blank'>원래사이트</h4>
@@ -58,9 +59,28 @@
         </div>
     </div>
 </div> <!-- /container -->
+
 <div class="container">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-1">
+                    <span>회원이름</span>
+                </div>
+                <div class="col-md-1">
+                    <span>별점</span>
+                </div>
+                <div class="col-md-1">
+                    <span>비밀번호</span>
+                </div>
+                <button class="col-md-1">수정</button>
+            </div>
+
+        </div>
+    </div>
+
     <hr>
-    <form>
+    <form role="form" method="post" th:object="${reviewForm}">
         <div class="form-group">
             <label for="formMemberSelect">회원선택</label>
             <select id="formMemberSelect">
@@ -87,40 +107,10 @@
         <div class="form-group">
             <label>후기: </label>
             <textarea class="form-control" rows="5" id="commentContent" name="commentContent"></textarea>
-            <button type="submit" class="btn pull-right">등록</button>
+            <button type="submit" class="btn-primary pull-right">등록</button>
         </div>
     </form>
 
-
-<!--    <div class="card-header bg-light">-->
-<!--        <i class="fa fa-comment fa"></i> 리뷰등록-->
-<!--    </div>-->
-<!--    <div class="card-body">-->
-<!--        <ul class="list-group list-group-flush">-->
-<!--            <li class="list-group-item">-->
-<!--                <form action="/lectures/new">-->
-<!--                <div class="form-inline mb-2">-->
-<!--                    <div class="dropdown">-->
-<!--                        <button class="btn btn-default dropdown-toggle" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--                            회원선택-->
-<!--                            <span class="caret"></span>-->
-<!--                        </button>-->
-<!--                        <ul class="dropdown-menu" aria-labelledby="dLabel">-->
-<!--                            <li>동호</li>-->
-<!--                            <li>영한</li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                    <label for="starRating"><i class="fa fa-user-circle-o fa-2x"></i></label>-->
-<!--                    <input type="text" class="form-control ml-2" placeholder="star rating" id="starRating">-->
-<!--                    <label for="replyPassword" class="ml-4"><i class="fa fa-unlock-alt fa-2x"></i></label>-->
-<!--                    <input type="password" class="form-control ml-2" placeholder="Enter password" id="replyPassword">-->
-<!--                </div>-->
-<!--                </form>-->
-<!--                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>-->
-<!--                <button type="submit" class="btn btn-primary">리뷰등록</button>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </div>-->
 </div>
 <div th:replace="fragments/footer :: footer" />
 
