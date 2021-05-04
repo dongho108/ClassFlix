@@ -37,8 +37,8 @@ class LectureTest {
 
 
         //when
-        lecture.addReview(review1.getRating());
-        lecture.addReview(review2.getRating());
+        lecture.addReview(review1);
+        lecture.addReview(review2);
 
         //then
         Assertions.assertThat(lecture.getReviewNum()).isEqualTo(2);
@@ -62,16 +62,16 @@ class LectureTest {
 
 
         //when
-        lecture.addReview(review1.getRating());
-        lecture.addReview(review2.getRating());
-        lecture.removeReview(review1.getRating());
-        lecture.removeReview(review2.getRating());
+        lecture.addReview(review1);
+        lecture.addReview(review2);
+        lecture.removeReview(review1);
+        lecture.removeReview(review2);
 
         //then
         Assertions.assertThat(lecture.getReviewNum()).isEqualTo(0);
 
         assertThrows(NotEnoughReviewException.class, () -> {
-            lecture.removeReview(1);
+            lecture.removeReview(review1);
         });
 
     }
@@ -93,8 +93,8 @@ class LectureTest {
 
 
         //when
-        lecture.addReview(review1.getRating());
-        lecture.addReview(review2.getRating());
+        lecture.addReview(review1);
+        lecture.addReview(review2);
 
         //then
         Assertions.assertThat(lecture.getAverageRating()).isEqualTo(2);

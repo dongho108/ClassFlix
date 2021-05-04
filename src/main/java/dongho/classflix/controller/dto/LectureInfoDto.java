@@ -13,6 +13,6 @@ public class LectureInfoDto {
     private String content;
     private String siteName;
     private String uri;
-    private double averageRating;
+    private int averageRating;
     private int reviewNum;
 }

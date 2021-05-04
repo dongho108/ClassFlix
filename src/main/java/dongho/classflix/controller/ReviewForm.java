@@ -8,8 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ReviewForm {
-    private Member member;
+    private String memberName;
     private String password;
     private Integer rating;
-    private Lecture lecture;
+    private String content;
 }

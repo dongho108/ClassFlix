@@ -1,4 +1,4 @@
-package dongho.classflix.service;
+package dongho.classflix.controller.dto;
 
 
 import lombok.Getter;
@@ -10,15 +10,10 @@ import java.time.LocalDateTime;
 @Setter
 public class ReviewDto {
     //    ,password,content,rating,reviewDate
+    private String memberName;
     private String password;
     private String content;
     private int rating;
     private LocalDateTime reviewDate;
 
-    public ReviewDto(String password, String content, int rating, LocalDateTime reviewDate) {
-        this.password = password;
-        this.content = content;
-        this.rating = rating;
-        this.reviewDate = reviewDate;
-    }
 }

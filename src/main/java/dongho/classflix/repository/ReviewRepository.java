@@ -1,5 +1,6 @@
 package dongho.classflix.repository;
 
+import dongho.classflix.domain.Lecture;
 import dongho.classflix.domain.Review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,8 @@ public class ReviewRepository {
     // 리뷰 저장
     public Long save(Review review) {
         em.persist(review);
+        Lecture lecture = review.getLecture();
+        lecture.addReview(review);
         return review.getId();
     }
 
@@ -29,10 +32,12 @@ public class ReviewRepository {
     }
 
     // 강의에 달린 리뷰
-    public List<Review> findAllWithMemberLecture() {
+    public List<Review> findAllWithLecture(Long lectureId) {
         return em.createQuery(
                 "select r from Review r" +
-                        " join fetch r.lecture l", Review.class
-        ).getResultList();
+                        " join fetch r.lecture l" +
+                        " where l.id = :lectureId", Review.class)
+                .setParameter("lectureId", lectureId)
+                .getResultList();
     }
 }
