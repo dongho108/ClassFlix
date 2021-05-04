@@ -27,10 +27,14 @@ class ReviewServiceTest {
     @Autowired
     ReviewService reviewService;
 
+    @Autowired
+    LectureService lectureService;
+
     //리뷰 등록 수정
 
     @Test
     public void 리뷰등록() throws Exception {
+
         //given
 
         Member member = new Member("dongho", 25, Gender.MALE);
@@ -40,20 +44,23 @@ class ReviewServiceTest {
         em.persist(lecture);
 
         //when
-        ReviewDto reviewDto1 = new ReviewDto("1234", "good", 4, LocalDateTime.now());
-        Long reviewId1 = reviewService.create(member.getId(), lecture.getId(), reviewDto1);
+        Review review1 = new Review(member, "1234", "good", 4, lecture, LocalDateTime.now());
+        Long reviewId1 = reviewService.create(review1);
 
-        ReviewDto reviewDto2 = new ReviewDto("1234", "bad", 4, LocalDateTime.now());
-        Long reviewId2 = reviewService.create(member.getId(), lecture.getId(), reviewDto2);
+        Review review2 = new Review(member, "1234", "good", 4, lecture, LocalDateTime.now());
+        Long reviewId2 = reviewService.create(review2);
 
         Review findReview1 = reviewService.findOne(reviewId1);
         Review findReview2 = reviewService.findOne(reviewId2);
         List<Review> reviews = reviewService.findAll();
 
+
+
         //then
         assertThat(findReview1.getId()).isEqualTo(reviewId1);
         assertThat(findReview2.getId()).isEqualTo(reviewId2);
         assertThat(reviews.size()).isEqualTo(2);
+        assertThat(lecture.getReviewNum()).isEqualTo(2);
     }
 
     // 리뷰 수정
@@ -67,18 +74,16 @@ class ReviewServiceTest {
         em.persist(lecture);
 
         //when
-        ReviewDto reviewDto1 = new ReviewDto("1234", "good", 4, LocalDateTime.now());
-        Long reviewId1 = reviewService.create(member.getId(), lecture.getId(), reviewDto1);
+        Review review1 = new Review(member, "1234", "good", 4, lecture, LocalDateTime.now());
+        Long reviewId1 = reviewService.create(review1);
 
-        ReviewDto reviewDto2 = new ReviewDto("1234", "bad", 4, LocalDateTime.now());
-        Long reviewId2 = reviewService.create(member.getId(), lecture.getId(), reviewDto2);
+        Review review2 = new Review(member, "1234", "good", 3, lecture, LocalDateTime.now());
+        Long reviewId2 = reviewService.create(review1);
 
-        reviewService.update(reviewId1, "1234", "very good", 5);
+        reviewService.update(reviewId2, "1234", "very good", 5);
         assertThrows(NotEqualPasswordException.class, () -> {
             reviewService.update(reviewId2, "1111", "so bad", 1);
         });
-
-        Review review1 = reviewService.findOne(reviewId1);
 
         //then
         assertThat(review1.getContent()).isEqualTo("very good");

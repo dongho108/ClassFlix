@@ -22,13 +22,9 @@ public class ReviewService {
     private final LectureRepository lectureRepository;
 
     // 리뷰 등록
-    public Long create(Long memberId, Long lectureId, ReviewDto reviewDto) {
-        Member findMember = memberRepository.findById(memberId);
-        Lecture findLecture = lectureRepository.findById(lectureId);
-
-        Review newReview = new Review(findMember, reviewDto.getPassword(), reviewDto.getContent(), reviewDto.getRating(), findLecture, reviewDto.getReviewDate());
-        reviewRepository.save(newReview);
-        return newReview.getId();
+    public Long create(Review review) {
+        reviewRepository.save(review);
+        return review.getId();
     }
 
     // 하나 조회
@@ -44,8 +40,14 @@ public class ReviewService {
         return reviewRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
+    public List<Review> findByLecture(Long lectureId) {
+        return reviewRepository.findAllWithLecture(lectureId);
+    }
+
     // 리뷰 수정
     public Long update(Long reviewId, String password, String content, Integer rating) {
+
         Review findReview = reviewRepository.findById(reviewId);
 
         if (!findReview.getPassword().equals(password)) {

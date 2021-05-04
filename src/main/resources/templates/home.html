@@ -43,14 +43,15 @@
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">IT 분야 인기 강의</div>
-            <div class="panel-body">
+            <div class="panel-body" th:if="${not #strings.isEmpty(lectures)}">
                 <div class="col-md-3" th:each="lecture : ${lectures}">
                     <a th:href="@{/lectures/{lectureId}(lectureId=${lecture.getId()})}">
                     <img class="lecture-images" src="/images/springInstroduction.png" alt="스프링입문">
                     <h5 th:text="${lecture.getLectureName()}" class="lecture-title">스프링입문</h5>
-                    <p class="star_rating">
-                        <a th:if="${lecture.getAverageRating() != 0}" class="on"  th:each="num : ${#numbers.sequence(0, lecture.getAverageRating()-1)}">★</a>
-                    </p>
+                        <p class="star_rating">
+                            <a th:if="${lecture.getAverageRating() != 0}" class="on"  th:each="num : ${#numbers.sequence(0, lecture.getAverageRating()-1)}">★</a>
+                            <a th:unless="${lecture.getAverageRating() != 0}">★★★★★</a>
+                        </p>
                     </a>
                 </div>
             </div>

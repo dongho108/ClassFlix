@@ -60,43 +60,53 @@
     </div>
 </div> <!-- /container -->
 
+<!--리뷰조회-->
 <div class="container">
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-1">
-                    <span>회원이름</span>
-                </div>
-                <div class="col-md-1">
-                    <span>별점</span>
-                </div>
-                <div class="col-md-1">
-                    <span>비밀번호</span>
-                </div>
-                <button class="col-md-1">수정</button>
-            </div>
-
-        </div>
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>회원이름</th>
+                <th>별점</th>
+                <th>후기</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody><tr th:if="${not #strings.isEmpty(reviewDtos)}" th:each="reviewDto : ${reviewDtos}">
+                <td th:text="${reviewDto.getMemberName()}"></td>
+                <td>
+                    <p class="star_rating">
+                        <a th:if="${reviewDto.getRating() != 0}" class="on" th:each="num : ${#numbers.sequence(0, reviewDto.getRating()-1)}">★</a>
+                    </p>
+                </td>
+                <td th:text="${reviewDto.getContent()}"></td>
+                <td>
+                    <a href="#" class="btn btn-primary" role="button">수정</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
+<!--    리뷰등록-->
     <hr>
     <form role="form" method="post" th:object="${reviewForm}">
         <div class="form-group">
             <label for="formMemberSelect">회원선택</label>
-            <select id="formMemberSelect">
+            <select id="formMemberSelect" th:field="*{memberName}">
                 <option value="">==회원선택==</option>
-                <option th:each="member : ${memberDtos}" th:text="${member.getUserName()}" value="">동호</option>
+                <option th:each="memberDto : ${memberDtos}" th:text="${memberDto.getUserName()}" th:value="${memberDto.getUserName()}">동호</option>
 <!--                <option th:text="" value="">영한</option>-->
 <!--                <option value="">동영</option>-->
             </select>
         </div>
         <div class="form-group">
             <label for="formPassword">비밀번호입력</label>
-            <input type="password" id="formPassword">
+            <input type="password" id="formPassword" th:field="*{password}">
         </div>
         <div class="form-group">
             <label for="formStarRating">별점</label>
-            <select id="formStarRating">
+            <select id="formStarRating" th:field="*{rating}">
                 <option value="1">★</option>
                 <option value="2">★★</option>
                 <option value="3">★★★</option>
@@ -106,7 +116,8 @@
         </div>
         <div class="form-group">
             <label>후기: </label>
-            <textarea class="form-control" rows="5" id="commentContent" name="commentContent"></textarea>
+            <textarea class="form-control" rows="5" id="commentContent" placeholder="최대 25자까지 입력 가능합니다."
+                      name="commentContent" maxlength="255" th:field="*{content}"></textarea>
             <button type="submit" class="btn-primary pull-right">등록</button>
         </div>
     </form>

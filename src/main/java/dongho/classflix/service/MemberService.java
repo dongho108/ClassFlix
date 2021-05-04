@@ -36,6 +36,11 @@ public class MemberService {
         return memberRepository.findById(memberId);
     }
 
+    @Transactional(readOnly = true)
+    public List<Member> findByName(String memberName) {
+        return memberRepository.findByName(memberName);
+    }
+
     private void validateDuplicateMember(Member member) {
         List<Member> findMembers = memberRepository.findByName(member.getUserName());
         if (!findMembers.isEmpty()) {

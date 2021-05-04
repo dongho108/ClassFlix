@@ -1,6 +1,7 @@
 package dongho.classflix.domain;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -14,6 +15,7 @@ import static javax.persistence.CascadeType.*;
 
 @Entity
 @Getter
+@Slf4j
 public class Lecture {
 
     @Id
@@ -49,12 +51,11 @@ public class Lecture {
     }
 
     // 테스트 데이터용
-    public Lecture(String lectureName, String teacherName, String content, LocalDateTime lectureDateTime, double averageRating, String siteName, URI uri) {
+    public Lecture(String lectureName, String teacherName, String content, LocalDateTime lectureDateTime, String siteName, URI uri) {
         this.lectureName = lectureName;
         this.teacherName = teacherName;
         this.content = content;
         this.lectureDateTime = lectureDateTime;
-        this.averageRating = averageRating;
         this.siteName = siteName;
         this.uri = uri;
     }
@@ -68,26 +69,33 @@ public class Lecture {
         this.uri = uri;
     }
 
-    public void addReview(Integer rating) {
+    public void addReview(Review review) {
         this.reviewNum += 1;
-        updateAverageRating(rating);
+        reviews.add(review);
+        updateAverageRating(review.getRating());
     }
 
-    public void removeReview(Integer rating) {
+    public void removeReview(Review review) {
         int restReview = this.reviewNum - 1;
         if (restReview < 0) {
             throw new NotEnoughReviewException("review is empty");
         }
+        reviews.remove(review);
         this.reviewNum -= 1;
-        updateAverageRating(rating);
+        updateAverageRating(review.getRating());
     }
-
     public void updateAverageRating(Integer rating) {
+        log.info("reviewNum = {}", reviewNum);
         if (reviewNum == 0) {
             this.averageRating = 0;
         } else {
-            double average = (averageRating + rating) / reviewNum;
-            this.averageRating = Math.floor(average);
+            if (reviewNum == 1) {
+                this.averageRating = rating;
+            } else {
+                double average = (averageRating + rating) / 2;
+                log.info("averageRating = {}, rating = {}", averageRating, rating);
+                this.averageRating = Math.floor(average);
+            }
         }
     }
 
