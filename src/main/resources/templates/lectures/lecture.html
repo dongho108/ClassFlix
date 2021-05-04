@@ -45,8 +45,7 @@
                             <a th:unless="${lectureDto.getAverageRating() != 0}">★★★★★</a>
                         </p>
                         <h4 th:text="|${lectureDto.getReviewNum()}개의 수강평|">n개의 수강평</h4>
-                        <h4 th:href="@{${lectureDto.getUri()}}" th:text="${lectureDto.getSiteName()}" target='_blank'>원래사이트</h4>
-                        <a th:href="@{${lectureDto.getUri()}}" th:text="${lectureDto.getUri()}" target='_blank'>원래사이트url</a>
+                        <a th:href="@{${lectureDto.getUri()}}" th:text="${lectureDto.getSiteName()}" target='_blank'>원래사이트</a>
                     </div>
                     </div>
                 </div>
@@ -116,7 +115,7 @@
         </div>
         <div class="form-group">
             <label>후기: </label>
-            <textarea class="form-control" rows="5" id="commentContent" placeholder="최대 25자까지 입력 가능합니다."
+            <textarea class="form-control" rows="5" id="commentContent" placeholder="최대 50자까지 입력 가능합니다."
                       name="commentContent" maxlength="255" th:field="*{content}"></textarea>
             <button type="submit" class="btn-primary pull-right">등록</button>
         </div>

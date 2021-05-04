@@ -3,8 +3,6 @@ package dongho.classflix.controller.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.net.URI;
-
 @Setter
 @Getter
 public class LectureInfoDto {

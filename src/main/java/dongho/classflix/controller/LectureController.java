@@ -72,6 +72,13 @@ public class LectureController {
 
         List<Review> reviews = reviewService.findByLecture(lectureId);
         List<ReviewDto> reviewDtos = new ArrayList<>();
+        setReviewDtos(reviews, reviewDtos);
+        reviewModel.addAttribute("reviewDtos", reviewDtos);
+
+        return "lectures/lecture";
+    }
+
+    private void setReviewDtos(List<Review> reviews, List<ReviewDto> reviewDtos) {
         for (int i = 0; i < reviews.size(); i++) {
             ReviewDto reviewDto = new ReviewDto();
             reviewDto.setMemberName(reviews.get(i).getMember().getUserName());
@@ -81,9 +88,6 @@ public class LectureController {
             reviewDto.setReviewDate(reviews.get(i).getReviewDate());
             reviewDtos.add(reviewDto);
         }
-        reviewModel.addAttribute("reviewDtos", reviewDtos);
-
-        return "lectures/lecture";
     }
 
     @PostMapping("/lectures/{lectureId}")
