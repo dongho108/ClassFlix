@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 public class ReviewDto {
     //    ,password,content,rating,reviewDate
+    private Long reviewId;
     private String memberName;
     private String password;
     private String content;

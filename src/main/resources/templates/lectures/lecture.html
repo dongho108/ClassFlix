@@ -80,7 +80,7 @@
                 </td>
                 <td th:text="${reviewDto.getContent()}"></td>
                 <td>
-                    <a href="#" class="btn btn-primary" role="button">수정</a>
+                    <a th:href="@{/lectures/{lectureId}/{reviewId}(lectureId=${lectureDto.getLectureId()}, reviewId=${reviewDto.getReviewId()})}" class="btn btn-primary" role="button">수정</a>
                 </td>
             </tr>
             </tbody>
@@ -120,9 +120,9 @@
             <button type="submit" class="btn-primary pull-right">등록</button>
         </div>
     </form>
-
 </div>
 <div th:replace="fragments/footer :: footer" />
+
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="/js/bootstrap.js"></script>
