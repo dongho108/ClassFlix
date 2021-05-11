@@ -44,10 +44,10 @@ class ReviewServiceTest {
         em.persist(lecture);
 
         //when
-        Review review1 = new Review(member, "1234", "good", 4, lecture, LocalDateTime.now());
+        Review review1 = new Review(member,"good", 4, lecture, LocalDateTime.now());
         Long reviewId1 = reviewService.create(review1);
 
-        Review review2 = new Review(member, "1234", "good", 4, lecture, LocalDateTime.now());
+        Review review2 = new Review(member, "good", 4, lecture, LocalDateTime.now());
         Long reviewId2 = reviewService.create(review2);
 
         Review findReview1 = reviewService.findOne(reviewId1);
@@ -74,16 +74,13 @@ class ReviewServiceTest {
         em.persist(lecture);
 
         //when
-        Review review1 = new Review(member, "1234", "good", 4, lecture, LocalDateTime.now());
+        Review review1 = new Review(member,"good", 4, lecture, LocalDateTime.now());
         Long reviewId1 = reviewService.create(review1);
 
-        Review review2 = new Review(member, "1234", "good", 3, lecture, LocalDateTime.now());
+        Review review2 = new Review(member,"good", 3, lecture, LocalDateTime.now());
         Long reviewId2 = reviewService.create(review1);
 
-        reviewService.update(reviewId2, "1234", "very good", 5);
-        assertThrows(NotEqualPasswordException.class, () -> {
-            reviewService.update(reviewId2, "1111", "so bad", 1);
-        });
+        reviewService.update(reviewId2,"very good", 5);
 
         //then
         assertThat(review1.getContent()).isEqualTo("very good");

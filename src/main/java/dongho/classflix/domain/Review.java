@@ -21,8 +21,6 @@ public class Review {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private String password;
-
     private String content;
 
     private Integer rating;
@@ -36,9 +34,8 @@ public class Review {
     protected Review() {
     }
 
-    public Review(Member member, String password, String content, Integer rating, Lecture lecture, LocalDateTime reviewDate) {
+    public Review(Member member, String content, Integer rating, Lecture lecture, LocalDateTime reviewDate) {
         this.member = member;
-        this.password = password;
         this.content = content;
         this.rating = rating;
         this.lecture = lecture;

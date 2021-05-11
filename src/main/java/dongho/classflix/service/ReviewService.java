@@ -46,13 +46,8 @@ public class ReviewService {
     }
 
     // 리뷰 수정
-    public Long update(Long reviewId, String password, String content, Integer rating) {
-
+    public Long update(Long reviewId, String content, Integer rating) {
         Review findReview = reviewRepository.findById(reviewId);
-
-        if (!findReview.getPassword().equals(password)) {
-            throw new NotEqualPasswordException("password is wrong");
-        }
         findReview.changeContentAndRating(content, rating);
         return reviewId;
     }
