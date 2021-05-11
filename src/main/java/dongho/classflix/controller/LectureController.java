@@ -86,7 +86,6 @@ public class LectureController {
             reviewDto.setReviewId(reviews.get(i).getId());
             reviewDto.setMemberName(reviews.get(i).getMember().getUserName());
             reviewDto.setContent(reviews.get(i).getContent());
-            reviewDto.setPassword(reviews.get(i).getPassword());
             reviewDto.setRating(reviews.get(i).getRating());
             reviewDto.setReviewDate(reviews.get(i).getReviewDate());
             reviewDtos.add(reviewDto);
@@ -97,17 +96,17 @@ public class LectureController {
     private String createReview(@PathVariable("lectureId") Long lectureId, ReviewForm reviewForm, RedirectAttributes redirectAttributes) {
         Member member = memberService.findByName(reviewForm.getMemberName()).get(0);
         Lecture lecture = lectureService.findById(lectureId);
-        Review review = new Review(member, reviewForm.getPassword(), reviewForm.getContent(), reviewForm.getRating(), lecture, LocalDateTime.now());
+        Review review = new Review(member, reviewForm.getContent(), reviewForm.getRating(), lecture, LocalDateTime.now());
         reviewService.create(review);
 
         redirectAttributes.addAttribute("lectureId", lectureId);
         return "redirect:/lectures/{lectureId}";
     }
 
-    @GetMapping("/lectures/{lectureId}/{reviewId}")
-    private String checkReviewPassword(@PathVariable("lectureId") Long lectureId, @PathVariable("reviewId") Long reviewId) {
-
-    }
+//    @GetMapping("/lectures/{lectureId}/{reviewId}")
+//    private String checkReviewPassword(@PathVariable("lectureId") Long lectureId, @PathVariable("reviewId") Long reviewId) {
+//
+//    }
 
     private void setLectureInfoDto(Lecture lecture, LectureInfoDto lectureInfoDto) {
         lectureInfoDto.setLectureId(lecture.getId());

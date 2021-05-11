@@ -29,10 +29,10 @@ class LectureTest {
         Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
         em.persist(lecture);
 
-        Review review1 = new Review(member, "1234", "good", 4, lecture, LocalDateTime.now());
+        Review review1 = new Review(member, "good", 4, lecture, LocalDateTime.now());
         em.persist(review1);
 
-        Review review2 = new Review(member, "1234", "bad", 1, lecture, LocalDateTime.now());
+        Review review2 = new Review(member, "bad", 1, lecture, LocalDateTime.now());
         em.persist(review2);
 
 
@@ -54,10 +54,10 @@ class LectureTest {
         Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
         em.persist(lecture);
 
-        Review review1 = new Review(member, "1234", "good", 4, lecture, LocalDateTime.now());
+        Review review1 = new Review(member, "good", 4, lecture, LocalDateTime.now());
         em.persist(review1);
 
-        Review review2 = new Review(member, "1234", "bad", 1, lecture, LocalDateTime.now());
+        Review review2 = new Review(member, "bad", 1, lecture, LocalDateTime.now());
         em.persist(review2);
 
 
@@ -85,10 +85,10 @@ class LectureTest {
         Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
         em.persist(lecture);
 
-        Review review1 = new Review(member, "1234", "good", 4, lecture, LocalDateTime.now());
+        Review review1 = new Review(member, "good", 4, lecture, LocalDateTime.now());
         em.persist(review1);
 
-        Review review2 = new Review(member, "1234", "bad", 1, lecture, LocalDateTime.now());
+        Review review2 = new Review(member, "bad", 1, lecture, LocalDateTime.now());
         em.persist(review2);
 
 
