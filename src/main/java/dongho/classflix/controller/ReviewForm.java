@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 public class ReviewForm {
     private String memberName;
-    private String password;
     private Integer rating;
     private String content;
 }

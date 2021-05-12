@@ -103,10 +103,14 @@ public class LectureController {
         return "redirect:/lectures/{lectureId}";
     }
 
-//    @GetMapping("/lectures/{lectureId}/{reviewId}")
-//    private String checkReviewPassword(@PathVariable("lectureId") Long lectureId, @PathVariable("reviewId") Long reviewId) {
-//
-//    }
+    @PostMapping("/lectures/{lectureId}/updateReview/{reviewId}")
+    private String updateReview(@PathVariable("lectureId") Long lectureId, @PathVariable("reviewId") Long reviewId,
+                                       ReviewForm form, RedirectAttributes redirectAttributes) {
+
+        reviewService.update(reviewId, form.getContent(), form.getRating());
+        redirectAttributes.addAttribute("lectureId", lectureId);
+        return "redirect:/lectures/{lectureId}";
+    }
 
     private void setLectureInfoDto(Lecture lecture, LectureInfoDto lectureInfoDto) {
         lectureInfoDto.setLectureId(lecture.getId());
