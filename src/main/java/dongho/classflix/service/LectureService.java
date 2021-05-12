@@ -1,6 +1,7 @@
 package dongho.classflix.service;
 
 import dongho.classflix.domain.Lecture;
+import dongho.classflix.domain.Review;
 import dongho.classflix.repository.LectureRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,10 @@ public class LectureService {
     public void refreshAverageRating(Long lectureId, int oldRating, int newRating) {
         Lecture findLecture = findById(lectureId);
         findLecture.updateAverageRating(oldRating, newRating);
+    }
+
+    public void deleteReview(Long lectureId, Review review) {
+        Lecture findLecture = findById(lectureId);
+        findLecture.removeReview(review);
     }
 }

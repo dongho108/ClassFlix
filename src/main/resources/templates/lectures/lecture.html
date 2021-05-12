@@ -89,7 +89,9 @@
                        data-target="#modal" data-toggle="modal">수정</a>
                 </td>
                 <td>
-                    <a class="btn btn-primary" role="button">삭제</a>
+                    <form th:action="@{/lectures/{lectureId}/removeReview/{reviewId}(lectureId=${lectureId}, reviewId=${reviewDto.getReviewId()})}" method="post">
+                        <button type="submit" class="btn btn-primary" role="button">삭제</button>
+                    </form>
                 </td>
             </tr>
         </table>
@@ -169,6 +171,10 @@
         theForm.method = "post";
         theForm.action = lectureId+"/updateReview/"+updateReviewId;
         theForm.submit();
+    }
+
+    function deleteReview(id) {
+
     }
 
 </script>
