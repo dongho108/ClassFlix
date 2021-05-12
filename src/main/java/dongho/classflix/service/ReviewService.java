@@ -18,8 +18,7 @@ import java.util.List;
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
-    private final MemberRepository memberRepository;
-    private final LectureRepository lectureRepository;
+    private final LectureService lectureService;
 
     // 리뷰 등록
     public Long create(Review review) {
@@ -46,8 +45,9 @@ public class ReviewService {
     }
 
     // 리뷰 수정
-    public Long update(Long reviewId, String content, Integer rating) {
+    public Long update(Long reviewId, Long lectureId, String content, Integer rating) {
         Review findReview = reviewRepository.findById(reviewId);
+        lectureService.refreshAverageRating(lectureId, findReview.getRating(), rating);
         findReview.changeContentAndRating(content, rating);
         return reviewId;
     }

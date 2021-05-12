@@ -69,6 +69,10 @@ public class Lecture {
         this.uri = uri;
     }
 
+    public void refreshRating(int oldRating, int newRating) {
+        this.averageRating = ((averageRating * reviewNum) - (oldRating-newRating)) / reviewNum;
+    }
+
     public void addReview(Review review) {
         this.reviewNum += 1;
         reviews.add(review);
