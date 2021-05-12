@@ -81,7 +81,11 @@
                 </td>
                 <td th:text="${reviewDto.getContent()}"></td>
                 <td>
-                    <a class="btn btn-primary" role="button" th:onclick="|SaveReviewEditId(${reviewDto.getReviewId()})|"
+<!--                    <a class="btn btn-primary" role="button" th:data-param1="${reviewDto.getReviewId()}" th:data-param2="${reviewDto.getContent()}"-->
+<!--                       th:onclick="setReviewEdit(this.getAttribute('data-param1'), this.getAttribute('data-param2'));"-->
+<!--                       data-target="#modal" data-toggle="modal">수정</a>-->
+                    <a class="btn btn-primary" role="button"
+                       th:onclick="setReviewEdit([[${reviewDto.getReviewId()}]], [[${reviewDto.getContent()}]]);"
                        data-target="#modal" data-toggle="modal">수정</a>
                 </td>
                 <td>
@@ -139,7 +143,7 @@
                             <option value="5" selected>★★★★★</option>
                         </select>
                         <label>후기: </label>
-                        <textarea class="form-control" rows="5" placeholder="최대 50자까지 입력 가능합니다."
+                        <textarea id="reviewEdit" class="form-control" rows="5" placeholder="최대 50자까지 입력 가능합니다."
                                   name="commentContent" maxlength="255" th:field="*{content}"></textarea>
                         <button onclick="reviewEditForm()" type="submit" class="btn-primary" role="button">수정완료</button>
                     </form>
@@ -155,15 +159,18 @@
     var updateReviewId;
     var lectureId = [[${lectureId}]];
 
-    function SaveReviewEditId(id) {
+    function setReviewEdit(id, content) {
         updateReviewId = id;
+        document.getElementById('reviewEdit').value = content;
     }
+
     function reviewEditForm() {
         const theForm = document.reviewEdit;
         theForm.method = "post";
         theForm.action = lectureId+"/updateReview/"+updateReviewId;
         theForm.submit();
     }
+
 </script>
 </body>
 </html>
