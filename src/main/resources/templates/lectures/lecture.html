@@ -81,16 +81,13 @@
                 </td>
                 <td th:text="${reviewDto.getContent()}"></td>
                 <td>
-                    <a class="btn btn-primary" role="button">수정</a>
-                </td>
-                <td th:id="|review${reviewDto.getReviewId()}|">
-
+                    <a class="btn btn-primary" role="button" th:onclick="|SaveReviewEditId(${reviewDto.getReviewId()})|"
+                       data-target="#modal" data-toggle="modal">수정</a>
                 </td>
                 <td>
                     <a class="btn btn-primary" role="button">삭제</a>
                 </td>
             </tr>
-            </tbody>
         </table>
     </div>
 
@@ -102,8 +99,6 @@
             <select id="formMemberSelect" th:field="*{memberName}">
                 <option value="">==회원선택==</option>
                 <option th:each="memberDto : ${memberDtos}" th:text="${memberDto.getUserName()}" th:value="${memberDto.getUserName()}">동호</option>
-<!--                <option th:text="" value="">영한</option>-->
-<!--                <option value="">동영</option>-->
             </select>
         </div>
         <div class="form-group">
@@ -120,17 +115,60 @@
             <label>후기: </label>
             <textarea class="form-control" rows="5" id="commentContent" placeholder="최대 50자까지 입력 가능합니다."
                       name="commentContent" maxlength="255" th:field="*{content}"></textarea>
-            <button type="submit" class="btn-primary pull-right">등록</button>
         </div>
+        <button type="submit" class="btn-primary pull-right" role="button">등록</button>
     </form>
 </div>
 <div th:replace="fragments/footer :: footer" />
 
+<div class="row">
+    <div class="modal" id="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="model-content" style="background-color: white;">
+                <div class="modal-header">
+                    리뷰 수정
+                </div>
+                <div class="modal-body">
+                    <form name = "reviewEdit" th:object="${reviewForm}">
+                        <label>별점</label>
+                        <select th:field="*{rating}">
+                            <option value="1">★</option>
+                            <option value="2">★★</option>
+                            <option value="3">★★★</option>
+                            <option value="4">★★★★</option>
+                            <option value="5" selected>★★★★★</option>
+                        </select>
+                        <label>후기: </label>
+                        <textarea class="form-control" rows="5" placeholder="최대 50자까지 입력 가능합니다."
+                                  name="commentContent" maxlength="255" th:field="*{content}"></textarea>
+                        <button onclick="reviewEditForm()" type="submit" class="btn-primary" role="button">수정완료</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="/js/bootstrap.js"></script>
-<script>
+<script th:inline="javascript" language="JavaScript">
+    var updateReviewId;
 
+    // /*<![CDATA[*/
+    // var lectureId = /*[[${lectureId}]]*/;
+    // /*]]*/
+
+    var lectureId = [[${lectureId}]];
+
+    function SaveReviewEditId(id) {
+        updateReviewId = id;
+    }
+    function reviewEditForm() {
+        const theForm = document.reviewEdit;
+        theForm.method = "post";
+        theForm.action = lectureId+"/updateReview/"+updateReviewId;
+        theForm.submit();
+    }
 </script>
 </body>
 </html>
