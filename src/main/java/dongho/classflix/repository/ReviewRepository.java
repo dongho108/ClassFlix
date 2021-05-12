@@ -40,4 +40,9 @@ public class ReviewRepository {
                 .setParameter("lectureId", lectureId)
                 .getResultList();
     }
+
+    public Long delete(Long reviewId) {
+        em.remove(reviewId);
+        return reviewId;
+    }
 }

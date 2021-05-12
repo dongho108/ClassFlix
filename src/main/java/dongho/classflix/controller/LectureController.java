@@ -112,6 +112,13 @@ public class LectureController {
         return "redirect:/lectures/{lectureId}";
     }
 
+    @PostMapping("/lectures/{lectureId}/removeReview/{reviewId}")
+    private String removeReview(@PathVariable("lectureId") Long lectureId, @PathVariable("reviewId") Long reviewId, RedirectAttributes redirectAttributes) {
+        reviewService.delete(reviewId, lectureId);
+        redirectAttributes.addAttribute("lectureId", lectureId);
+        return "redirect:/lectures/{lectureId}";
+    }
+
     private void setLectureInfoDto(Lecture lecture, LectureInfoDto lectureInfoDto) {
         lectureInfoDto.setLectureId(lecture.getId());
         lectureInfoDto.setAverageRating((int) Math.round(lecture.getAverageRating()));
