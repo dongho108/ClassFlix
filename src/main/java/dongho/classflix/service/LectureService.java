@@ -49,6 +49,6 @@ public class LectureService {
     // review refresh
     public void refreshAverageRating(Long lectureId, int oldRating, int newRating) {
         Lecture findLecture = findById(lectureId);
-        findLecture.refreshRating(oldRating, newRating);
+        findLecture.updateAverageRating(oldRating, newRating);
     }
 }
