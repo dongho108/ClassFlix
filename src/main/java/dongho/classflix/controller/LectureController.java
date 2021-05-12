@@ -107,7 +107,7 @@ public class LectureController {
     private String updateReview(@PathVariable("lectureId") Long lectureId, @PathVariable("reviewId") Long reviewId,
                                        ReviewForm form, RedirectAttributes redirectAttributes) {
 
-        reviewService.update(reviewId, form.getContent(), form.getRating());
+        reviewService.update(reviewId, lectureId, form.getContent(), form.getRating());
         redirectAttributes.addAttribute("lectureId", lectureId);
         return "redirect:/lectures/{lectureId}";
     }

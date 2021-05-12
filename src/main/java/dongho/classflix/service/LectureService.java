@@ -45,4 +45,10 @@ public class LectureService {
     public Lecture findById(Long id) {
         return lectureRepository.findById(id);
     }
+
+    // review refresh
+    public void refreshAverageRating(Long lectureId, int oldRating, int newRating) {
+        Lecture findLecture = findById(lectureId);
+        findLecture.refreshRating(oldRating, newRating);
+    }
 }
