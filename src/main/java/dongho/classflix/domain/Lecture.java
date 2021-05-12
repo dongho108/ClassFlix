@@ -69,10 +69,6 @@ public class Lecture {
         this.uri = uri;
     }
 
-    public void refreshRating(int oldRating, int newRating) {
-        this.averageRating = ((averageRating * reviewNum) - (oldRating-newRating)) / reviewNum;
-    }
-
     public void addReview(Review review) {
         this.reviewNum += 1;
         reviews.add(review);
@@ -88,6 +84,7 @@ public class Lecture {
         this.reviewNum -= 1;
         updateAverageRating(review.getRating());
     }
+
     public void updateAverageRating(Integer rating) {
         log.info("reviewNum = {}", reviewNum);
         if (reviewNum == 0) {
@@ -101,6 +98,10 @@ public class Lecture {
                 this.averageRating = Math.floor(average);
             }
         }
+    }
+
+    public void updateAverageRating(int oldRating, int newRating) {
+        this.averageRating = ((averageRating * reviewNum) - (oldRating-newRating)) / reviewNum;
     }
 
     public void changeLectureData(String lectureName, String teacherName, String content, byte[] representImage, String siteName, URI uri) {

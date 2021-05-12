@@ -74,17 +74,18 @@ class ReviewServiceTest {
         em.persist(lecture);
 
         //when
-        Review review1 = new Review(member,"good", 4, lecture, LocalDateTime.now());
+        Review review1 = new Review(member,"good", 3, lecture, LocalDateTime.now());
         Long reviewId1 = reviewService.create(review1);
 
-        Review review2 = new Review(member,"good", 3, lecture, LocalDateTime.now());
-        Long reviewId2 = reviewService.create(review1);
+        Review review2 = new Review(member,"good", 1, lecture, LocalDateTime.now());
+        reviewService.create(review2);
 
-        reviewService.update(reviewId2,"very good", 5);
+        reviewService.update(reviewId1, lecture.getId(), "very good", 5);
 
         //then
         assertThat(review1.getContent()).isEqualTo("very good");
         assertThat(review1.getRating()).isEqualTo(5);
+        assertThat(lecture.getAverageRating()).isEqualTo(3);
 
     }
 
