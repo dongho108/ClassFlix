@@ -72,20 +72,29 @@ public class Lecture {
     public void addReview(Review review) {
         this.reviewNum += 1;
         reviews.add(review);
-        updateAverageRating(review.getRating());
+        addAverageRating(review.getRating());
     }
 
-    public void removeReview(Review review) {
+    public void removeReview(Long reviewId) {
         int restReview = this.reviewNum - 1;
         if (restReview < 0) {
             throw new NotEnoughReviewException("review is empty");
         }
-        reviews.remove(review);
         this.reviewNum -= 1;
-        updateAverageRating(review.getRating());
+
+        Review review = new Review();
+
+        for (int i = 0; i < reviews.size(); i++) {
+            review = reviews.get(i);
+            if (review.getId().equals(reviewId)) {
+                reviews.remove(i);
+                break;
+            }
+        }
+        subAverageRating(review.getRating());
     }
 
-    public void updateAverageRating(Integer rating) {
+    public void addAverageRating(Integer rating) {
         log.info("reviewNum = {}", reviewNum);
         if (reviewNum == 0) {
             this.averageRating = 0;
@@ -100,8 +109,16 @@ public class Lecture {
         }
     }
 
+    public void subAverageRating(int rating) {
+        if (reviewNum == 0) {
+            this.averageRating = 0;
+        } else {
+            this.averageRating = Math.floor(((averageRating * (reviewNum + 1)) - rating) / reviewNum);
+        }
+    }
+
     public void updateAverageRating(int oldRating, int newRating) {
-        this.averageRating = ((averageRating * reviewNum) - (oldRating-newRating)) / reviewNum;
+        this.averageRating = Math.floor(((averageRating * reviewNum) - (oldRating-newRating)) / reviewNum);
     }
 
     public void changeLectureData(String lectureName, String teacherName, String content, byte[] representImage, String siteName, URI uri) {

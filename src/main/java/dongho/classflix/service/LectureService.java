@@ -53,8 +53,8 @@ public class LectureService {
         findLecture.updateAverageRating(oldRating, newRating);
     }
 
-    public void deleteReview(Long lectureId, Review review) {
+    public void deleteReview(Long lectureId, Long reviewId) {
         Lecture findLecture = findById(lectureId);
-        findLecture.removeReview(review);
+        findLecture.removeReview(reviewId);
     }
 }

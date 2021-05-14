@@ -64,14 +64,14 @@ class LectureTest {
         //when
         lecture.addReview(review1);
         lecture.addReview(review2);
-        lecture.removeReview(review1);
-        lecture.removeReview(review2);
+        lecture.removeReview(review1.getId());
+        lecture.removeReview(review2.getId());
 
         //then
         Assertions.assertThat(lecture.getReviewNum()).isEqualTo(0);
 
         assertThrows(NotEnoughReviewException.class, () -> {
-            lecture.removeReview(review1);
+            lecture.removeReview(review1.getId());
         });
 
     }

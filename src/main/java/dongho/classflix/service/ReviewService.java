@@ -54,8 +54,7 @@ public class ReviewService {
 
     // 리뷰 삭제
     public Long delete(Long reviewId, Long lectureId) {
-        Review review = findOne(reviewId);
-        lectureService.deleteReview(lectureId, review);
+        lectureService.deleteReview(lectureId, reviewId);
         reviewRepository.delete(reviewId);
         return reviewId;
     }
