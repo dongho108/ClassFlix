@@ -91,6 +91,7 @@ public class Lecture {
                 break;
             }
         }
+
         subAverageRating(review.getRating());
     }
 
