@@ -1,9 +1,6 @@
 package dongho.classflix.service;
 
-import dongho.classflix.domain.Gender;
-import dongho.classflix.domain.Lecture;
-import dongho.classflix.domain.Member;
-import dongho.classflix.domain.Review;
+import dongho.classflix.domain.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -110,9 +107,8 @@ class ReviewServiceTest {
         //then
         assertThat(lecture.getReviewNum()).isEqualTo(0);
         assertThat(lecture.getAverageRating()).isEqualTo(0);
-
-
+        assertThrows(NotEnoughReviewException.class, () -> {
+            reviewService.delete(reviewId1, lecture.getId());
+        });
     }
-
-
 }
