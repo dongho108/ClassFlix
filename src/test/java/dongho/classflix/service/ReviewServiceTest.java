@@ -89,5 +89,30 @@ class ReviewServiceTest {
 
     }
 
+    //리뷰삭제
+    @Test
+    public void 리뷰삭제() throws Exception {
+        //given
+
+        Member member = new Member("dongho", 25, Gender.MALE);
+        em.persist(member);
+
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
+        em.persist(lecture);
+
+        //when
+        Review review1 = new Review(member,"good", 2, lecture, LocalDateTime.now());
+        Long reviewId1 = reviewService.create(review1);
+
+
+        reviewService.delete(reviewId1, lecture.getId());
+
+        //then
+        assertThat(lecture.getReviewNum()).isEqualTo(0);
+        assertThat(lecture.getAverageRating()).isEqualTo(0);
+
+
+    }
+
 
 }

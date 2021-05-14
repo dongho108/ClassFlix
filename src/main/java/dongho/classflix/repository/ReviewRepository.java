@@ -4,6 +4,7 @@ import dongho.classflix.domain.Lecture;
 import dongho.classflix.domain.Review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -42,7 +43,8 @@ public class ReviewRepository {
     }
 
     public Long delete(Long reviewId) {
-        em.remove(reviewId);
+        Review findReview = findById(reviewId);
+        em.remove(findReview);
         return reviewId;
     }
 }
