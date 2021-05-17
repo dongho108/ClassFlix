@@ -38,6 +38,9 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public List<Member> findByName(String memberName) {
+        if (memberName == null) {
+            throw new NullPointerException("회원 이름이 입력되지 않았습니다.");
+        }
         return memberRepository.findByName(memberName);
     }
 
