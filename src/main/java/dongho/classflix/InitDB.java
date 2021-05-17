@@ -44,8 +44,8 @@ public class InitDB {
             em.persist(lecture3);
             em.persist(lecture4);
 
-            Member member = new Member("김동호", 25, Gender.FEMALE, "학생");
-            em.persist(member);
+//            Member member = new Member("김동호", 25, Gender.FEMALE, "학생");
+//            em.persist(member);
 
         }
     }

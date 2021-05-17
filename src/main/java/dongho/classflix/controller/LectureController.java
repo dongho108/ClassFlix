@@ -93,13 +93,20 @@ public class LectureController {
     }
 
     @PostMapping("/lectures/{lectureId}")
-    private String createReview(@PathVariable("lectureId") Long lectureId, ReviewForm reviewForm, RedirectAttributes redirectAttributes) {
+    private String createReview(@PathVariable("lectureId") Long lectureId, RedirectAttributes redirectAttributes, @Valid ReviewForm reviewForm, BindingResult result) {
+
+        redirectAttributes.addAttribute("lectureId", lectureId);
+
+        if (result.hasErrors()) {
+            log.info("check");
+            return "redirect:/members/new";
+        }
+
         Member member = memberService.findByName(reviewForm.getMemberName()).get(0);
         Lecture lecture = lectureService.findById(lectureId);
         Review review = new Review(member, reviewForm.getContent(), reviewForm.getRating(), lecture, LocalDateTime.now());
         reviewService.create(review);
 
-        redirectAttributes.addAttribute("lectureId", lectureId);
         return "redirect:/lectures/{lectureId}";
     }
 
