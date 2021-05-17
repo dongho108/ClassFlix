@@ -29,6 +29,7 @@
             <input type="radio" th:field="*{gender}" name="gender" value="MALE" checked> 남
             <input type="radio" th:field="*{gender}" name="gender" value="FEMALE"> 여
             <br>
+        </div>
         <div class="form-group">
             <label th:for="career">직업</label>
             <input type="text" th:field="*{career}" class="form-control" placeholder="직업을 입력하세요">
@@ -36,7 +37,6 @@
         <div class="text-center">
             <button type="submit" class="btn btn-primary">등록하기</button>
         </div>
-
     </form>
     <br/>
 </div> <!-- /container -->
