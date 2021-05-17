@@ -89,8 +89,8 @@
                        data-target="#modal" data-toggle="modal">수정</a>
                 </td>
                 <td>
-                    <form th:action="@{/lectures/{lectureId}/removeReview/{reviewId}(lectureId=${lectureId}, reviewId=${reviewDto.getReviewId()})}" method="post">
-                        <button type="submit" class="btn btn-primary" role="button">삭제</button>
+                    <form name="reviewRemoveForm" th:action="@{/lectures/{lectureId}/removeReview/{reviewId}(lectureId=${lectureId}, reviewId=${reviewDto.getReviewId()})}" method="post">
+                        <button type="button" onclick="removeCheck()" class="btn btn-danger" role="button">삭제</button>
                     </form>
                 </td>
             </tr>
@@ -100,14 +100,14 @@
 <!--    리뷰등록-->
     <hr>
     <form role="form" method="post" th:object="${reviewForm}">
-        <div class="form-group">
+        <div class="form-group col-md-3">
             <label for="formMemberSelect">회원선택</label>
             <select id="formMemberSelect" th:field="*{memberName}">
                 <option value="">==회원선택==</option>
                 <option th:each="memberDto : ${memberDtos}" th:text="${memberDto.getUserName()}" th:value="${memberDto.getUserName()}">동호</option>
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-9">
             <label for="formStarRating">별점</label>
             <select id="formStarRating" th:field="*{rating}">
                 <option value="1">★</option>
@@ -117,14 +117,16 @@
                 <option value="5" selected>★★★★★</option>
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-12">
             <label>후기: </label>
-            <textarea class="form-control" rows="5" id="commentContent" placeholder="최대 50자까지 입력 가능합니다."
+            <textarea class="form-control" rows="5" id="commentContent" placeholder="후기를 입력해 주세요"
                       name="commentContent" maxlength="255" th:field="*{content}"></textarea>
         </div>
-        <button type="submit" class="btn-primary pull-right" role="button">등록</button>
+        <button type="submit" class="btn btn-primary pull-right" role="button">등록</button>
     </form>
 </div>
+<br>
+<br>
 <div th:replace="fragments/footer :: footer" />
 
 <div class="row">
@@ -173,8 +175,12 @@
         theForm.submit();
     }
 
-    function deleteReview(id) {
-
+    function removeCheck() {
+        if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+            document.reviewRemoveForm.submit();
+        }else{   //취소
+            return false;
+        }
     }
 
 </script>
