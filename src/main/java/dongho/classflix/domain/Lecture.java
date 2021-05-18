@@ -30,7 +30,7 @@ public class Lecture {
     private String content;
 
     private String representImagePath;
-    private String representImageSize;
+    private long representImageSize;
     private String representImageName;
 
     private String siteName;
@@ -55,7 +55,16 @@ public class Lecture {
 
 
     // contoller에서 실제로 사용할 생성자
-    public Lecture(String lectureName, String teacherName, String content, String representImagePath, String representImageSize, String representImageName, String siteName, URI uri, LocalDateTime lectureDateTime) {
+    public Lecture(String lectureName, String teacherName, String content, String siteName, URI uri, LocalDateTime lectureDateTime) {
+        this.lectureName = lectureName;
+        this.teacherName = teacherName;
+        this.content = content;
+        this.siteName = siteName;
+        this.uri = uri;
+        this.lectureDateTime = lectureDateTime;
+    }
+
+    public Lecture(String lectureName, String teacherName, String content, String representImagePath, long representImageSize, String representImageName, String siteName, URI uri, LocalDateTime lectureDateTime) {
         this.lectureName = lectureName;
         this.teacherName = teacherName;
         this.content = content;
@@ -76,7 +85,6 @@ public class Lecture {
         this.siteName = siteName;
         this.uri = uri;
     }
-
 
     public void addReview(Review review) {
         this.reviewNum += 1;
@@ -136,7 +144,7 @@ public class Lecture {
         this.teacherName = teacherName;
         this.content = content;
         this.representImagePath = representImagePath;
-        this.representImageSize = representImageSize;
+//        this.representImageSize = representImageSize;
         this.representImageName = representImageName;
         this.siteName = siteName;
         this.uri = uri;

@@ -4,6 +4,7 @@ import dongho.classflix.domain.Lecture;
 import dongho.classflix.domain.Review;
 import dongho.classflix.repository.LectureRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,17 +12,20 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Transactional
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class LectureService {
 
     private final LectureRepository lectureRepository;
 
     // 파일파싱
-    public FileInfo FileParser(MultipartFile multipartFile, Long lectureId) {
+    public FileInfo fileParser(MultipartFile multipartFile) {
         FileInfo fileInfo = new FileInfo();
 
         if (multipartFile.isEmpty()) {
@@ -31,12 +35,19 @@ public class LectureService {
             return fileInfo;
         }
 
-        fileInfo.setFileName("" + lectureId);
+        String fileName = "" + LocalDate.now() + System.nanoTime();
+
+        String absolutePath = new File("").getAbsolutePath() + "/src/main/resources/static/images/represent/";
+        String path = "/images/represent/" + fileName + "." + "png";
+
+        log.info("type : {}, name : {}, path : {}", multipartFile.getContentType(), fileName, path);
+
+        new File(absolutePath + fileName + ".png" );
+
+        fileInfo.setFileName(fileName);
         fileInfo.setFileSize(multipartFile.getSize());
-
-        String path = "";
-        File file = new File(path);
-
+        fileInfo.setFilePath(path);
+        return fileInfo;
 
     }
 
