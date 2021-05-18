@@ -29,9 +29,9 @@ public class LectureRepository {
     public List<Lecture> findAll() {
         List<Lecture> lectures = em.createQuery("select l from Lecture l", Lecture.class)
                 .getResultList();
-        if (lectures.isEmpty()) {
-            throw new NullPointerException("조회 결과가 없습니다");
-        }
+//        if (lectures.isEmpty()) {
+//            throw new NullPointerException("조회 결과가 없습니다");
+//        }
         return lectures;
     }
 

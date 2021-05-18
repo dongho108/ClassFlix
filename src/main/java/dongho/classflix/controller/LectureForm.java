@@ -2,6 +2,7 @@ package dongho.classflix.controller;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
 import java.net.URI;
@@ -17,7 +18,7 @@ public class LectureForm {
     private String teacherName;
 
     private String content;
-    private byte[] representImage;
+    private MultipartFile image;
     private String siteName;
     private URI uri;
 }

@@ -46,9 +46,16 @@ public class LectureController {
         if (result.hasErrors()) {
             return "lectures/lectureForm";
         }
-//        FileInfo fileInfo = lectureService.FileParser();
-        Lecture lecture = new Lecture(form.getLectureName(), form.getTeacherName(), form.getContent(), fileInfo.getFileName(), fileInfo.getFilePath(), fileInfo.getFileSize(), form.getSiteName(), form.getUri(), LocalDateTime.now());
-        lectureService.join(lecture);
+        log.info("check");
+
+        FileInfo fileInfo = lectureService.fileParser(form.getImage());
+
+        Lecture lecture = new Lecture(form.getLectureName(), form.getTeacherName(),
+                form.getContent(), fileInfo.getFilePath(), fileInfo.getFileSize(), fileInfo.getFileName(), form.getSiteName(), form.getUri(), LocalDateTime.now());
+
+        Long testId = lectureService.join(lecture);
+        log.info("{}", testId);
+
         return "redirect:/";
     }
 

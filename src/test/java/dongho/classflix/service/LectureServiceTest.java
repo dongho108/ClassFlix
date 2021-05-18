@@ -6,10 +6,17 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -80,12 +87,27 @@ class LectureServiceTest {
     }
 
     @Test
-    public void 강의사진저장조회() throws Exception {
+    public void 강의사진저장() throws Exception {
         //given
-        Lecture lecture1 = new Lecture("스프링입문", "김영한", "좋아요", LocalDateTime.now());
+        String fileName = "jpa";
+        String contentType = "png";
+        String filePath = "/Users/dongho/Documents/project/classflix/src/main/resources/static/images/jpaPrac1.png";
+
+        MockMultipartFile mFile = getMockMultipartFile(fileName, contentType, filePath);
 
         //when
+        FileInfo fileInfo = lectureService.fileParser(mFile);
+
+        URI uri = new URI("https://www.inflearn.com/");
+        Lecture lecture = new Lecture("테스트", "테스트", "좋아요", fileInfo.getFilePath(), fileInfo.getFileSize(), fileInfo.getFileName(), "인프런", uri, LocalDateTime.now());
 
         //then
+
+
+    }
+
+    MockMultipartFile getMockMultipartFile(String fileName, String contentType, String path) throws IOException {
+        FileInputStream fileInputStream = new FileInputStream(new File(path));
+        return new MockMultipartFile(fileName, fileName + "." + contentType, contentType, fileInputStream);
     }
 }
