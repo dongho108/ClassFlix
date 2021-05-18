@@ -6,6 +6,7 @@ import dongho.classflix.controller.dto.ReviewDto;
 import dongho.classflix.domain.Lecture;
 import dongho.classflix.domain.Member;
 import dongho.classflix.domain.Review;
+import dongho.classflix.service.FileInfo;
 import dongho.classflix.service.LectureService;
 import dongho.classflix.service.MemberService;
 import dongho.classflix.service.ReviewService;
@@ -45,7 +46,8 @@ public class LectureController {
         if (result.hasErrors()) {
             return "lectures/lectureForm";
         }
-        Lecture lecture = new Lecture(form.getLectureName(), form.getTeacherName(), form.getContent(), form.getRepresentImage(), form.getSiteName(), form.getUri());
+//        FileInfo fileInfo = lectureService.FileParser();
+        Lecture lecture = new Lecture(form.getLectureName(), form.getTeacherName(), form.getContent(), fileInfo.getFileName(), fileInfo.getFilePath(), fileInfo.getFileSize(), form.getSiteName(), form.getUri(), LocalDateTime.now());
         lectureService.join(lecture);
         return "redirect:/";
     }
