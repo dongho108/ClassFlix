@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.net.URI;
 import java.util.List;
 
@@ -17,6 +19,26 @@ import java.util.List;
 public class LectureService {
 
     private final LectureRepository lectureRepository;
+
+    // 파일파싱
+    public FileInfo FileParser(MultipartFile multipartFile, Long lectureId) {
+        FileInfo fileInfo = new FileInfo();
+
+        if (multipartFile.isEmpty()) {
+            fileInfo.setFileName("");
+            fileInfo.setFilePath("");
+            fileInfo.setFileSize(0);
+            return fileInfo;
+        }
+
+        fileInfo.setFileName("" + lectureId);
+        fileInfo.setFileSize(multipartFile.getSize());
+
+        String path = "";
+        File file = new File(path);
+
+
+    }
 
     // 조인
     public Long join(Lecture lecture) {
@@ -34,7 +56,7 @@ public class LectureService {
     // 업데이트
     public void update(Long id, LectureDto lectureDto) {
         Lecture findLecture = lectureRepository.findById(id);
-        findLecture.changeLectureData(lectureDto.getLectureName(), lectureDto.getTeacherName(), lectureDto.getContent(), lectureDto.getRepresentImage(), lectureDto.getSiteName(), lectureDto.getUri());
+//        findLecture.changeLectureData(lectureDto.getLectureName(), lectureDto.getTeacherName(), lectureDto.getContent(), lectureDto.getRepresentImage(), lectureDto.getSiteName(), lectureDto.getUri());
     }
 
     // 조회

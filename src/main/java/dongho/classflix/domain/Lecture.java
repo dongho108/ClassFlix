@@ -29,7 +29,10 @@ public class Lecture {
 
     private String content;
 
-    private byte[] representImage;
+    private String representImagePath;
+    private String representImageSize;
+    private String representImageName;
+
     private String siteName;
     private URI uri;
     private LocalDateTime lectureDateTime;
@@ -50,6 +53,20 @@ public class Lecture {
         this.lectureDateTime = lectureDateTime;
     }
 
+
+    // contoller에서 실제로 사용할 생성자
+    public Lecture(String lectureName, String teacherName, String content, String representImagePath, String representImageSize, String representImageName, String siteName, URI uri, LocalDateTime lectureDateTime) {
+        this.lectureName = lectureName;
+        this.teacherName = teacherName;
+        this.content = content;
+        this.representImagePath = representImagePath;
+        this.representImageSize = representImageSize;
+        this.representImageName = representImageName;
+        this.siteName = siteName;
+        this.uri = uri;
+        this.lectureDateTime = lectureDateTime;
+    }
+
     // 테스트 데이터용
     public Lecture(String lectureName, String teacherName, String content, LocalDateTime lectureDateTime, String siteName, URI uri) {
         this.lectureName = lectureName;
@@ -60,14 +77,6 @@ public class Lecture {
         this.uri = uri;
     }
 
-    public Lecture(String lectureName, String teacherName, String content, byte[] representImage, String siteName, URI uri) {
-        this.lectureName = lectureName;
-        this.teacherName = teacherName;
-        this.content = content;
-        this.representImage = representImage;
-        this.siteName = siteName;
-        this.uri = uri;
-    }
 
     public void addReview(Review review) {
         this.reviewNum += 1;
@@ -122,13 +131,14 @@ public class Lecture {
         this.averageRating = Math.floor(((averageRating * reviewNum) - (oldRating-newRating)) / reviewNum);
     }
 
-    public void changeLectureData(String lectureName, String teacherName, String content, byte[] representImage, String siteName, URI uri) {
+    public void changeLectureData(String lectureName, String teacherName, String content, String representImagePath, String representImageSize, String representImageName, String siteName, URI uri) {
         this.lectureName = lectureName;
         this.teacherName = teacherName;
         this.content = content;
-        this.representImage = representImage;
+        this.representImagePath = representImagePath;
+        this.representImageSize = representImageSize;
+        this.representImageName = representImageName;
         this.siteName = siteName;
         this.uri = uri;
     }
-
 }
