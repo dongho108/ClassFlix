@@ -48,6 +48,10 @@
                     <a th:href="@{/lectures/{lectureId}(lectureId=${lecture.getId()})}">
                     <img class="lecture-images" th:src="${lecture.getRepresentImagePath()}"
                          src="/images/springInstroduction.png" alt="스프링입문">
+<!--                        <img class="lecture-images" th:src="@{/images/{imageName}(imageName = ${lecture.getRepresentImageName()})}"-->
+<!--                             src="/images/springInstroduction.png" alt="스프링입문">-->
+<!--                        <img class="lecture-images" th:src="@{/images/2021-05-20251380021432996.png}"-->
+<!--                             src="/images/springInstroduction.png" alt="스프링입문">-->
                     <h5 th:text="${lecture.getLectureName()}" class="lecture-title">강의제목</h5>
                         <p class="star_rating">
                             <a th:if="${lecture.getAverageRating() != 0}" class="on"  th:each="num : ${#numbers.sequence(0, lecture.getAverageRating()-1)}">★</a>

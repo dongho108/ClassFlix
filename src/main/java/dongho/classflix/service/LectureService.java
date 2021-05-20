@@ -36,18 +36,15 @@ public class LectureService {
             return fileInfo;
         }
 
-        String fileName = "" + LocalDate.now() + System.nanoTime();
+        String fileName = "" + LocalDate.now() + System.nanoTime() + ".png";
+//        String fileName = "jpa123";
 
-        String absolutePath = new File("").getAbsolutePath() + "/src/main/resources/static/images/represent/";
-        String path = "/images/represent/" + fileName + "." + "png";
+        String absolutePath = new File("").getAbsolutePath() + "/src/main/resources/static/images/";
+        String path = "/images/" + fileName;
 
         log.info("type : {}, name : {}, path : {}", multipartFile.getContentType(), fileName, path);
 
-        File file = new File(absolutePath + fileName + ".png");
-
-        if (!file.exists()) {
-            file.mkdirs();
-        }
+        File file = new File(absolutePath + fileName);
 
         multipartFile.transferTo(file);
 
