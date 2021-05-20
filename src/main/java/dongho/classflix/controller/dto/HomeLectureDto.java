@@ -8,6 +8,7 @@ import lombok.Setter;
 public class HomeLectureDto {
     private Long id;
     private String representImagePath;
+//    private String representImageName;
     private String lectureName;
     private double averageRating;
 }

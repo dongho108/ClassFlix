@@ -30,8 +30,11 @@ public class HomeController {
         for (int i = 0; i < lectures.size(); i++) {
             HomeLectureDto lectureDto = new HomeLectureDto();
             lectureDto.setId(lectures.get(i).getId());
+
             lectureDto.setRepresentImagePath(lectures.get(i).getRepresentImagePath());
-//            lectureDto.setRepresentImagePath("/images/springInstroduction.png");
+//            lectureDto.setRepresentImagePath("/images/represent/2021-05-20250364915623752");
+//            lectureDto.setRepresentImageName(lectures.get(i).getRepresentImageName());
+
             lectureDto.setLectureName(lectures.get(i).getLectureName());
             lectureDto.setAverageRating(lectures.get(i).getAverageRating());
 
