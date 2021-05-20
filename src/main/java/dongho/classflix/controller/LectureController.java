@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,20 +43,18 @@ public class LectureController {
     }
 
     @PostMapping("/lectures/new")
-    public String create(@Valid LectureForm form, BindingResult result) {
+    public String create(@Valid LectureForm form, BindingResult result) throws IOException {
         if (result.hasErrors()) {
             return "lectures/lectureForm";
         }
-        log.info("check");
-
         FileInfo fileInfo = lectureService.fileParser(form.getImage());
+
+        log.info("path : {}, size : {}, name : {}", fileInfo.getFilePath(), fileInfo.getFileSize(), fileInfo.getFileName());
 
         Lecture lecture = new Lecture(form.getLectureName(), form.getTeacherName(),
                 form.getContent(), fileInfo.getFilePath(), fileInfo.getFileSize(), fileInfo.getFileName(), form.getSiteName(), form.getUri(), LocalDateTime.now());
 
         Long testId = lectureService.join(lecture);
-        log.info("{}", testId);
-
         return "redirect:/";
     }
 

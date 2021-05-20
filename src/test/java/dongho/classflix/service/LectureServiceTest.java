@@ -2,21 +2,29 @@ package dongho.classflix.service;
 
 import dongho.classflix.domain.Lecture;
 import dongho.classflix.repository.LectureRepository;
-import org.assertj.core.api.Assertions;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItem;
+import java.io.FileInputStream;
+import java.io.File;
+import java.io.OutputStream;
+import org.apache.commons.io.IOUtils;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.persistence.EntityManager;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -89,25 +97,67 @@ class LectureServiceTest {
     @Test
     public void 강의사진저장() throws Exception {
         //given
-        String fileName = "jpa";
-        String contentType = "png";
-        String filePath = "/Users/dongho/Documents/project/classflix/src/main/resources/static/images/jpaPrac1.png";
-
-        MockMultipartFile mFile = getMockMultipartFile(fileName, contentType, filePath);
+        MultipartFile mFile = getMultipartFile();
 
         //when
         FileInfo fileInfo = lectureService.fileParser(mFile);
+        Lecture lecture = getLecture(fileInfo);
 
-        URI uri = new URI("https://www.inflearn.com/");
-        Lecture lecture = new Lecture("테스트", "테스트", "좋아요", fileInfo.getFilePath(), fileInfo.getFileSize(), fileInfo.getFileName(), "인프런", uri, LocalDateTime.now());
+        MultipartFile mFile1 = getMultipartFile(lecture);
 
         //then
-
+        // 1 : 인자로 받은 파일 2 : 저장한 후 다시 읽은 파일
+        //파일자체, 크기, 타입 비교
+        assertThat(mFile.getBytes()).isEqualTo(mFile1.getBytes());
+        assertThat(mFile.getSize()).isEqualTo(mFile1.getSize());
+        assertThat(mFile.getContentType()).isEqualTo(mFile1.getContentType());
 
     }
 
-    MockMultipartFile getMockMultipartFile(String fileName, String contentType, String path) throws IOException {
-        FileInputStream fileInputStream = new FileInputStream(new File(path));
-        return new MockMultipartFile(fileName, fileName + "." + contentType, contentType, fileInputStream);
+    private Lecture getLecture(FileInfo fileInfo) throws URISyntaxException {
+        URI uri = new URI("https://www.inflearn.com/");
+        Lecture lecture = new Lecture("테스트", "테스트", "좋아요", fileInfo.getFilePath(), fileInfo.getFileSize(), fileInfo.getFileName(), "인프런", uri, LocalDateTime.now());
+        lectureService.join(lecture);
+        return lecture;
+    }
+
+    private MultipartFile getMultipartFile(Lecture lecture) throws IOException {
+        File file;
+        FileItem fileItem;
+        file = new File(new File("").getAbsolutePath() + "/src/main/resources/static"+ lecture.getRepresentImagePath());
+        fileItem = new DiskFileItem("newFile", Files.probeContentType(file.toPath()), false, file.getName(), (int) file.length(), file.getParentFile());
+
+        try {
+            InputStream input = new FileInputStream(file);
+            OutputStream os = fileItem.getOutputStream();
+            IOUtils.copy(input, os);
+            // Or faster..
+            // IOUtils.copy(new FileInputStream(file), fileItem.getOutputStream());
+        } catch (IOException ex) {
+            // do something.
+        }
+
+        //저장한 파일 다시 multipartfile로 가져오기
+        MultipartFile mFile1 = new CommonsMultipartFile(fileItem);
+        return mFile1;
+    }
+
+    private MultipartFile getMultipartFile() throws IOException {
+        File file = new File(new File("").getAbsolutePath() + "/src/main/resources/static/images/jpa.png");
+        FileItem fileItem = new DiskFileItem("originFile", Files.probeContentType(file.toPath()), false, file.getName(), (int) file.length(), file.getParentFile());
+
+        try {
+            InputStream input = new FileInputStream(file);
+            OutputStream os = fileItem.getOutputStream();
+            IOUtils.copy(input, os);
+            // Or faster..
+            // IOUtils.copy(new FileInputStream(file), fileItem.getOutputStream());
+        } catch (IOException ex) {
+            // do something.
+        }
+
+        //jpa.png -> multipart 변환
+        MultipartFile mFile = new CommonsMultipartFile(fileItem);
+        return mFile;
     }
 }
