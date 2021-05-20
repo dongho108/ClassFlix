@@ -12,6 +12,7 @@ public class LectureInfoDto {
     private String content;
     private String siteName;
     private String uri;
+    private String imagePath;
     private int averageRating;
     private int reviewNum;
 }
