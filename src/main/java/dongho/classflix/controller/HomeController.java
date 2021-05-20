@@ -31,6 +31,7 @@ public class HomeController {
             HomeLectureDto lectureDto = new HomeLectureDto();
             lectureDto.setId(lectures.get(i).getId());
             lectureDto.setRepresentImagePath(lectures.get(i).getRepresentImagePath());
+//            lectureDto.setRepresentImagePath("/images/springInstroduction.png");
             lectureDto.setLectureName(lectures.get(i).getLectureName());
             lectureDto.setAverageRating(lectures.get(i).getAverageRating());
 

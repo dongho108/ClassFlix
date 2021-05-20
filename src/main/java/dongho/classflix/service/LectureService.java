@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -25,7 +26,7 @@ public class LectureService {
     private final LectureRepository lectureRepository;
 
     // 파일파싱
-    public FileInfo fileParser(MultipartFile multipartFile) {
+    public FileInfo fileParser(MultipartFile multipartFile) throws IOException {
         FileInfo fileInfo = new FileInfo();
 
         if (multipartFile.isEmpty()) {
@@ -42,7 +43,13 @@ public class LectureService {
 
         log.info("type : {}, name : {}, path : {}", multipartFile.getContentType(), fileName, path);
 
-        new File(absolutePath + fileName + ".png" );
+        File file = new File(absolutePath + fileName + ".png");
+
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+        multipartFile.transferTo(file);
 
         fileInfo.setFileName(fileName);
         fileInfo.setFileSize(multipartFile.getSize());
