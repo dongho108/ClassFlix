@@ -142,6 +142,7 @@ public class LectureController {
         lectureInfoDto.setReviewNum(lecture.getReviewNum());
         lectureInfoDto.setSiteName(lecture.getSiteName());
         lectureInfoDto.setTeacherName(lecture.getTeacherName());
+        lectureInfoDto.setImagePath(lecture.getRepresentImagePath());
         if (lecture.getUri() != null) {
             lectureInfoDto.setUri(lecture.getUri().toString());
         }
