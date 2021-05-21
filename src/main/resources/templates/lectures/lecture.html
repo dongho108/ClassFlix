@@ -89,7 +89,7 @@
                        data-target="#modal" data-toggle="modal">수정</a>
                 </td>
                 <td>
-                    <form name="reviewRemoveForm" th:action="@{/lectures/{lectureId}/removeReview/{reviewId}(lectureId=${lectureId}, reviewId=${reviewDto.getReviewId()})}" method="post">
+                    <form id="reviewRemoveForm" th:action="@{/lectures/{lectureId}/removeReview/{reviewId}(lectureId=${lectureId}, reviewId=${reviewDto.getReviewId()})}" method="post">
                         <button type="button" onclick="removeCheck()" class="btn btn-danger" role="button">삭제</button>
                     </form>
                 </td>
@@ -149,7 +149,7 @@
                         <label>후기: </label>
                         <textarea id="reviewEdit" class="form-control" rows="5" placeholder="최대 50자까지 입력 가능합니다."
                                   name="commentContent" maxlength="255" th:field="*{content}"></textarea>
-                        <button onclick="reviewEditForm()" type="submit" class="btn-primary" role="button">수정완료</button>
+                        <button onclick="reviewEditForm()" type="submit" class="btn btn-primary" role="button">수정완료</button>
                     </form>
                 </div>
             </div>
@@ -176,8 +176,8 @@
     }
 
     function removeCheck() {
-        if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-            document.reviewRemoveForm.submit();
+        if (confirm("정말 삭제하시겠습니까??") === true){    //확인
+            document.getElementById("reviewRemoveForm").submit();
         }else{   //취소
             return false;
         }

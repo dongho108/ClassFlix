@@ -89,7 +89,13 @@ public class Lecture {
     public void addReview(Review review) {
         this.reviewNum += 1;
         reviews.add(review);
-        addAverageRating(review.getRating());
+        if (this.reviewNum < 100) {
+            calculateAverageRating();
+        }
+        else {
+            addAverageRating(review.getRating());
+        }
+
     }
 
     public void removeReview(Long reviewId) {
@@ -109,7 +115,12 @@ public class Lecture {
             }
         }
 
-        subAverageRating(review.getRating());
+        if (reviewNum < 100) {
+            calculateAverageRating();
+        } else {
+            subAverageRating(review.getRating());
+        }
+
     }
 
     public void addAverageRating(Integer rating) {
@@ -135,9 +146,18 @@ public class Lecture {
         }
     }
 
-    public void updateAverageRating(int oldRating, int newRating) {
-        this.averageRating = Math.floor(((averageRating * reviewNum) - (oldRating-newRating)) / reviewNum);
+    public void calculateAverageRating() {
+        double sum = 0;
+        if (reviewNum == 0) {
+            this.averageRating = 0;
+            return;
+        }
+        for (int i = 0; i < reviewNum; i++) {
+            sum += reviews.get(i).getRating();
+        }
+        this.averageRating = Math.floor(sum / reviewNum);
     }
+
 
     public void changeLectureData(String lectureName, String teacherName, String content, String representImagePath, long representImageSize, String representImageName, String siteName, URI uri) {
         this.lectureName = lectureName;

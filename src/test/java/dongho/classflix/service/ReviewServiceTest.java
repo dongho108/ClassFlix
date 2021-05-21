@@ -108,7 +108,7 @@ class ReviewServiceTest {
         //then
         reviewService.delete(reviewId2, lecture.getId());
         assertThat(lecture.getReviewNum()).isEqualTo(1);
-        assertThat(lecture.getAverageRating()).isEqualTo(1);
+        assertThat(lecture.getAverageRating()).isEqualTo(2);
 
         reviewService.delete(reviewId1, lecture.getId());
         assertThat(lecture.getReviewNum()).isEqualTo(0);
