@@ -98,13 +98,19 @@ class ReviewServiceTest {
         em.persist(lecture);
 
         //when
-        Review review1 = new Review(member,"good", 2, lecture, LocalDateTime.now());
+        Review review1 = new Review(member,"bad", 2, lecture, LocalDateTime.now());
         Long reviewId1 = reviewService.create(review1);
 
+        Review review2 = new Review(member,"good", 5, lecture, LocalDateTime.now());
+        Long reviewId2 = reviewService.create(review2);
 
-        reviewService.delete(reviewId1, lecture.getId());
 
         //then
+        reviewService.delete(reviewId2, lecture.getId());
+        assertThat(lecture.getReviewNum()).isEqualTo(1);
+        assertThat(lecture.getAverageRating()).isEqualTo(1);
+
+        reviewService.delete(reviewId1, lecture.getId());
         assertThat(lecture.getReviewNum()).isEqualTo(0);
         assertThat(lecture.getAverageRating()).isEqualTo(0);
         assertThrows(NotEnoughReviewException.class, () -> {
