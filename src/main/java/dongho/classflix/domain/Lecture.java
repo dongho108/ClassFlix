@@ -139,12 +139,12 @@ public class Lecture {
         this.averageRating = Math.floor(((averageRating * reviewNum) - (oldRating-newRating)) / reviewNum);
     }
 
-    public void changeLectureData(String lectureName, String teacherName, String content, String representImagePath, String representImageSize, String representImageName, String siteName, URI uri) {
+    public void changeLectureData(String lectureName, String teacherName, String content, String representImagePath, long representImageSize, String representImageName, String siteName, URI uri) {
         this.lectureName = lectureName;
         this.teacherName = teacherName;
         this.content = content;
         this.representImagePath = representImagePath;
-//        this.representImageSize = representImageSize;
+        this.representImageSize = representImageSize;
         this.representImageName = representImageName;
         this.siteName = siteName;
         this.uri = uri;
