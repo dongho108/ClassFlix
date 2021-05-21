@@ -36,15 +36,20 @@ public class LectureService {
             return fileInfo;
         }
 
-        String fileName = "" + LocalDate.now() + System.nanoTime() + ".png";
-//        String fileName = "jpa123";
+        String[] strArray = multipartFile.getOriginalFilename().split("\\.");
+        log.info("origin type : {}", strArray[strArray.length-1]);
+        String fileName = "" + LocalDate.now() + System.nanoTime() + "." + strArray[strArray.length-1];
 
-        String absolutePath = new File("").getAbsolutePath() + "/src/main/resources/static/images/";
-        String path = "/images/" + fileName;
+        String absolutePath = new File("").getAbsolutePath() + "/src/main/resources/static/images/represent/";
+        String path = "/images/represent/" + fileName;
 
         log.info("type : {}, name : {}, path : {}", multipartFile.getContentType(), fileName, path);
 
         File file = new File(absolutePath + fileName);
+
+        if (!file.exists()) {
+            file.mkdirs();
+        }
 
         multipartFile.transferTo(file);
 
@@ -71,7 +76,9 @@ public class LectureService {
     // 업데이트
     public void update(Long id, LectureDto lectureDto) {
         Lecture findLecture = lectureRepository.findById(id);
-//        findLecture.changeLectureData(lectureDto.getLectureName(), lectureDto.getTeacherName(), lectureDto.getContent(), lectureDto.getRepresentImage(), lectureDto.getSiteName(), lectureDto.getUri());
+        findLecture.changeLectureData(lectureDto.getLectureName(), lectureDto.getTeacherName(), lectureDto.getContent(),
+                lectureDto.getRepresentImagePath(), lectureDto.getRepresentImageSize(), lectureDto.getRepresentImageName(),
+                lectureDto.getSiteName(), lectureDto.getUri());
     }
 
     // 조회

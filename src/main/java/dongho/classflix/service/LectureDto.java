@@ -9,7 +9,9 @@ public class LectureDto {
     private String lectureName;
     private String teacherName;
     private String content;
-    private byte[] representImage;
+    String representImagePath;
+    long representImageSize;
+    String representImageName;
     private String siteName;
     private URI uri;
 }

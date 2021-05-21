@@ -83,6 +83,10 @@ class LectureServiceTest {
         Lecture lecture2 = new Lecture("스프링코어", "김영한", "나빠요", LocalDateTime.now());
         Lecture lecture3 = new Lecture("jpa기초", "김영한", "그냥그래요", LocalDateTime.now());
         Lecture lecture4 = new Lecture("jpa활용", "김영한", "좋아요", LocalDateTime.now());
+        em.persist(lecture1);
+        em.persist(lecture2);
+        em.persist(lecture3);
+        em.persist(lecture4);
 
         //when
         List<Lecture> lectures = lectureService.findAll();
