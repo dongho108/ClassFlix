@@ -47,8 +47,8 @@ public class ReviewService {
     // 리뷰 수정
     public Long update(Long reviewId, Long lectureId, String content, Integer rating) {
         Review findReview = reviewRepository.findById(reviewId);
-        lectureService.refreshAverageRating(lectureId, findReview.getRating(), rating);
         findReview.changeContentAndRating(content, rating);
+        lectureService.refreshAverageRating(lectureId);
         return reviewId;
     }
 

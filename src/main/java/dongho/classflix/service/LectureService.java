@@ -92,9 +92,9 @@ public class LectureService {
     }
 
     // review refresh
-    public void refreshAverageRating(Long lectureId, int oldRating, int newRating) {
+    public void refreshAverageRating(Long lectureId) {
         Lecture findLecture = findById(lectureId);
-        findLecture.updateAverageRating(oldRating, newRating);
+        findLecture.calculateAverageRating();
     }
 
     // delete review
