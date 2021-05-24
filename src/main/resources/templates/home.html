@@ -31,12 +31,12 @@
     }
     .star_rating a:first-child {margin-left:0;}
     .star_rating a.on {color:#E1BC3F;}
-
 </style>
-<div th:replace="fragments/bodyHeader :: bodyHeader" />
+
+<div th:replace="fragments/bodyHeader :: bodyHeader"></div>
 
 <div class="container">
-    <div class="jumbotron">
+    <div class="jumbotron well">
         <h1 class="text-center">CLASS FLIX</h1>
         <p class="text-center" style="text-shadow: none">인강 추천좀</p>
     </div>
@@ -48,13 +48,10 @@
                     <a th:href="@{/lectures/{lectureId}(lectureId=${lecture.getId()})}">
                     <img class="lecture-images" th:src="${lecture.getRepresentImagePath()}"
                          src="/images/springInstroduction.png" alt="스프링입문">
-<!--                        <img class="lecture-images" th:src="@{/images/{imageName}(imageName = ${lecture.getRepresentImageName()})}"-->
-<!--                             src="/images/springInstroduction.png" alt="스프링입문">-->
-<!--                        <img class="lecture-images" th:src="@{/images/2021-05-20251380021432996.png}"-->
-<!--                             src="/images/springInstroduction.png" alt="스프링입문">-->
                     <h5 th:text="${lecture.getLectureName()}" class="lecture-title">강의제목</h5>
                         <p class="star_rating">
-                            <a th:if="${lecture.getAverageRating() != 0}" class="on"  th:each="num : ${#numbers.sequence(0, lecture.getAverageRating()-1)}">★</a>
+                            <a th:if="${lecture.getAverageRating() != 0}" class="on"
+                               th:each="num : ${#numbers.sequence(0, lecture.getAverageRating()-1)}">★</a>
                             <a th:unless="${lecture.getAverageRating() != 0}">★★★★★</a>
                         </p>
                     </a>

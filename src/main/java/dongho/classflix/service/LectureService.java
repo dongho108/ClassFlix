@@ -26,7 +26,8 @@ public class LectureService {
     private final LectureRepository lectureRepository;
 
     // 파일파싱
-    public FileInfo fileParser(MultipartFile multipartFile) throws IOException {
+    @Transactional(readOnly = true)
+    public FileInfo fileSaveAndParsing(MultipartFile multipartFile) throws IOException {
         FileInfo fileInfo = new FileInfo();
 
         if (multipartFile.isEmpty()) {
@@ -57,7 +58,6 @@ public class LectureService {
         fileInfo.setFileSize(multipartFile.getSize());
         fileInfo.setFilePath(path);
         return fileInfo;
-
     }
 
     // 조인
