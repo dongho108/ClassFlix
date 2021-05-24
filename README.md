@@ -11,12 +11,12 @@
 ### 🏠 [Homepage](https://github.com/dongho/ClassFlix)
 
 ## Skill
-> Java
-> Spring Boot 2.4.5v
-> JPA
-> HTML, CSS, Javascript, Thymeleaf
-> DB : h2
-> Test : Junit5
+> Java <br>
+> Spring Boot 2.4.5v <br>
+> JPA Hibernate <br>
+> HTML, CSS, Javascript, Thymeleaf <br>
+> DB : h2 <br>
+> Test : JUnit5 <br>
 
 
 ## Author
@@ -49,7 +49,7 @@ Classflix는 여러 사이트에 퍼져있는 인터넷 강의들을 모아놓�
 
 > 강의에 대한 리뷰를 달고 별점을 추가할 수 있습니다. <br>
 
-<img width="1423" alt="reviewresult" src="https://user-images.githubusercontent.com/54317630/119301992-50b7a780-bc9e-11eb-98e9-87dab5c3352c.png">
+<img width="1424" alt="reviewresult" src="https://user-images.githubusercontent.com/54317630/119337622-05b38980-bcca-11eb-9be4-d370db6516d6.png">
 
 > 리뷰를 수정할 수 있습니다. <br>
 
@@ -77,25 +77,25 @@ Classflix는 여러 사이트에 퍼져있는 인터넷 강의들을 모아놓�
 ## Build process
 
 21/05/21 <br>
-solve issue (review-update, review-delete) <br><br>
+solve issue (review-update, review-delete) <br>
 
 21/05/20 <br>
-add image-upload & show image <br><br>
+add image-upload & show image <br>
 
 21/05/14 <br>
-add review-delete <br><br>
+add review-delete <br>
 
 21/05/12 <br>
-add review-update <br><br>
+add review-update <br>
 
 21/05/11 <br>
-remove password in review <br><br>
+remove password in review <br>
 
 21/05/4 <br>
-add view & controller <br><br>
+add view & controller <br>
 
 21/04/25 <br>
-add domain, repository, service <br><br>
+add domain, repository, service <br>
 
 21/04/21 <br>
-inital commit <br><br>
+inital commit <br>
