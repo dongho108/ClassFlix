@@ -55,15 +55,6 @@ public class Lecture {
 
 
     // contoller에서 실제로 사용할 생성자
-    public Lecture(String lectureName, String teacherName, String content, String siteName, URI uri, LocalDateTime lectureDateTime) {
-        this.lectureName = lectureName;
-        this.teacherName = teacherName;
-        this.content = content;
-        this.siteName = siteName;
-        this.uri = uri;
-        this.lectureDateTime = lectureDateTime;
-    }
-
     public Lecture(String lectureName, String teacherName, String content, String representImagePath, long representImageSize, String representImageName, String siteName, URI uri, LocalDateTime lectureDateTime) {
         this.lectureName = lectureName;
         this.teacherName = teacherName;

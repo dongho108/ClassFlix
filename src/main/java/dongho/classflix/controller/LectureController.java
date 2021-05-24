@@ -18,7 +18,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -47,7 +46,7 @@ public class LectureController {
         if (result.hasErrors()) {
             return "lectures/lectureForm";
         }
-        FileInfo fileInfo = lectureService.fileParser(form.getImage());
+        FileInfo fileInfo = lectureService.fileSaveAndParsing(form.getImage());
 
         log.info("path : {}, size : {}, name : {}", fileInfo.getFilePath(), fileInfo.getFileSize(), fileInfo.getFileName());
 
@@ -89,13 +88,13 @@ public class LectureController {
     }
 
     private void setReviewDtos(List<Review> reviews, List<ReviewDto> reviewDtos) {
-        for (int i = 0; i < reviews.size(); i++) {
+        for (Review review : reviews) {
             ReviewDto reviewDto = new ReviewDto();
-            reviewDto.setReviewId(reviews.get(i).getId());
-            reviewDto.setMemberName(reviews.get(i).getMember().getUserName());
-            reviewDto.setContent(reviews.get(i).getContent());
-            reviewDto.setRating(reviews.get(i).getRating());
-            reviewDto.setReviewDate(reviews.get(i).getReviewDate());
+            reviewDto.setReviewId(review.getId());
+            reviewDto.setMemberName(review.getMember().getUserName());
+            reviewDto.setContent(review.getContent());
+            reviewDto.setRating(review.getRating());
+            reviewDto.setReviewDate(review.getReviewDate());
             reviewDtos.add(reviewDto);
         }
     }
