@@ -10,6 +10,15 @@
 
 ### 🏠 [Homepage](https://github.com/dongho/ClassFlix)
 
+## Skill
+> Java
+> Spring Boot 2.4.5v
+> JPA
+> HTML, CSS, Javascript, Thymeleaf
+> DB : h2
+> Test : Junit5
+
+
 ## Author
 
 👤  dongho
