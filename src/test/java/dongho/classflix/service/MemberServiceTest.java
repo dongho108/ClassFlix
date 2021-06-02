@@ -21,6 +21,7 @@ class MemberServiceTest {
     @Autowired
     MemberService memberService;
 
+
     @Test
     public void 중복회원예외() throws Exception {
         //given
