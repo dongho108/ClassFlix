@@ -10,7 +10,7 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter
-public class Review {
+public class Review extends BaseTimeEntity{
 
     @Id
     @GeneratedValue

@@ -30,7 +30,7 @@ public class LectureController {
 
     private final LectureService lectureService;
     private final MemberService memberService;
-    private final ReviewService reviewService;
+    private final ReviewJpaService reviewJpaService;
 
     @GetMapping("/lectures/new")
     public String createForm(Model model) {
@@ -74,7 +74,7 @@ public class LectureController {
         memberModel.addAttribute("memberDtos", lectureInfoMemberDtos);
         reviewFormModel.addAttribute("reviewForm", new ReviewForm());
 
-        List<Review> reviews = reviewService.findByLecture(lectureId);
+        List<Review> reviews = reviewJpaService.findByLecture(lectureId);
         List<ReviewDto> reviewDtos = new ArrayList<>();
         setReviewDtos(reviews, reviewDtos);
         reviewModel.addAttribute("reviewDtos", reviewDtos);
@@ -109,7 +109,7 @@ public class LectureController {
         Member member = memberService.findByName(reviewForm.getMemberName()).get(0);
         Lecture lecture = lectureService.findById(lectureId);
         Review review = new Review(member, reviewForm.getContent(), reviewForm.getRating(), lecture, LocalDateTime.now());
-        reviewService.create(review);
+        reviewJpaService.create(review);
 
         return "redirect:/lectures/{lectureId}";
     }
@@ -118,14 +118,14 @@ public class LectureController {
     private String updateReview(@PathVariable("lectureId") Long lectureId, @PathVariable("reviewId") Long reviewId,
                                        ReviewForm form, RedirectAttributes redirectAttributes) {
 
-        reviewService.update(reviewId, lectureId, form.getContent(), form.getRating());
+        reviewJpaService.update(reviewId, lectureId, form.getContent(), form.getRating());
         redirectAttributes.addAttribute("lectureId", lectureId);
         return "redirect:/lectures/{lectureId}";
     }
 
     @PostMapping("/lectures/{lectureId}/removeReview/{reviewId}")
     private String removeReview(@PathVariable("lectureId") Long lectureId, @PathVariable("reviewId") Long reviewId, RedirectAttributes redirectAttributes) {
-        reviewService.delete(reviewId, lectureId);
+        reviewJpaService.delete(reviewId, lectureId);
         redirectAttributes.addAttribute("lectureId", lectureId);
         return "redirect:/lectures/{lectureId}";
     }

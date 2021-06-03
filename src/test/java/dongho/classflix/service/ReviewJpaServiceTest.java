@@ -7,15 +7,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-class ReviewServiceTest {
+class ReviewJpaServiceTest {
 
     @Autowired
     EntityManager em;
@@ -41,19 +42,20 @@ class ReviewServiceTest {
 
         //when
         Review review1 = new Review(member,"good", 4, lecture, LocalDateTime.now());
-        reviewService.create(review1);
+        Long reviewId1 = reviewService.create(review1);
 
         Review review2 = new Review(member, "good", 4, lecture, LocalDateTime.now());
-        reviewService.create(review2);
+        Long reviewId2 = reviewService.create(review2);
 
-        Review findReview1 = reviewService.findById(review1.getId());
-        Review findReview2 = reviewService.findById(review2.getId());
+        Review findReview1 = reviewService.findById(reviewId1);
+        Review findReview2 = reviewService.findById(reviewId2);
         List<Review> reviews = reviewService.findAll();
 
 
+
         //then
-        assertThat(findReview1.getId()).isEqualTo(review1.getId());
-        assertThat(findReview2.getId()).isEqualTo(review2.getId());
+        assertThat(findReview1.getId()).isEqualTo(reviewId1);
+        assertThat(findReview2.getId()).isEqualTo(reviewId2);
         assertThat(reviews.size()).isEqualTo(2);
         assertThat(lecture.getReviewNum()).isEqualTo(2);
     }
