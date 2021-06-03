@@ -1,6 +1,8 @@
 package dongho.classflix.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -10,7 +12,8 @@ import java.util.List;
 
 @Entity
 @Getter
-public class Member {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Member extends BaseTimeEntity{
     @Id
     @GeneratedValue
     @Column(name = "member_id")
@@ -27,9 +30,6 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Review> reviews = new ArrayList<>();
-
-    protected Member() {
-    }
 
     public Member(String userName, int age, Gender gender) {
         this.userName = userName;
