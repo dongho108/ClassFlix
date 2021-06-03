@@ -1,20 +1,16 @@
 package dongho.classflix.service;
 
 import dongho.classflix.domain.Lecture;
-import dongho.classflix.domain.Review;
 import dongho.classflix.repository.LectureRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Transactional
@@ -28,6 +24,7 @@ public class LectureService {
     // 파일파싱
     @Transactional(readOnly = true)
     public FileInfo fileSaveAndParsing(MultipartFile multipartFile) throws IOException {
+
         FileInfo fileInfo = new FileInfo();
 
         if (multipartFile.isEmpty()) {
@@ -61,13 +58,15 @@ public class LectureService {
     }
 
     // 조인
-    public Long join(Lecture lecture) {
+    public Lecture join(Lecture lecture) {
         validateDuplicateLecture(lecture);
+//        return lectureJpaRepository.save(lecture);
         return lectureRepository.save(lecture);
     }
 
     private void validateDuplicateLecture(Lecture lecture) {
-        List<Lecture> findLectures = lectureRepository.findByName(lecture.getLectureName(), lecture.getTeacherName());
+//        List<Lecture> findLectures = lectureJpaRepository.findByName(lecture.getLectureName(), lecture.getTeacherName());
+        List<Lecture> findLectures = lectureRepository.findByLectureNameAndTeacherName(lecture.getLectureName(), lecture.getTeacherName());
         if (!findLectures.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 강의입니다.");
         }
@@ -75,7 +74,8 @@ public class LectureService {
 
     // 업데이트
     public void update(Long id, LectureDto lectureDto) {
-        Lecture findLecture = lectureRepository.findById(id);
+//        Lecture findLecture = lectureJpaRepository.findById(id);
+        Lecture findLecture = lectureRepository.findById(id).orElseThrow();
         findLecture.changeLectureData(lectureDto.getLectureName(), lectureDto.getTeacherName(), lectureDto.getContent(),
                 lectureDto.getRepresentImagePath(), lectureDto.getRepresentImageSize(), lectureDto.getRepresentImageName(),
                 lectureDto.getSiteName(), lectureDto.getUri());
@@ -84,22 +84,23 @@ public class LectureService {
     // 조회
     @Transactional(readOnly = true)
     public List<Lecture> findAll() {
+//        return lectureJpaRepository.findAll();
         return lectureRepository.findAll();
     }
 
     public Lecture findById(Long id) {
-        return lectureRepository.findById(id);
+        return lectureRepository.findById(id).orElseThrow();
     }
 
     // review refresh
     public void refreshAverageRating(Long lectureId) {
-        Lecture findLecture = findById(lectureId);
+        Lecture findLecture = lectureRepository.findById(lectureId).orElseThrow();
         findLecture.calculateAverageRating();
     }
 
     // delete review
     public void deleteReview(Long lectureId, Long reviewId) {
-        Lecture findLecture = findById(lectureId);
+        Lecture findLecture = lectureRepository.findById(lectureId).orElseThrow();
         findLecture.removeReview(reviewId);
     }
 }

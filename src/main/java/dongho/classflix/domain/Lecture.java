@@ -16,7 +16,7 @@ import static javax.persistence.CascadeType.*;
 @Entity
 @Getter
 @Slf4j
-public class Lecture {
+public class Lecture extends BaseTimeEntity{
 
     @Id
     @GeneratedValue

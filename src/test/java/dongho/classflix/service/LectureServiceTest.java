@@ -2,24 +2,17 @@ package dongho.classflix.service;
 
 import dongho.classflix.domain.Lecture;
 import dongho.classflix.repository.LectureRepository;
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItem;
-import java.io.FileInputStream;
-import java.io.File;
-import java.io.OutputStream;
 import org.apache.commons.io.IOUtils;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.persistence.EntityManager;
-
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -27,8 +20,8 @@ import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional

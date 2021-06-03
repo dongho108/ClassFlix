@@ -8,10 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-
 import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -29,9 +26,10 @@ class LectureRepositoryTest {
         Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
 
         //when
-        Long savedId = lectureRepository.save(lecture);
+        lectureRepository.save(lecture);
+        Lecture findLecture = lectureRepository.findById(lecture.getId()).orElseThrow();
 
         //then
-        Assertions.assertThat(lecture).isEqualTo(lectureRepository.findById(savedId));
+        Assertions.assertThat(lecture.getId()).isEqualTo(findLecture.getId());
     }
 }
