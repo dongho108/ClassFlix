@@ -1,10 +1,6 @@
 package dongho.classflix.service;
 
-import dongho.classflix.domain.Lecture;
-import dongho.classflix.domain.Member;
 import dongho.classflix.domain.Review;
-import dongho.classflix.repository.LectureRepository;
-import dongho.classflix.repository.MemberRepository;
 import dongho.classflix.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

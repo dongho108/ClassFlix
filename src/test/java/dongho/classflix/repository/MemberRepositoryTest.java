@@ -8,27 +8,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-
 @SpringBootTest
 @Transactional
 class MemberRepositoryTest {
 
+
     @Autowired
     MemberRepository memberRepository;
 
-    @Autowired
-    EntityManager em;
-
     @Test
-    public void 회원등록() throws Exception {
+    public void 회원저장조회() throws Exception {
         //given
         Member member = new Member("dongho", 25, Gender.MALE);
+        memberRepository.save(member);
 
         //when
-        Long savedId = memberRepository.save(member);
+        Member nullMember = new Member("null", 0, null);
+        Member savedMember = memberRepository.findById(member.getId()).orElse(nullMember);
 
         //then
-        Assertions.assertThat(member).isEqualTo(memberRepository.findById(savedId));
+        Assertions.assertThat(member).isEqualTo(savedMember);
     }
 }
