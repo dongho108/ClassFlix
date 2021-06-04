@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional
@@ -20,6 +20,7 @@ class MemberServiceTest {
 
     @Autowired
     MemberService memberService;
+
 
     @Test
     public void 중복회원예외() throws Exception {

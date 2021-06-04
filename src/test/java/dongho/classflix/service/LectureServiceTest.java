@@ -2,24 +2,17 @@ package dongho.classflix.service;
 
 import dongho.classflix.domain.Lecture;
 import dongho.classflix.repository.LectureRepository;
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItem;
-import java.io.FileInputStream;
-import java.io.File;
-import java.io.OutputStream;
 import org.apache.commons.io.IOUtils;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.persistence.EntityManager;
-
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -27,8 +20,8 @@ import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional
@@ -46,8 +39,8 @@ class LectureServiceTest {
     @Test
     public void 중복강의거부() throws Exception {
         //given
-        Lecture lecture1 = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
-        Lecture lecture2 = new Lecture("jpa", "김영한", "jpa강의입니다.", LocalDateTime.now());
+        Lecture lecture1 = new Lecture("jpa", "김영한", "jpa강의");
+        Lecture lecture2 = new Lecture("jpa", "김영한", "jpa강의입니다.");
 
         //when
         lectureService.join(lecture1);
@@ -62,7 +55,7 @@ class LectureServiceTest {
     @Test
     public void 강의수정() throws Exception {
         //given
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
         em.persist(lecture);
 
         LectureDto lectureDto = new LectureDto();
@@ -78,10 +71,10 @@ class LectureServiceTest {
     @Test
     public void 강의조회() throws Exception {
         //given
-        Lecture lecture1 = new Lecture("스프링입문", "김영한", "좋아요", LocalDateTime.now());
-        Lecture lecture2 = new Lecture("스프링코어", "김영한", "나빠요", LocalDateTime.now());
-        Lecture lecture3 = new Lecture("jpa기초", "김영한", "그냥그래요", LocalDateTime.now());
-        Lecture lecture4 = new Lecture("jpa활용", "김영한", "좋아요", LocalDateTime.now());
+        Lecture lecture1 = new Lecture("스프링입문", "김영한", "좋아요");
+        Lecture lecture2 = new Lecture("스프링코어", "김영한", "나빠요");
+        Lecture lecture3 = new Lecture("jpa기초", "김영한", "그냥그래요");
+        Lecture lecture4 = new Lecture("jpa활용", "김영한", "좋아요");
         em.persist(lecture1);
         em.persist(lecture2);
         em.persist(lecture3);
@@ -119,7 +112,7 @@ class LectureServiceTest {
 
     private Lecture getLecture(FileInfo fileInfo) throws URISyntaxException {
         URI uri = new URI("https://www.inflearn.com/");
-        Lecture lecture = new Lecture("테스트", "테스트", "좋아요", fileInfo.getFilePath(), fileInfo.getFileSize(), fileInfo.getFileName(), "인프런", uri, LocalDateTime.now());
+        Lecture lecture = new Lecture("테스트", "테스트", "좋아요", fileInfo.getFilePath(), fileInfo.getFileSize(), fileInfo.getFileName(), "인프런", uri);
         lectureService.join(lecture);
         return lecture;
     }

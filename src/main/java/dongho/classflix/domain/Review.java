@@ -1,6 +1,8 @@
 package dongho.classflix.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.swing.*;
@@ -10,7 +12,8 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter
-public class Review {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Review extends BaseTimeEntity{
 
     @Id
     @GeneratedValue
@@ -29,17 +32,12 @@ public class Review {
     @JoinColumn(name = "lecture_id")
     private Lecture lecture;
 
-    private LocalDateTime reviewDate;
 
-    protected Review() {
-    }
-
-    public Review(Member member, String content, Integer rating, Lecture lecture, LocalDateTime reviewDate) {
+    public Review(Member member, String content, Integer rating, Lecture lecture) {
         this.member = member;
         this.content = content;
         this.rating = rating;
         this.lecture = lecture;
-        this.reviewDate = reviewDate;
     }
 
     public void changeContentAndRating(String content, Integer rating) {

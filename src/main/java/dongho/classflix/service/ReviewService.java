@@ -1,10 +1,6 @@
 package dongho.classflix.service;
 
-import dongho.classflix.domain.Lecture;
-import dongho.classflix.domain.Member;
 import dongho.classflix.domain.Review;
-import dongho.classflix.repository.LectureRepository;
-import dongho.classflix.repository.MemberRepository;
 import dongho.classflix.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,14 +18,14 @@ public class ReviewService {
 
     // 리뷰 등록
     public Long create(Review review) {
-        reviewRepository.save(review);
+        reviewRepository.saveWithLecture(review);
         return review.getId();
     }
 
     // 하나 조회
     @Transactional(readOnly = true)
-    public Review findOne(Long reviewId) {
-        return reviewRepository.findById(reviewId);
+    public Review findById(Long reviewId) {
+        return reviewRepository.findById(reviewId).orElseThrow();
     }
 
 
@@ -39,14 +35,15 @@ public class ReviewService {
         return reviewRepository.findAll();
     }
 
+    // 강의에 달린 리뷰 조회
     @Transactional(readOnly = true)
     public List<Review> findByLecture(Long lectureId) {
-        return reviewRepository.findAllWithLecture(lectureId);
+        return reviewRepository.findAllByLecture_Id(lectureId);
     }
 
     // 리뷰 수정
     public Long update(Long reviewId, Long lectureId, String content, Integer rating) {
-        Review findReview = reviewRepository.findById(reviewId);
+        Review findReview = reviewRepository.findById(reviewId).orElseThrow();
         findReview.changeContentAndRating(content, rating);
         lectureService.refreshAverageRating(lectureId);
         return reviewId;
@@ -55,7 +52,7 @@ public class ReviewService {
     // 리뷰 삭제
     public Long delete(Long reviewId, Long lectureId) {
         lectureService.deleteReview(lectureId, reviewId);
-        reviewRepository.delete(reviewId);
+        reviewRepository.delete(reviewRepository.findById(reviewId).orElseThrow());
         return reviewId;
     }
 

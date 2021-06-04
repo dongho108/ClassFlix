@@ -6,10 +6,7 @@ import dongho.classflix.controller.dto.ReviewDto;
 import dongho.classflix.domain.Lecture;
 import dongho.classflix.domain.Member;
 import dongho.classflix.domain.Review;
-import dongho.classflix.service.FileInfo;
-import dongho.classflix.service.LectureService;
-import dongho.classflix.service.MemberService;
-import dongho.classflix.service.ReviewService;
+import dongho.classflix.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -22,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,9 +47,9 @@ public class LectureController {
         log.info("path : {}, size : {}, name : {}", fileInfo.getFilePath(), fileInfo.getFileSize(), fileInfo.getFileName());
 
         Lecture lecture = new Lecture(form.getLectureName(), form.getTeacherName(),
-                form.getContent(), fileInfo.getFilePath(), fileInfo.getFileSize(), fileInfo.getFileName(), form.getSiteName(), form.getUri(), LocalDateTime.now());
+                form.getContent(), fileInfo.getFilePath(), fileInfo.getFileSize(), fileInfo.getFileName(), form.getSiteName(), form.getUri());
 
-        Long testId = lectureService.join(lecture);
+        lectureService.join(lecture);
         return "redirect:/";
     }
 
@@ -94,7 +90,6 @@ public class LectureController {
             reviewDto.setMemberName(review.getMember().getUserName());
             reviewDto.setContent(review.getContent());
             reviewDto.setRating(review.getRating());
-            reviewDto.setReviewDate(review.getReviewDate());
             reviewDtos.add(reviewDto);
         }
     }
@@ -111,7 +106,7 @@ public class LectureController {
 
         Member member = memberService.findByName(reviewForm.getMemberName()).get(0);
         Lecture lecture = lectureService.findById(lectureId);
-        Review review = new Review(member, reviewForm.getContent(), reviewForm.getRating(), lecture, LocalDateTime.now());
+        Review review = new Review(member, reviewForm.getContent(), reviewForm.getRating(), lecture);
         reviewService.create(review);
 
         return "redirect:/lectures/{lectureId}";

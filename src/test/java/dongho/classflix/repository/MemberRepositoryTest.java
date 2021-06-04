@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @SpringBootTest
 @Transactional
@@ -17,18 +18,21 @@ class MemberRepositoryTest {
     @Autowired
     MemberRepository memberRepository;
 
-    @Autowired
+    @PersistenceContext
     EntityManager em;
 
     @Test
-    public void 회원등록() throws Exception {
+    public void 회원저장조회() throws Exception {
         //given
         Member member = new Member("dongho", 25, Gender.MALE);
+        memberRepository.save(member);
+        em.flush();
+        em.clear();
 
         //when
-        Long savedId = memberRepository.save(member);
+        Member savedMember = memberRepository.findById(member.getId()).orElseThrow();
 
         //then
-        Assertions.assertThat(member).isEqualTo(memberRepository.findById(savedId));
+        Assertions.assertThat(member.getId()).isEqualTo(savedMember.getId());
     }
 }

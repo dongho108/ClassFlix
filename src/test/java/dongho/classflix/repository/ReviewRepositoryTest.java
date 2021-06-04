@@ -1,19 +1,17 @@
 package dongho.classflix.repository;
 
-import dongho.classflix.domain.*;
+import dongho.classflix.domain.Gender;
+import dongho.classflix.domain.Lecture;
+import dongho.classflix.domain.Member;
+import dongho.classflix.domain.Review;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.swing.*;
-
 import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -38,15 +36,16 @@ class ReviewRepositoryTest {
         Member member = new Member("dongho", 25, Gender.MALE);
         em.persist(member);
 
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
         em.persist(lecture);
 
-        Review review = new Review(member, "good", 4, lecture, LocalDateTime.now());
+        Review review = new Review(member, "good", 4, lecture);
         //when
 
-        Long savedId = reviewRepository.save(review);
+        reviewRepository.save(review);
+        Review findReview = reviewRepository.findById(review.getId()).orElseThrow();
 
         //then
-        Assertions.assertThat(review).isEqualTo(reviewRepository.findById(savedId));
+        Assertions.assertThat(review.getId()).isEqualTo(findReview.getId());
     }
 }

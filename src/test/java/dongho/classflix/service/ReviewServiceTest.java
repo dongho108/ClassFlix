@@ -7,12 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional
@@ -37,25 +35,24 @@ class ReviewServiceTest {
         Member member = new Member("dongho", 25, Gender.MALE);
         em.persist(member);
 
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
         em.persist(lecture);
 
         //when
-        Review review1 = new Review(member,"good", 4, lecture, LocalDateTime.now());
-        Long reviewId1 = reviewService.create(review1);
+        Review review1 = new Review(member,"good", 4, lecture);
+        reviewService.create(review1);
 
-        Review review2 = new Review(member, "good", 4, lecture, LocalDateTime.now());
-        Long reviewId2 = reviewService.create(review2);
+        Review review2 = new Review(member, "good", 4, lecture);
+        reviewService.create(review2);
 
-        Review findReview1 = reviewService.findOne(reviewId1);
-        Review findReview2 = reviewService.findOne(reviewId2);
+        Review findReview1 = reviewService.findById(review1.getId());
+        Review findReview2 = reviewService.findById(review2.getId());
         List<Review> reviews = reviewService.findAll();
 
 
-
         //then
-        assertThat(findReview1.getId()).isEqualTo(reviewId1);
-        assertThat(findReview2.getId()).isEqualTo(reviewId2);
+        assertThat(findReview1.getId()).isEqualTo(review1.getId());
+        assertThat(findReview2.getId()).isEqualTo(review2.getId());
         assertThat(reviews.size()).isEqualTo(2);
         assertThat(lecture.getReviewNum()).isEqualTo(2);
     }
@@ -67,14 +64,14 @@ class ReviewServiceTest {
         Member member = new Member("dongho", 25, Gender.MALE);
         em.persist(member);
 
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
         em.persist(lecture);
 
         //when
-        Review review1 = new Review(member,"good", 3, lecture, LocalDateTime.now());
+        Review review1 = new Review(member,"good", 3, lecture);
         Long reviewId1 = reviewService.create(review1);
 
-        Review review2 = new Review(member,"good", 1, lecture, LocalDateTime.now());
+        Review review2 = new Review(member,"good", 1, lecture);
         reviewService.create(review2);
 
         reviewService.update(reviewId1, lecture.getId(), "very good", 5);
@@ -94,14 +91,14 @@ class ReviewServiceTest {
         Member member = new Member("dongho", 25, Gender.MALE);
         em.persist(member);
 
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
         em.persist(lecture);
 
         //when
-        Review review1 = new Review(member,"bad", 2, lecture, LocalDateTime.now());
+        Review review1 = new Review(member,"bad", 2, lecture);
         Long reviewId1 = reviewService.create(review1);
 
-        Review review2 = new Review(member,"good", 5, lecture, LocalDateTime.now());
+        Review review2 = new Review(member,"good", 5, lecture);
         Long reviewId2 = reviewService.create(review2);
 
 
@@ -116,5 +113,28 @@ class ReviewServiceTest {
         assertThrows(NotEnoughReviewException.class, () -> {
             reviewService.delete(reviewId1, lecture.getId());
         });
+    }
+
+    @Test
+    public void 강의에달린리뷰조회() throws Exception {
+        //given
+
+        Member member = new Member("dongho", 25, Gender.MALE);
+        em.persist(member);
+
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
+        em.persist(lecture);
+
+        //when
+        Review review1 = new Review(member,"bad", 2, lecture);
+        reviewService.create(review1);
+
+        Review review2 = new Review(member,"good", 5, lecture);
+        reviewService.create(review2);
+
+        //then
+
+        List<Review> lectures = reviewService.findByLecture(lecture.getId());
+        assertThat(lectures.size()).isEqualTo(2);
     }
 }

@@ -3,12 +3,10 @@ package dongho.classflix.controller;
 import dongho.classflix.controller.dto.HomeLectureDto;
 import dongho.classflix.domain.Lecture;
 import dongho.classflix.service.LectureService;
-import dongho.classflix.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;

@@ -15,6 +15,4 @@ public class ReviewDto {
     private String password;
     private String content;
     private int rating;
-    private LocalDateTime reviewDate;
-
 }
