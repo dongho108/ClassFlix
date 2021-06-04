@@ -76,6 +76,9 @@ Classflix는 여러 사이트에 퍼져있는 인터넷 강의들을 모아놓�
 
 ## Build process
 
+21/06/04 <br>
+update Repository (pure jpa -> Spring Data Jpa)
+
 21/05/21 <br>
 solve issue (review-update, review-delete) <br>
 
