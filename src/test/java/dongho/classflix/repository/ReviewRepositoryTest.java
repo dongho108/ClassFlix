@@ -36,10 +36,10 @@ class ReviewRepositoryTest {
         Member member = new Member("dongho", 25, Gender.MALE);
         em.persist(member);
 
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
         em.persist(lecture);
 
-        Review review = new Review(member, "good", 4, lecture, LocalDateTime.now());
+        Review review = new Review(member, "good", 4, lecture);
         //when
 
         reviewRepository.save(review);

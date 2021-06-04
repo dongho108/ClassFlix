@@ -1,6 +1,8 @@
 package dongho.classflix.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
@@ -16,6 +18,7 @@ import static javax.persistence.CascadeType.*;
 @Entity
 @Getter
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Lecture extends BaseTimeEntity{
 
     @Id
@@ -35,7 +38,6 @@ public class Lecture extends BaseTimeEntity{
 
     private String siteName;
     private URI uri;
-    private LocalDateTime lectureDateTime;
 
     private double averageRating;
     private int reviewNum;
@@ -43,19 +45,15 @@ public class Lecture extends BaseTimeEntity{
     @OneToMany(mappedBy = "lecture", cascade = ALL)
     private List<Review> reviews = new ArrayList<>();
 
-    protected Lecture() {
-    }
-
-    public Lecture(String lectureName, String teacherName, String content, LocalDateTime lectureDateTime) {
+    public Lecture(String lectureName, String teacherName, String content) {
         this.lectureName = lectureName;
         this.teacherName = teacherName;
         this.content = content;
-        this.lectureDateTime = lectureDateTime;
     }
 
 
     // contoller에서 실제로 사용할 생성자
-    public Lecture(String lectureName, String teacherName, String content, String representImagePath, long representImageSize, String representImageName, String siteName, URI uri, LocalDateTime lectureDateTime) {
+    public Lecture(String lectureName, String teacherName, String content, String representImagePath, long representImageSize, String representImageName, String siteName, URI uri) {
         this.lectureName = lectureName;
         this.teacherName = teacherName;
         this.content = content;
@@ -64,15 +62,13 @@ public class Lecture extends BaseTimeEntity{
         this.representImageName = representImageName;
         this.siteName = siteName;
         this.uri = uri;
-        this.lectureDateTime = lectureDateTime;
     }
 
     // 테스트 데이터용
-    public Lecture(String lectureName, String teacherName, String content, LocalDateTime lectureDateTime, String siteName, URI uri) {
+    public Lecture(String lectureName, String teacherName, String content, String siteName, URI uri) {
         this.lectureName = lectureName;
         this.teacherName = teacherName;
         this.content = content;
-        this.lectureDateTime = lectureDateTime;
         this.siteName = siteName;
         this.uri = uri;
     }

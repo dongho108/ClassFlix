@@ -23,7 +23,7 @@ class LectureRepositoryTest {
     @Test
     public void 강의저장조회() throws Exception {
         //given
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
 
         //when
         lectureRepository.save(lecture);

@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,14 +35,14 @@ class ReviewServiceTest {
         Member member = new Member("dongho", 25, Gender.MALE);
         em.persist(member);
 
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
         em.persist(lecture);
 
         //when
-        Review review1 = new Review(member,"good", 4, lecture, LocalDateTime.now());
+        Review review1 = new Review(member,"good", 4, lecture);
         reviewService.create(review1);
 
-        Review review2 = new Review(member, "good", 4, lecture, LocalDateTime.now());
+        Review review2 = new Review(member, "good", 4, lecture);
         reviewService.create(review2);
 
         Review findReview1 = reviewService.findById(review1.getId());
@@ -65,14 +64,14 @@ class ReviewServiceTest {
         Member member = new Member("dongho", 25, Gender.MALE);
         em.persist(member);
 
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
         em.persist(lecture);
 
         //when
-        Review review1 = new Review(member,"good", 3, lecture, LocalDateTime.now());
+        Review review1 = new Review(member,"good", 3, lecture);
         Long reviewId1 = reviewService.create(review1);
 
-        Review review2 = new Review(member,"good", 1, lecture, LocalDateTime.now());
+        Review review2 = new Review(member,"good", 1, lecture);
         reviewService.create(review2);
 
         reviewService.update(reviewId1, lecture.getId(), "very good", 5);
@@ -92,14 +91,14 @@ class ReviewServiceTest {
         Member member = new Member("dongho", 25, Gender.MALE);
         em.persist(member);
 
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
         em.persist(lecture);
 
         //when
-        Review review1 = new Review(member,"bad", 2, lecture, LocalDateTime.now());
+        Review review1 = new Review(member,"bad", 2, lecture);
         Long reviewId1 = reviewService.create(review1);
 
-        Review review2 = new Review(member,"good", 5, lecture, LocalDateTime.now());
+        Review review2 = new Review(member,"good", 5, lecture);
         Long reviewId2 = reviewService.create(review2);
 
 
@@ -123,14 +122,14 @@ class ReviewServiceTest {
         Member member = new Member("dongho", 25, Gender.MALE);
         em.persist(member);
 
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
         em.persist(lecture);
 
         //when
-        Review review1 = new Review(member,"bad", 2, lecture, LocalDateTime.now());
+        Review review1 = new Review(member,"bad", 2, lecture);
         reviewService.create(review1);
 
-        Review review2 = new Review(member,"good", 5, lecture, LocalDateTime.now());
+        Review review2 = new Review(member,"good", 5, lecture);
         reviewService.create(review2);
 
         //then

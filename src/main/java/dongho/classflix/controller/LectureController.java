@@ -19,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class LectureController {
 
     private final LectureService lectureService;
     private final MemberService memberService;
-    private final ReviewJpaService reviewJpaService;
+    private final ReviewService reviewService;
 
     @GetMapping("/lectures/new")
     public String createForm(Model model) {
@@ -48,7 +47,7 @@ public class LectureController {
         log.info("path : {}, size : {}, name : {}", fileInfo.getFilePath(), fileInfo.getFileSize(), fileInfo.getFileName());
 
         Lecture lecture = new Lecture(form.getLectureName(), form.getTeacherName(),
-                form.getContent(), fileInfo.getFilePath(), fileInfo.getFileSize(), fileInfo.getFileName(), form.getSiteName(), form.getUri(), LocalDateTime.now());
+                form.getContent(), fileInfo.getFilePath(), fileInfo.getFileSize(), fileInfo.getFileName(), form.getSiteName(), form.getUri());
 
         lectureService.join(lecture);
         return "redirect:/";
@@ -74,7 +73,7 @@ public class LectureController {
         memberModel.addAttribute("memberDtos", lectureInfoMemberDtos);
         reviewFormModel.addAttribute("reviewForm", new ReviewForm());
 
-        List<Review> reviews = reviewJpaService.findByLecture(lectureId);
+        List<Review> reviews = reviewService.findByLecture(lectureId);
         List<ReviewDto> reviewDtos = new ArrayList<>();
         setReviewDtos(reviews, reviewDtos);
         reviewModel.addAttribute("reviewDtos", reviewDtos);
@@ -91,7 +90,6 @@ public class LectureController {
             reviewDto.setMemberName(review.getMember().getUserName());
             reviewDto.setContent(review.getContent());
             reviewDto.setRating(review.getRating());
-            reviewDto.setReviewDate(review.getReviewDate());
             reviewDtos.add(reviewDto);
         }
     }
@@ -108,8 +106,8 @@ public class LectureController {
 
         Member member = memberService.findByName(reviewForm.getMemberName()).get(0);
         Lecture lecture = lectureService.findById(lectureId);
-        Review review = new Review(member, reviewForm.getContent(), reviewForm.getRating(), lecture, LocalDateTime.now());
-        reviewJpaService.create(review);
+        Review review = new Review(member, reviewForm.getContent(), reviewForm.getRating(), lecture);
+        reviewService.create(review);
 
         return "redirect:/lectures/{lectureId}";
     }
@@ -118,14 +116,14 @@ public class LectureController {
     private String updateReview(@PathVariable("lectureId") Long lectureId, @PathVariable("reviewId") Long reviewId,
                                        ReviewForm form, RedirectAttributes redirectAttributes) {
 
-        reviewJpaService.update(reviewId, lectureId, form.getContent(), form.getRating());
+        reviewService.update(reviewId, lectureId, form.getContent(), form.getRating());
         redirectAttributes.addAttribute("lectureId", lectureId);
         return "redirect:/lectures/{lectureId}";
     }
 
     @PostMapping("/lectures/{lectureId}/removeReview/{reviewId}")
     private String removeReview(@PathVariable("lectureId") Long lectureId, @PathVariable("reviewId") Long reviewId, RedirectAttributes redirectAttributes) {
-        reviewJpaService.delete(reviewId, lectureId);
+        reviewService.delete(reviewId, lectureId);
         redirectAttributes.addAttribute("lectureId", lectureId);
         return "redirect:/lectures/{lectureId}";
     }

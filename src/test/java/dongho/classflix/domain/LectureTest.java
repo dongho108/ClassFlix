@@ -26,13 +26,13 @@ class LectureTest {
         Member member = new Member("dongho", 25, Gender.MALE);
         em.persist(member);
 
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
         em.persist(lecture);
 
-        Review review1 = new Review(member, "good", 4, lecture, LocalDateTime.now());
+        Review review1 = new Review(member, "good", 4, lecture);
         em.persist(review1);
 
-        Review review2 = new Review(member, "bad", 1, lecture, LocalDateTime.now());
+        Review review2 = new Review(member, "bad", 1, lecture);
         em.persist(review2);
 
 
@@ -51,13 +51,13 @@ class LectureTest {
         Member member = new Member("dongho", 25, Gender.MALE);
         em.persist(member);
 
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
         em.persist(lecture);
 
-        Review review1 = new Review(member, "good", 4, lecture, LocalDateTime.now());
+        Review review1 = new Review(member, "good", 4, lecture);
         em.persist(review1);
 
-        Review review2 = new Review(member, "bad", 1, lecture, LocalDateTime.now());
+        Review review2 = new Review(member, "bad", 1, lecture);
         em.persist(review2);
 
 
@@ -82,13 +82,13 @@ class LectureTest {
         Member member = new Member("dongho", 25, Gender.MALE);
         em.persist(member);
 
-        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의", LocalDateTime.now());
+        Lecture lecture = new Lecture("jpa", "김영한", "jpa강의");
         em.persist(lecture);
 
-        Review review1 = new Review(member, "good", 4, lecture, LocalDateTime.now());
+        Review review1 = new Review(member, "good", 4, lecture);
         em.persist(review1);
 
-        Review review2 = new Review(member, "bad", 1, lecture, LocalDateTime.now());
+        Review review2 = new Review(member, "bad", 1, lecture);
         em.persist(review2);
 
 
