@@ -37,7 +37,7 @@ public class InitDB {
             Lecture lecture1 = new Lecture("스프링입문", "김영한", "좋아요", "인프런", uri);
             Lecture lecture2 = new Lecture("스프링코어", "김영한", "나빠요", "클래스101", uri);
             Lecture lecture3 = new Lecture("jpa기초", "김영한", "그냥그래요", "패스트캠퍼스", uri);
-            Lecture lecture4 = new Lecture("jpa활용", "김영한", "좋아요", "CLass Flix", uri);
+            Lecture lecture4 = new Lecture("jpa활용", "김영한", "좋아요", "Class Flix", uri);
 
             em.persist(lecture1);
             em.persist(lecture2);
