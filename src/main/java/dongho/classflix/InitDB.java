@@ -4,6 +4,7 @@ import dongho.classflix.domain.Gender;
 import dongho.classflix.domain.Lecture;
 import dongho.classflix.domain.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 
+@Profile("local")
 @Component
 @RequiredArgsConstructor
 public class InitDB {
