@@ -1,12 +1,18 @@
 package dongho.classflix.repository;
 
+import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import dongho.classflix.controller.dto.HomeLectureDto;
+import dongho.classflix.controller.dto.PageDto;
+import dongho.classflix.controller.dto.QHomeLectureDto;
 import dongho.classflix.domain.Lecture;
 import dongho.classflix.domain.QLecture;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
@@ -14,6 +20,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 import static dongho.classflix.domain.QLecture.*;
+
 
 public class LectureRepositoryImpl implements LectureRepositoryCustom {
 
@@ -24,9 +31,15 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
     }
 
     @Override
-    public List<Lecture> findAllPageSort(Pageable pageable) {
-        JPAQuery<Lecture> query = queryFactory
-                .selectFrom(lecture)
+    public Page<HomeLectureDto> findAllPageSort(Pageable pageable) {
+        JPAQuery<HomeLectureDto> query = queryFactory
+                .select(new QHomeLectureDto(
+                        lecture.id.as("lectureId"),
+                        lecture.representImagePath,
+                        lecture.lectureName.as("lectureName"),
+                        lecture.averageRating
+                ))
+                .from(lecture)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize());
 
@@ -36,7 +49,11 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
                     pathBuilder.get(o.getProperty())));
         }
 
-        List<Lecture> result = query.fetch();
-        return result;
+        QueryResults<HomeLectureDto> results = query.fetchResults();
+        List<HomeLectureDto> content = results.getResults();
+        long total = results.getTotal();
+
+        return new PageImpl(content, pageable, total);
     }
+
 }

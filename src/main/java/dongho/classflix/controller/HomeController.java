@@ -1,11 +1,13 @@
 package dongho.classflix.controller;
 
 import dongho.classflix.controller.dto.HomeLectureDto;
+import dongho.classflix.controller.dto.PageDto;
 import dongho.classflix.domain.Lecture;
 import dongho.classflix.repository.LectureRepository;
 import dongho.classflix.service.LectureService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -28,13 +30,15 @@ public class HomeController {
     public String home(Model model) {
 
 //        List<Lecture> lectures = lectureService.findAll();
-        List<Lecture> lectures = lectureRepository.findAllPageSort(getDefaultPageRequest());
+//        List<Lecture> lectures = lectureRepository.findAllPageSort(getDefaultPageRequest());
 
-        List<HomeLectureDto> HomeLectureDtos = new ArrayList<>();
+//        setHomeLectureDto(lectures, HomeLectureDtos);
 
-        setHomeLectureDto(lectures, HomeLectureDtos);
+        Page<HomeLectureDto> results = lectureRepository.findAllPageSort(getDefaultPageRequest());
 
-        model.addAttribute("lectures", HomeLectureDtos);
+        model.addAttribute("lectures", results.getContent());
+        model.addAttribute("pageMaker", new PageDto(results.getSize()));
+
         return "home";
     }
 
@@ -42,17 +46,17 @@ public class HomeController {
         return PageRequest.of(0, 16, Sort.Direction.DESC, "createdDate");
     }
 
-    private void setHomeLectureDto(List<Lecture> lectures, List<HomeLectureDto> homeLectureDtos) {
-        for (int i = 0; i < lectures.size(); i++) {
-            HomeLectureDto lectureDto = new HomeLectureDto();
-            lectureDto.setId(lectures.get(i).getId());
-            lectureDto.setRepresentImagePath(lectures.get(i).getRepresentImagePath());
-            lectureDto.setLectureName(lectures.get(i).getLectureName());
-            lectureDto.setAverageRating(lectures.get(i).getAverageRating());
-
-            homeLectureDtos.add(lectureDto);
-        }
-    }
+//    private void setHomeLectureDto(List<Lecture> lectures, List<HomeLectureDto> homeLectureDtos) {
+//        for (int i = 0; i < lectures.size(); i++) {
+//            HomeLectureDto lectureDto = new HomeLectureDto();
+//            lectureDto.setId(lectures.get(i).getId());
+//            lectureDto.setRepresentImagePath(lectures.get(i).getRepresentImagePath());
+//            lectureDto.setLectureName(lectures.get(i).getLectureName());
+//            lectureDto.setAverageRating(lectures.get(i).getAverageRating());
+//
+//            homeLectureDtos.add(lectureDto);
+//        }
+//    }
 
 
 }

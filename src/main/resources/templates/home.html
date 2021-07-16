@@ -47,7 +47,7 @@
                 <div class="col-md-3" th:each="lecture : ${lectures}">
                     <a th:href="@{/lectures/{lectureId}(lectureId=${lecture.getId()})}">
                     <img class="lecture-images" th:src="${lecture.getRepresentImagePath()}"
-                         src="/images/springInstroduction.png" alt="스프링입문">
+                         src="/images/springInstroduction.png" alt="사진없음">
                     <h5 th:text="${lecture.getLectureName()}" class="lecture-title">강의제목</h5>
                         <p class="star_rating">
                             <a th:if="${lecture.getAverageRating() != 0}" class="on"
@@ -56,6 +56,17 @@
                         </p>
                     </a>
                 </div>
+            </div>
+            <div class="text-center">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination pagination-sm">
+                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
