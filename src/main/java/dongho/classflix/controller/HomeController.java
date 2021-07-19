@@ -2,21 +2,17 @@ package dongho.classflix.controller;
 
 import dongho.classflix.controller.dto.HomeLectureDto;
 import dongho.classflix.controller.dto.PageDto;
-import dongho.classflix.domain.Lecture;
 import dongho.classflix.repository.LectureRepository;
 import dongho.classflix.service.LectureService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -27,23 +23,23 @@ public class HomeController {
     private final LectureRepository lectureRepository;
 
     @RequestMapping("/")
-    public String home(Model model) {
+    public String home(Model model, @PageableDefault(size = 16, sort = "createdDate",direction = Sort.Direction.DESC) Pageable pageable) {
+        log.info("home controller");
 
 //        List<Lecture> lectures = lectureService.findAll();
 //        List<Lecture> lectures = lectureRepository.findAllPageSort(getDefaultPageRequest());
-
 //        setHomeLectureDto(lectures, HomeLectureDtos);
 
-        Page<HomeLectureDto> results = lectureRepository.findAllPageSort(getDefaultPageRequest());
-
+        Page<HomeLectureDto> results = lectureRepository.findAllPageSort(pageable);
         model.addAttribute("lectures", results.getContent());
-        model.addAttribute("pageMaker", new PageDto(results.getSize()));
+
+        log.info(pageable.toString());
+        PageDto pageDto = new PageDto(results.getTotalElements(), pageable);
+
+        model.addAttribute("page", pageDto);
+        log.info(pageDto.toString());
 
         return "home";
-    }
-
-    private PageRequest getDefaultPageRequest() {
-        return PageRequest.of(0, 16, Sort.Direction.DESC, "createdDate");
     }
 
 //    private void setHomeLectureDto(List<Lecture> lectures, List<HomeLectureDto> homeLectureDtos) {

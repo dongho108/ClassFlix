@@ -22,4 +22,20 @@ public class HomeLectureDto {
         this.lectureName = lectureName;
         this.averageRating = averageRating;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getRepresentImagePath() {
+        return representImagePath;
+    }
+
+    public String getLectureName() {
+        return lectureName;
+    }
+
+    public double getAverageRating() {
+        return averageRating;
+    }
 }

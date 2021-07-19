@@ -1,11 +1,13 @@
 package dongho.classflix.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import dongho.classflix.controller.dto.HomeLectureDto;
 import dongho.classflix.domain.Lecture;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -42,17 +44,19 @@ class LectureRepositoryImplTest {
         em.persist(lecture4);
 
         //when
-        List<Lecture> results = lectureRepository.findAllPageSort(PageRequest.of(1, 2, Sort.Direction.DESC, "createdDate"));
+        PageRequest createdDate = PageRequest.of(1, 2, Sort.Direction.DESC, "createdDate");
+
+        Page<HomeLectureDto> results = lectureRepository.findAllPageSort(createdDate);
 
         //then
-
+        List<HomeLectureDto> content = results.getContent();
         assertAll("page : 1, size : 2, sort : createDate&DESC",
-                () -> assertEquals(results.get(0).getId(), lecture2.getId()),
-                () -> assertEquals(results.get(1).getId(), lecture1.getId()));
+                () -> assertEquals(content.get(0).getId(), lecture2.getId()),
+                () -> assertEquals(content.get(1).getId(), lecture1.getId()));
 
 
-        for (Lecture lecture : results) {
-            System.out.println("lecture = " + lecture.getLectureName() + " time : " + lecture.getCreatedDate());
+        for (HomeLectureDto lecture : content) {
+            System.out.println("lecture = " + lecture.getLectureName());
         }
     }
 
