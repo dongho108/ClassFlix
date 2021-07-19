@@ -12,7 +12,6 @@ import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.LocalDateTime;
 
 @Profile("local")
 @Component
@@ -45,7 +44,7 @@ public class InitDB {
             em.persist(lecture3);
             em.persist(lecture4);
 
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 200; i++) {
                 em.persist(new Lecture("강의"+i, "김영한", "샘플데이터", "사이트"+i, uri));
             }
 
