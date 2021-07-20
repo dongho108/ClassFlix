@@ -44,15 +44,21 @@
         <div class="panel panel-default">
             <div class="panel-heading">IT 분야 인기 강의</div>
             <div class="panel-body" th:if="${not #strings.isEmpty(lectures)}">
+                <div class="text-right">
+                    <a class="btn btn-default" role="button"
+                       th:href="@{/(page=${page.curPage},sort='createdDate,DESC')}" href="">최신순</a>
+                    <a class="btn btn-default" role="button"
+                       th:href="@{/(page=${page.curPage},sort='lectureName,ASC')}" href="">이름순</a>
+                </div>
                 <div class="col-md-3" th:each="lecture : ${lectures}">
-                    <a th:href="@{/lectures/{lectureId}(lectureId=${lecture.getId()})}">
-                    <img class="lecture-images" th:src="${lecture.getRepresentImagePath()}"
+                    <a th:href="@{/lectures/{lectureId}(lectureId=${lecture.id})}">
+                    <img class="lecture-images" th:src="${lecture.representImagePath}"
                          src="/images/springInstroduction.png" alt="사진없음">
-                    <h5 th:text="${lecture.getLectureName()}" class="lecture-title">강의제목</h5>
+                    <h5 th:text="${lecture.lectureName}" class="lecture-title">강의제목</h5>
                         <p class="star_rating">
-                            <a th:if="${lecture.getAverageRating() != 0}" class="on"
-                               th:each="num : ${#numbers.sequence(0, lecture.getAverageRating()-1)}">★</a>
-                            <a th:unless="${lecture.getAverageRating() != 0}">★★★★★</a>
+                            <a th:if="${lecture.averageRating != 0}" class="on"
+                               th:each="num : ${#numbers.sequence(0, lecture.averageRating-1)}">★</a>
+                            <a th:unless="${lecture.averageRating != 0}">★★★★★</a>
                         </p>
                     </a>
                 </div>
@@ -60,12 +66,12 @@
             <div class="text-center">
                 <nav aria-label="Page navigation">
                     <ul class="pagination pagination-sm">
-                        <li th:if="${page.isPrev()}" class="page-item"><a th:href="@{/?page={page}(page = ${page.getCurPage()-1})}" class="page-link" href="#">Prev</a></li>
+                        <li th:if="${page.isPrev()}" class="page-item"><a th:href="@{/?page={page}(page = ${page.curPage-1}, sort = ${page.sortParam})}" class="page-link" href="#">Prev</a></li>
                         <li th:unless="${page.isPrev()}" class="page-item disabled"><a class="page-link">Prev</a></li>
-                        <li class="page-item" th:each="num, index : ${#numbers.sequence(page.getStartPage(), page.getEndPage())}">
-                            <a th:href="@{/?page={page}(page = ${index.current-1})}" th:text="${num}" class="page-link" href="">1</a>
+                        <li class="page-item" th:each="num, index : ${#numbers.sequence(page.startPage, page.endPage)}">
+                            <a th:href="@{/?page={page}(page = ${index.current-1}, sort = ${page.sortParam})}" th:text="${num}" class="page-link" href="">1</a>
                         </li>
-                        <li th:if="${page.isNext()}" class="page-item"><a th:href="@{/?page={page}(page = ${page.getCurPage()+1})}" class="page-link" href="#">Next</a></li>
+                        <li th:if="${page.isNext()}" class="page-item"><a th:href="@{/?page={page}(page = ${page.curPage+1}, sort = ${page.sortParam})}" class="page-link" href="#">Next</a></li>
                         <li th:unless="${page.isNext()}" class="page-item disabled"><a class="page-link">Next</a></li>
                     </ul>
                 </nav>

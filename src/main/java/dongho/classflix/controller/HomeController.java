@@ -27,6 +27,7 @@ public class HomeController {
         model.addAttribute("lectures", results.getContent());
 
         log.info(pageable.toString());
+        log.info(""+pageable.getSort());
         PageDto pageDto = new PageDto(results.getTotalElements(), pageable);
 
         model.addAttribute("page", pageDto);

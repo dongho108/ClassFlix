@@ -2,6 +2,7 @@ package dongho.classflix.controller.dto;
 
 import lombok.Data;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 @Data
 public class PageDto {
@@ -11,6 +12,7 @@ public class PageDto {
     private int endPage;
     private int curPage;
     private boolean prev, next;
+    private String sortParam;
 
     private long total;
 
@@ -33,5 +35,15 @@ public class PageDto {
 
         this.prev = (curPage+1) > 1; // view에서는 1부터 시작이므로
         this.next = (curPage+1) < realEnd; // view에서는 1부터 시작이므로
+
+        for (Sort.Order o : pageable.getSort()) {
+            this.sortParam = o.getProperty() + ",";
+            if (o.isAscending()) {
+                this.sortParam += "ASC";
+            } else {
+                this.sortParam += "DESC";
+            }
+            break;
+        }
     }
 }
