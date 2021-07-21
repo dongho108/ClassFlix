@@ -45,9 +45,9 @@
             <div class="panel-heading">IT 분야 인기 강의</div>
             <div class="panel-body" th:if="${not #strings.isEmpty(lectures)}">
                 <div class="text-right">
-                    <a class="btn btn-default" role="button"
+                    <a class="btn btn-sm btn-default" role="button"
                        th:href="@{/(page=${page.curPage},sort='createdDate,DESC')}" href="">최신순</a>
-                    <a class="btn btn-default" role="button"
+                    <a class="btn btn-sm btn-default" role="button"
                        th:href="@{/(page=${page.curPage},sort='lectureName,ASC')}" href="">이름순</a>
                 </div>
                 <div class="col-md-3" th:each="lecture : ${lectures}">
