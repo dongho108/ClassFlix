@@ -3,23 +3,23 @@ package dongho.classflix.repository;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import dongho.classflix.controller.dto.HomeLectureDto;
-import dongho.classflix.controller.dto.PageDto;
+import dongho.classflix.controller.dto.LectureSearchCondition;
 import dongho.classflix.controller.dto.QHomeLectureDto;
-import dongho.classflix.domain.Lecture;
-import dongho.classflix.domain.QLecture;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static dongho.classflix.domain.QLecture.*;
+import static dongho.classflix.domain.QLecture.lecture;
 
 
 public class LectureRepositoryImpl implements LectureRepositoryCustom {
@@ -31,7 +31,7 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
     }
 
     @Override
-    public Page<HomeLectureDto> findAllPageSort(Pageable pageable) {
+    public Page<HomeLectureDto> findAllPageSort(LectureSearchCondition condition, Pageable pageable) {
         JPAQuery<HomeLectureDto> query = queryFactory
                 .select(new QHomeLectureDto(
                         lecture.id.as("lectureId"),
@@ -40,6 +40,11 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
                         lecture.averageRating
                 ))
                 .from(lecture)
+                .where(
+                        lectureNameEq(condition.getLectureName()),
+                        teacherNameEq(condition.getTeacherName()),
+                        ratingGoe(condition.getRating())
+                )
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize());
 
@@ -54,6 +59,18 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
         long total = results.getTotal();
 
         return new PageImpl(content, pageable, total);
+    }
+
+    private BooleanExpression ratingGoe(Integer ratingGoe) {
+        return ratingGoe != null ? lecture.averageRating.goe(ratingGoe) : null;
+    }
+
+    private BooleanExpression teacherNameEq(String teacherName) {
+        return StringUtils.hasText(teacherName) ? lecture.teacherName.eq(teacherName) : null;
+    }
+
+    private BooleanExpression lectureNameEq(String lectureName) {
+        return StringUtils.hasText(lectureName) ? lecture.lectureName.eq(lectureName) : null;
     }
 
 }

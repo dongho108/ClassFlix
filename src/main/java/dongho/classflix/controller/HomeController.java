@@ -1,6 +1,7 @@
 package dongho.classflix.controller;
 
 import dongho.classflix.controller.dto.HomeLectureDto;
+import dongho.classflix.controller.dto.LectureSearchCondition;
 import dongho.classflix.controller.dto.PageDto;
 import dongho.classflix.repository.LectureRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +21,10 @@ public class HomeController {
     private final LectureRepository lectureRepository;
 
     @RequestMapping("/")
-    public String home(Model model, @PageableDefault(size = 16, sort = "createdDate",direction = Sort.Direction.DESC) Pageable pageable) {
+    public String home(Model model, LectureSearchCondition condition, @PageableDefault(size = 16, sort = "createdDate",direction = Sort.Direction.DESC) Pageable pageable) {
         log.info("home controller");
 
-        Page<HomeLectureDto> results = lectureRepository.findAllPageSort(pageable);
+        Page<HomeLectureDto> results = lectureRepository.findAllPageSort(condition, pageable);
         model.addAttribute("lectures", results.getContent());
 
         log.info(pageable.toString());
