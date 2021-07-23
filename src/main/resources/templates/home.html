@@ -40,9 +40,37 @@
         <h1 class="text-center">CLASS FLIX</h1>
         <p class="text-center" style="text-shadow: none">인강 추천좀</p>
     </div>
+
+    <div class="card card-7 text-center">
+        <div class="card-body">
+            <div class="input-group input--large">
+                <label class="label">강의 이름</label>
+                <input id="lectureName" class="input--style-1" type="text" placeholder="" name="lectureName">
+            </div>
+            <div class="input-group input--large">
+                <label class="label">강의자 이름</label>
+                <input id="teacherName" class="input--style-1" type="text" placeholder="" name="teacherName">
+            </div>
+            <div class="input-group input--medium">
+                <label class="label">별 점</label>
+                <div class="input-group-icon js-number-input">
+                    <div class="icon-con">
+                        <span class="plus">+</span>
+                        <span class="minus">-</span>
+                    </div>
+                    <input id="reviewRating" class="input--style-1 quantity" type="text" name="guests" value="1점 이상만">
+                </div>
+            </div>
+            <button th:onclick="goSearch([[${page.sortParam}]]);" class="btn-submit" type="submit">search</button>
+        </div>
+    </div>
+
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">IT 분야 인기 강의</div>
+            <div class="panel-body" th:unless="${not #strings.isEmpty(lectures)}">
+                검색결과가 없습니다.
+            </div>
             <div class="panel-body" th:if="${not #strings.isEmpty(lectures)}">
                 <div class="text-right">
                     <a class="btn btn-sm btn-default" role="button"
@@ -63,7 +91,7 @@
                     </a>
                 </div>
             </div>
-            <div class="text-center">
+            <div class="text-center" th:if="${not #strings.isEmpty(lectures)}">
                 <nav aria-label="Page navigation">
                     <ul class="pagination pagination-sm">
                         <li th:if="${page.isPrev()}" class="page-item"><a th:href="@{/?page={page}(page = ${page.curPage-1}, sort = ${page.sortParam})}" class="page-link" href="#">Prev</a></li>
@@ -83,6 +111,42 @@
 <div th:replace="fragments/footer :: footer" />
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<!-- Jquery JS-->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<!-- Vendor JS-->
+<script src="/vendor/select2/select2.min.js"></script>
+<script src="/vendor/jquery-validate/jquery.validate.min.js"></script>
+<script src="/vendor/bootstrap-wizard/bootstrap.min.js"></script>
+<script src="/vendor/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<script src="/vendor/datepicker/moment.min.js"></script>
+<script src="/vendor/datepicker/daterangepicker.js"></script>
+
+<!-- Main JS-->
+<script src="/js/search.js"></script>
+<script>
+    function goSearch(sortParam) {
+        var searchParam = "/?";
+
+        searchParam += "sort=" + sortParam;
+
+        var lectureName = document.getElementById('lectureName').value;
+        var teacherName = document.getElementById('teacherName').value;
+        var rating = document.getElementById('reviewRating').value.substring(0,1);
+
+        if (lectureName !== "") {
+            searchParam += "&lectureName=" + lectureName;
+        }
+        if (teacherName !== "") {
+            searchParam += "&teacherName=" + teacherName;
+        }
+        if (rating !== "") {
+            searchParam += "&reviewRating=" + rating;
+        }
+        // alert(searchParam);
+        location.replace(searchParam);
+        // return searchParam;
+    }
+</script>
 
 </body>
 </html>

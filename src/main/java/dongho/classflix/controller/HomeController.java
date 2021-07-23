@@ -24,7 +24,7 @@ public class HomeController {
     public String home(Model model, LectureSearchCondition condition, @PageableDefault(size = 16, sort = "createdDate",direction = Sort.Direction.DESC) Pageable pageable) {
         log.info("home controller");
 
-        Page<HomeLectureDto> results = lectureRepository.findAllPageSort(condition, pageable);
+        Page<HomeLectureDto> results = lectureRepository.searchPageSort(condition, pageable);
         model.addAttribute("lectures", results.getContent());
 
         log.info(pageable.toString());

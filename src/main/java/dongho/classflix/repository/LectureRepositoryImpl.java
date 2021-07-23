@@ -31,7 +31,7 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
     }
 
     @Override
-    public Page<HomeLectureDto> findAllPageSort(LectureSearchCondition condition, Pageable pageable) {
+    public Page<HomeLectureDto> searchPageSort(LectureSearchCondition condition, Pageable pageable) {
         JPAQuery<HomeLectureDto> query = queryFactory
                 .select(new QHomeLectureDto(
                         lecture.id.as("lectureId"),

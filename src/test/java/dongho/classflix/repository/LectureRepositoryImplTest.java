@@ -44,7 +44,7 @@ class LectureRepositoryImplTest {
         LectureSearchCondition condition = new LectureSearchCondition();
         PageRequest createdDate = PageRequest.of(1, 2, Sort.Direction.DESC, "createdDate");
 
-        Page<HomeLectureDto> results = lectureRepository.findAllPageSort(condition, createdDate);
+        Page<HomeLectureDto> results = lectureRepository.searchPageSort(condition, createdDate);
 
         //then
         List<HomeLectureDto> content = results.getContent();
@@ -77,7 +77,7 @@ class LectureRepositoryImplTest {
 
 
         //then
-        Page<HomeLectureDto> results = lectureRepository.findAllPageSort(condition, createdDate);
+        Page<HomeLectureDto> results = lectureRepository.searchPageSort(condition, createdDate);
         List<HomeLectureDto> content = results.getContent();
         assertAll("page : 0, size : 2, sort : createDate&DESC" +
                         "search : lectureName(스프링입문)",

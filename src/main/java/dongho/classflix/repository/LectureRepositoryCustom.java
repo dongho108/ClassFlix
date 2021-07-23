@@ -6,5 +6,5 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface LectureRepositoryCustom {
-    Page<HomeLectureDto> findAllPageSort(LectureSearchCondition condition, Pageable pageable);
+    Page<HomeLectureDto> searchPageSort(LectureSearchCondition condition, Pageable pageable);
 }
