@@ -10,6 +10,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import dongho.classflix.controller.dto.HomeLectureDto;
 import dongho.classflix.controller.dto.LectureSearchCondition;
 import dongho.classflix.controller.dto.QHomeLectureDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +22,7 @@ import java.util.List;
 
 import static dongho.classflix.domain.QLecture.lecture;
 
-
+@Slf4j
 public class LectureRepositoryImpl implements LectureRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
@@ -32,6 +33,7 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
 
     @Override
     public Page<HomeLectureDto> searchPageSort(LectureSearchCondition condition, Pageable pageable) {
+        log.info("input rating : {}", condition.getRating());
         JPAQuery<HomeLectureDto> query = queryFactory
                 .select(new QHomeLectureDto(
                         lecture.id.as("lectureId"),

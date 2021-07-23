@@ -25,6 +25,7 @@ public class HomeController {
         log.info("home controller");
 
         Page<HomeLectureDto> results = lectureRepository.searchPageSort(condition, pageable);
+        log.info("content : {}, content.isEmpty() : {}, content.isNull() : {} ",results.getContent(),  results.getContent().isEmpty(), results.getContent() == null);
         model.addAttribute("lectures", results.getContent());
 
         log.info(pageable.toString());

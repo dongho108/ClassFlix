@@ -68,10 +68,10 @@
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">IT 분야 인기 강의</div>
-            <div class="panel-body" th:unless="${not #strings.isEmpty(lectures)}">
+            <div class="panel-body" th:unless="${#lists.size(lectures) != 0}">
                 검색결과가 없습니다.
             </div>
-            <div class="panel-body" th:if="${not #strings.isEmpty(lectures)}">
+            <div class="panel-body" th:if="${#lists.size(lectures) != 0}">
                 <div class="text-right">
                     <a class="btn btn-sm btn-default" role="button"
                        th:href="@{/(page=${page.curPage},sort='createdDate,DESC')}" href="">최신순</a>
@@ -91,7 +91,7 @@
                     </a>
                 </div>
             </div>
-            <div class="text-center" th:if="${not #strings.isEmpty(lectures)}">
+            <div class="text-center" th:if="${#lists.size(lectures) != 0}">
                 <nav aria-label="Page navigation">
                     <ul class="pagination pagination-sm">
                         <li th:if="${page.isPrev()}" class="page-item"><a th:href="@{/?page={page}(page = ${page.curPage-1}, sort = ${page.sortParam})}" class="page-link" href="#">Prev</a></li>
@@ -140,7 +140,7 @@
             searchParam += "&teacherName=" + teacherName;
         }
         if (rating !== "") {
-            searchParam += "&reviewRating=" + rating;
+            searchParam += "&rating=" + rating;
         }
         // alert(searchParam);
         location.replace(searchParam);
