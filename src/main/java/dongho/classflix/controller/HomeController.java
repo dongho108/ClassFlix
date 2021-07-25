@@ -25,7 +25,6 @@ public class HomeController {
         log.info("home controller");
 
         Page<HomeLectureDto> results = lectureRepository.searchPageSort(condition, pageable);
-        log.info("content : {}, content.isEmpty() : {}, content.isNull() : {} ",results.getContent(),  results.getContent().isEmpty(), results.getContent() == null);
         model.addAttribute("lectures", results.getContent());
 
         log.info(pageable.toString());
@@ -34,6 +33,9 @@ public class HomeController {
 
         model.addAttribute("page", pageDto);
         log.info(pageDto.toString());
+
+        log.info(condition.toString());
+        model.addAttribute("condition", condition);
 
         return "home";
     }

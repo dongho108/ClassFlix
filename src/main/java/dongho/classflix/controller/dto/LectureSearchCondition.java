@@ -11,4 +11,7 @@ public class LectureSearchCondition {
     private String teacherName;
     private Integer ratingGoe; // 실제는 double임. 안되면 수정필요
 
+    public LectureSearchCondition() {
+        this.ratingGoe = 0;
+    }
 }

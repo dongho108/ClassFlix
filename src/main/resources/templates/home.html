@@ -45,11 +45,11 @@
         <div class="card-body">
             <div class="input-group input--large">
                 <label class="label">강의 이름</label>
-                <input id="lectureName" class="input--style-1" type="text" placeholder="" name="lectureName">
+                <input id="lectureName" class="input--style-1" th:value="${condition.lectureName}" type="text" placeholder="" name="lectureName">
             </div>
             <div class="input-group input--large">
                 <label class="label">강의자 이름</label>
-                <input id="teacherName" class="input--style-1" type="text" placeholder="" name="teacherName">
+                <input id="teacherName" class="input--style-1" th:value="${condition.teacherName}" type="text" placeholder="" name="teacherName">
             </div>
             <div class="input-group input--medium">
                 <label class="label">별 점</label>
@@ -58,7 +58,7 @@
                         <span class="plus">+</span>
                         <span class="minus">-</span>
                     </div>
-                    <input id="ratingGoe" class="input--style-1 quantity" type="text" name="guests" value="1점 이상만">
+                    <input id="ratingGoe" class="input--style-1 quantity" th:value="|${condition.ratingGoe}점 이상만|" type="text" name="guests" value="1점 이상만">
                 </div>
             </div>
             <button th:onclick="goSearch([[${page.sortParam}]]);" class="btn-submit" type="submit">search</button>
