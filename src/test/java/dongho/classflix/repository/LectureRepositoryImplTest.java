@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.net.URI;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -83,6 +84,38 @@ class LectureRepositoryImplTest {
                         "search : lectureName(스프링입문)",
                 () -> assertEquals(content.get(0).getId(), lecture2.getId()),
                 () -> assertEquals(content.get(1).getId(), lecture1.getId()));
+    }
+
+
+    @Test
+    public void searchPlusSiteName() throws Exception {
+        //given
+        URI uri = new URI("https://www.inflearn.com/");
+
+//        Lecture(String lectureName, String teacherName, String content, String siteName, URI uri)
+        Lecture lecture1 = new Lecture("스프링입문", "김영한", "좋아요", "인프런", uri);
+        Lecture lecture2 = new Lecture("스프링입문", "김영한", "나빠요", "인프런", uri);
+        Lecture lecture3 = new Lecture("jpa기초", "김동호", "그냥그래요", "클래스101", uri);
+        Lecture lecture4 = new Lecture("jpa활용", "김동호", "좋아요", "클래스101", uri);
+        em.persist(lecture1);
+        em.persist(lecture2);
+        em.persist(lecture3);
+        em.persist(lecture4);
+
+
+        //when
+        LectureSearchCondition condition = new LectureSearchCondition();
+        condition.setSiteName("인프런");
+        PageRequest createdDate = PageRequest.of(0, 2, Sort.Direction.DESC, "createdDate");
+
+        //then
+        Page<HomeLectureDto> results = lectureRepository.searchPageSort(condition, createdDate);
+        List<HomeLectureDto> content = results.getContent();
+        assertAll("page : 0, size : 2, sort : createDate&DESC" +
+                        "search : siteName(인프런)",
+                () -> assertEquals(content.get(0).getId(), lecture2.getId()),
+                () -> assertEquals(content.get(1).getId(), lecture1.getId()));
+
     }
 
 }

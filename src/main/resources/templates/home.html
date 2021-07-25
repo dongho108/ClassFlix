@@ -43,11 +43,15 @@
 
     <div class="card card-7 text-center">
         <div class="card-body">
+            <div class="input-group input--medium">
+                <label class="label">사이트 이름</label>
+                <input id="siteName" class="input--style-1" th:value="${condition.siteName}" type="text" placeholder="" name="siteName">
+            </div>
             <div class="input-group input--large">
                 <label class="label">강의 이름</label>
                 <input id="lectureName" class="input--style-1" th:value="${condition.lectureName}" type="text" placeholder="" name="lectureName">
             </div>
-            <div class="input-group input--large">
+            <div class="input-group input--medium">
                 <label class="label">강의자 이름</label>
                 <input id="teacherName" class="input--style-1" th:value="${condition.teacherName}" type="text" placeholder="" name="teacherName">
             </div>
@@ -125,10 +129,14 @@
 <script src="/js/search.js"></script>
 <script>
     function getSearchParam(searchParam) {
+        var siteName = document.getElementById('siteName').value;
         var lectureName = document.getElementById('lectureName').value;
         var teacherName = document.getElementById('teacherName').value;
         var ratingGoe = document.getElementById('ratingGoe').value.substring(0,1);
 
+        if (siteName !== "") {
+            searchParam += "&siteName=" + siteName;
+        }
         if (lectureName !== "") {
             searchParam += "&lectureName=" + lectureName;
         }
