@@ -8,7 +8,6 @@
         text-shadow: black 0.2em 0.2em 0.2em;
         color: red;
     }
-
     .lecture-images {
         width: 128px;
         height: 83px;
@@ -77,10 +76,15 @@
             </div>
             <div class="panel-body" th:if="${#lists.size(lectures) != 0}">
                 <div class="text-right">
-                    <a class="btn btn-sm btn-default" role="button"
+                    <a th:unless="${#strings.equals(page.sortParam, 'createdDate,DESC')}" class="btn btn-sm btn-default" role="button"
                        th:href="@{/(page=${page.curPage},sort='createdDate,DESC')}" href="">최신순</a>
-                    <a class="btn btn-sm btn-default" role="button"
+                    <a th:if="${#strings.equals(page.sortParam, 'createdDate,DESC')}"
+                       class="btn btn-sm btn-default disabled" role="button">최신순</a>
+
+                    <a th:unless="${#strings.equals(page.sortParam, 'lectureName,ASC')}" class="btn btn-sm btn-default" role="button"
                        th:href="@{/(page=${page.curPage},sort='lectureName,ASC')}" href="">이름순</a>
+                    <a th:if="${#strings.equals(page.sortParam, 'lectureName,ASC')}"
+                       class="btn btn-sm btn-default disabled" role="button" href="">이름순</a>
                 </div>
                 <div class="col-md-3" th:each="lecture : ${lectures}">
                     <a th:href="@{/lectures/{lectureId}(lectureId=${lecture.id})}">
@@ -101,7 +105,8 @@
                         <li th:if="${page.isPrev()}" class="page-item"><a th:onclick="goPage([[${page.curPage-1}]],[[${page.sortParam}]]);" class="page-link">Prev</a></li>
                         <li th:unless="${page.isPrev()}" class="page-item disabled"><a class="page-link">Prev</a></li>
                         <li class="page-item" th:each="num, index : ${#numbers.sequence(page.startPage, page.endPage)}">
-                            <a th:onclick="goPage([[${index.current-1}]],[[${page.sortParam}]]);" th:text="${num}" class="page-link">1</a>
+                            <a th:if="${#strings.equals(page.curPage+1, num)}" th:text="${num}" class="page-link" style="background-color: #eeeeee">1</a>
+                            <a th:unless="${#strings.equals(page.curPage+1, num)}" th:onclick="goPage([[${index.current-1}]],[[${page.sortParam}]]);" th:text="${num}" class="page-link">1</a>
                         </li>
                         <li th:if="${page.isNext()}" class="page-item"><a th:onclick="goPage([[${page.curPage+1}]],[[${page.sortParam}]]);" class="page-link">Next</a></li>
                         <li th:unless="${page.isNext()}" class="page-item disabled"><a class="page-link">Next</a></li>
