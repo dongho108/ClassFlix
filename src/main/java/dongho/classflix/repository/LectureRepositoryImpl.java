@@ -45,7 +45,7 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
                 .where(
                         lectureNameEq(condition.getLectureName()),
                         teacherNameEq(condition.getTeacherName()),
-                        siteNameEq(condition.getSiteName()),
+                        siteNameContains(condition.getSiteName()),
                         ratingGoe(condition.getRatingGoe())
                 )
                 .offset(pageable.getOffset())
@@ -74,6 +74,10 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
 
     private BooleanExpression siteNameEq(String siteName) {
         return StringUtils.hasText(siteName) ? lecture.siteName.eq(siteName) : null;
+    }
+
+    private BooleanExpression siteNameContains(String siteName) {
+        return StringUtils.hasText(siteName) ? lecture.siteName.contains(siteName) : null;
     }
 
     private BooleanExpression lectureNameEq(String lectureName) {
