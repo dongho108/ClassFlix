@@ -33,7 +33,7 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
 
     @Override
     public Page<HomeLectureDto> searchPageSort(LectureSearchCondition condition, Pageable pageable) {
-        log.info("input rating : {}", condition.getRating());
+        log.info("input rating : {}", condition.getRatingGoe());
         JPAQuery<HomeLectureDto> query = queryFactory
                 .select(new QHomeLectureDto(
                         lecture.id.as("lectureId"),
@@ -45,7 +45,7 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
                 .where(
                         lectureNameEq(condition.getLectureName()),
                         teacherNameEq(condition.getTeacherName()),
-                        ratingGoe(condition.getRating())
+                        ratingGoe(condition.getRatingGoe())
                 )
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize());

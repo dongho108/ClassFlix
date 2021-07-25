@@ -58,7 +58,7 @@
                         <span class="plus">+</span>
                         <span class="minus">-</span>
                     </div>
-                    <input id="reviewRating" class="input--style-1 quantity" type="text" name="guests" value="1점 이상만">
+                    <input id="ratingGoe" class="input--style-1 quantity" type="text" name="guests" value="1점 이상만">
                 </div>
             </div>
             <button th:onclick="goSearch([[${page.sortParam}]]);" class="btn-submit" type="submit">search</button>
@@ -131,7 +131,7 @@
 
         var lectureName = document.getElementById('lectureName').value;
         var teacherName = document.getElementById('teacherName').value;
-        var rating = document.getElementById('reviewRating').value.substring(0,1);
+        var ratingGoe = document.getElementById('ratingGoe').value.substring(0,1);
 
         if (lectureName !== "") {
             searchParam += "&lectureName=" + lectureName;
@@ -139,8 +139,8 @@
         if (teacherName !== "") {
             searchParam += "&teacherName=" + teacherName;
         }
-        if (rating !== "") {
-            searchParam += "&rating=" + rating;
+        if (ratingGoe !== "") {
+            searchParam += "&ratingGoe=" + ratingGoe;
         }
         // alert(searchParam);
         location.replace(searchParam);

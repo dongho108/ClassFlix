@@ -9,6 +9,6 @@ public class LectureSearchCondition {
 
     private String lectureName;
     private String teacherName;
-    private Integer rating; // 실제는 double임. 안되면 수정필요
+    private Integer ratingGoe; // 실제는 double임. 안되면 수정필요
 
 }
