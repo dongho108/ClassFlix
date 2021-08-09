@@ -78,9 +78,6 @@
                 </td>
                 <td th:text="${reviewDto.getContent()}"></td>
                 <td>
-<!--                    <a class="btn btn-primary" role="button" th:data-param1="${reviewDto.getReviewId()}" th:data-param2="${reviewDto.getContent()}"-->
-<!--                       th:onclick="setReviewEdit(this.getAttribute('data-param1'), this.getAttribute('data-param2'));"-->
-<!--                       data-target="#modal" data-toggle="modal">수정</a>-->
                     <a class="btn btn-primary" role="button"
                        th:onclick="setReviewEdit([[${reviewDto.getReviewId()}]], [[${reviewDto.getContent()}]]);"
                        data-target="#modal" data-toggle="modal">수정</a>

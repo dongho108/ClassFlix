@@ -1,2 +1,0 @@
-<label>후기: </label>
-<textarea class="form-control" rows="5" id="commentContentEdit" placeholder="최대 50자까지 입력 가능합니다." name="commentContentEdit" maxlength="255"></textarea>
