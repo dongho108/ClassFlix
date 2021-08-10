@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
     private final LectureRepository lectureRepository;
 
+
     @RequestMapping("/")
     public String home(Model model, LectureSearchCondition condition, @PageableDefault(size = 16, sort = "createdDate",direction = Sort.Direction.DESC) Pageable pageable) {
         log.info("home controller");
