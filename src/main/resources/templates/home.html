@@ -43,25 +43,25 @@
     <div class="card card-7 text-center">
         <div class="card-body">
             <div class="input-group input--medium">
-                <label class="label">사이트 이름</label>
+                <label th:for="${condition.siteName}" class="label">사이트 이름</label>
                 <input class="input--style-1" type="text" th:field="${condition.siteName}">
             </div>
             <div class="input-group input--large">
-                <label class="label">강의 이름</label>
+                <label th:for="${condition.lectureName}" class="label">강의 이름</label>
                 <input class="input--style-1" type="text" th:field="${condition.lectureName}">
             </div>
             <div class="input-group input--medium">
-                <label class="label">강의자 이름</label>
+                <label th:for="${condition.teacherName}" class="label">강의자 이름</label>
                 <input class="input--style-1" type="text" th:field="${condition.teacherName}">
             </div>
             <div class="input-group input--medium">
-                <label class="label">별 점</label>
+                <label th:for="${condition.ratingGoe}" class="label">별 점</label>
                 <div class="input-group-icon js-number-input">
                     <div class="icon-con">
                         <span class="plus">+</span>
                         <span class="minus">-</span>
                     </div>
-                    <input class="input--style-1 quantity" type="text" id="ratingGoe" th:value="|${condition.ratingGoe}점 이상만|">
+                    <input class="input--style-1 quantity" type="text" id="ratingGoe" th:value="|${condition.ratingGoe}점 이상만|" disabled>
                 </div>
             </div>
             <button th:onclick="goSearch([[${page.sortParam}]]);" class="btn-submit" type="submit">search</button>
