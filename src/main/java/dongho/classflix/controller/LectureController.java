@@ -5,6 +5,7 @@ import dongho.classflix.controller.dto.LectureInfoMemberDto;
 import dongho.classflix.controller.dto.ReviewDto;
 import dongho.classflix.domain.Lecture;
 import dongho.classflix.domain.Member;
+import dongho.classflix.domain.RatingsCreate;
 import dongho.classflix.domain.Review;
 import dongho.classflix.service.FileInfo;
 import dongho.classflix.service.LectureService;
@@ -24,7 +25,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,13 +39,7 @@ public class LectureController {
 
     @ModelAttribute("ratings")
     public Map<Integer, String> ratings() {
-        Map<Integer, String> ratings = new LinkedHashMap<>();
-        ratings.put(5, "★★★★★");
-        ratings.put(4, "★★★★");
-        ratings.put(3, "★★★");
-        ratings.put(2, "★★");
-        ratings.put(1, "★");
-        return ratings;
+        return RatingsCreate.getInstance();
     }
 
 
