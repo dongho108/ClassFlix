@@ -104,11 +104,7 @@
         <div class="form-group col-md-4">
             <label for="formStarRating">별점</label>
             <select id="formStarRating" th:field="*{rating}" class="form-control">
-                <option value="1">★</option>
-                <option value="2">★★</option>
-                <option value="3">★★★</option>
-                <option value="4">★★★★</option>
-                <option value="5" selected>★★★★★</option>
+                <option th:each="rating : ${ratings}" th:value="${rating.key}" th:text="${rating.value}"></option>
             </select>
         </div>
         <div class="form-group col-md-12">
@@ -134,11 +130,7 @@
                     <form name = "reviewEdit" th:object="${reviewForm}">
                         <label>별점</label>
                         <select th:field="*{rating}">
-                            <option value="1">★</option>
-                            <option value="2">★★</option>
-                            <option value="3">★★★</option>
-                            <option value="4">★★★★</option>
-                            <option value="5" selected>★★★★★</option>
+                            <option th:each="rating : ${ratings}" th:value="${rating.key}" th:text="${rating.value}"></option>
                         </select>
                         <label>후기: </label>
                         <textarea id="reviewEdit" class="form-control" rows="5" placeholder="최대 50자까지 입력 가능합니다."

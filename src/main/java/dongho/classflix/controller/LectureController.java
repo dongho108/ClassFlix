@@ -6,13 +6,17 @@ import dongho.classflix.controller.dto.ReviewDto;
 import dongho.classflix.domain.Lecture;
 import dongho.classflix.domain.Member;
 import dongho.classflix.domain.Review;
-import dongho.classflix.service.*;
+import dongho.classflix.service.FileInfo;
+import dongho.classflix.service.LectureService;
+import dongho.classflix.service.MemberService;
+import dongho.classflix.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -20,7 +24,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,6 +36,18 @@ public class LectureController {
     private final LectureService lectureService;
     private final MemberService memberService;
     private final ReviewService reviewService;
+
+    @ModelAttribute("ratings")
+    public Map<Integer, String> ratings() {
+        Map<Integer, String> ratings = new LinkedHashMap<>();
+        ratings.put(5, "★★★★★");
+        ratings.put(4, "★★★★");
+        ratings.put(3, "★★★");
+        ratings.put(2, "★★");
+        ratings.put(1, "★");
+        return ratings;
+    }
+
 
     @GetMapping("/lectures/new")
     public String createForm(Model model) {
