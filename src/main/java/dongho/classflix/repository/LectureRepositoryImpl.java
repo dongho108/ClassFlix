@@ -43,7 +43,7 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
                 ))
                 .from(lecture)
                 .where(
-                        lectureNameEq(condition.getLectureName()),
+                        lectureNameContains(condition.getLectureName()),
                         teacherNameEq(condition.getTeacherName()),
                         siteNameContains(condition.getSiteName()),
                         ratingGoe(condition.getRatingGoe())
@@ -82,6 +82,10 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
 
     private BooleanExpression lectureNameEq(String lectureName) {
         return StringUtils.hasText(lectureName) ? lecture.lectureName.eq(lectureName) : null;
+    }
+
+    private BooleanExpression lectureNameContains(String lectureName) {
+        return StringUtils.hasText(lectureName) ? lecture.lectureName.contains(lectureName) : null;
     }
 
 }
