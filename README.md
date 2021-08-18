@@ -120,8 +120,8 @@ Classflix는 여러 사이트에 퍼져있는 인터넷 강의들을 모아놓�
 ## Build process
 
 21/08/12 <br>
-add sortParam dto, ratings
-refactoring lecture
+add sortParam dto, ratings <br>
+refactoring lecture <br>
 refactoring memberForm, lectureForm design
 
 
