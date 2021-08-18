@@ -32,16 +32,25 @@ Classflix는 여러 사이트에 퍼져있는 인터넷 강의들을 모아놓�
 한 사이트 안에서 듣고싶은 강의를 찾고, 별점을 확인하고, 리뷰를 확인하세요. <br><br>
 <br>
 
-> home : 첫 화면부터 바로 강의목록을 보여줍니다.<br>
-<img width="1439" alt="home" src="https://user-images.githubusercontent.com/54317630/119301299-329d7780-bc9d-11eb-9596-7998c80aa85a.png">
+> home : 첫 화면부터 바로 강의목록을 보여줍니다. 정렬 기준(최신순, 이름순)을 선택할 수 있습니다. <br>
+<img width="1439" alt="home" src="https://user-images.githubusercontent.com/54317630/129855753-ba4fac5d-50d2-439d-a071-5c7f6ebd37b7.png">
 
 <br>
 <br>
 <br>
+
+
+> 검색기능 : 홈 화면에서 자기가 찾고싶은 강의를 검색할 수 있습니다.<br>
+<img width="1439" alt="home" src="https://user-images.githubusercontent.com/54317630/129857552-9ac46f51-a611-47a4-9d25-d53292ba64a7.png">
+
+<br>
+<br>
+<br>
+
 
 > 회원가입 : 회원을 등록할 수 있습니다. <br>
 
-<img width="1437" alt="memberform" src="https://user-images.githubusercontent.com/54317630/119301410-6b3d5100-bc9d-11eb-8255-74a1640eba4a.png">
+<img width="1437" alt="memberform" src="https://user-images.githubusercontent.com/54317630/129844866-c289e9aa-2436-4e35-90f3-d53225018603.png">
 
 <br>
 <br>
@@ -49,7 +58,7 @@ Classflix는 여러 사이트에 퍼져있는 인터넷 강의들을 모아놓�
 
 > 강의등록 : 강의를 등록할 수 있습니다. <br>
 
-<img width="1423" alt="lectureForm" src="https://user-images.githubusercontent.com/54317630/119301464-7f814e00-bc9d-11eb-8810-1ebd1681c8a9.png">
+<img width="1423" alt="lectureForm" src="https://user-images.githubusercontent.com/54317630/129844985-6bd38942-b97f-4d1a-9cd5-0c6bfea00604.png">
 
 <br>
 <br>
@@ -91,9 +100,6 @@ Classflix는 여러 사이트에 퍼져있는 인터넷 강의들을 모아놓�
 <br>
 <br>
 
-> 각 강의에 평균 별점이 홈화면에서도 보입니다. <br>
-
-<img width="1435" alt="lasthome" src="https://user-images.githubusercontent.com/54317630/119302729-91fc8700-bc9f-11eb-803b-2a2d35fb7c86.png">
 
 
 ## Features
@@ -106,8 +112,33 @@ Classflix는 여러 사이트에 퍼져있는 인터넷 강의들을 모아놓�
 
 > 각 강의에서는 해당 강의의 리뷰들의 평균별점을 볼 수 있음 <br>
 
+> 어떤 강의가 있는지 다양한 파라미터로 검색 가능 <br>
+
+> 페이징 처리로 페이지당 깔끔하게 8개의 강의씩 볼 수 있음 <br> 
+
 
 ## Build process
+
+21/08/12 <br>
+add sortParam dto, ratings
+refactoring lecture
+refactoring memberForm, lectureForm design
+
+
+21/08/11 <br>
+refactoring searchForm
+
+21/07/25 <br>
+add home lectures search
+
+21/07/21 <br>
+add home lectures sorting
+
+21/07/19 <br>
+add home lectures paging
+
+21/07/14 <br>
+add querydsl settings
 
 21/06/04 <br>
 update Repository (pure jpa -> Spring Data Jpa)
