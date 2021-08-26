@@ -43,19 +43,19 @@
     <div class="card card-7 text-center">
         <div class="card-body">
             <div class="input-group input--medium">
-                <label th:for="${condition.siteName}" class="label">사이트 이름</label>
+                <label th:for="${condition.siteName}" class="label" th:text="#{label.search.siteName}">사이트 이름</label>
                 <input class="input--style-1" type="text" th:field="${condition.siteName}">
             </div>
             <div class="input-group input--large">
-                <label th:for="${condition.lectureName}" class="label">강의 이름</label>
+                <label th:for="${condition.lectureName}" class="label" th:text="#{label.search.lectureName}">강의 이름</label>
                 <input class="input--style-1" type="text" th:field="${condition.lectureName}">
             </div>
             <div class="input-group input--medium">
-                <label th:for="${condition.teacherName}" class="label">강의자 이름</label>
+                <label th:for="${condition.teacherName}" class="label" th:text="#{label.search.teacherName}">강의자 이름</label>
                 <input class="input--style-1" type="text" th:field="${condition.teacherName}">
             </div>
             <div class="input-group input--medium">
-                <label th:for="${condition.ratingGoe}" class="label">별 점</label>
+                <label th:for="${condition.ratingGoe}" class="label" th:text="#{label.search.starRating}">별 점</label>
                 <div class="input-group-icon js-number-input">
                     <div class="icon-con">
                         <span class="plus">+</span>

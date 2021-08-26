@@ -20,9 +20,7 @@
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <div class="panel-title">
-                    강의소개
-                </div>
+                <div class="panel-title" th:text="#{page.lecture}">강의소개</div>
             </div>
             <div class="panel-body">
                 <div class="media">
@@ -62,9 +60,9 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>회원이름</th>
-                <th>별점</th>
-                <th>후기</th>
+                <th th:text="#{page.review.member}">회원이름</th>
+                <th th:text="#{page.review.starRating}">별점</th>
+                <th th:text="#{page.review.content}">후기</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -80,11 +78,11 @@
                 <td>
                     <a class="btn btn-primary" role="button"
                        th:onclick="setReviewEdit([[${reviewDto.getReviewId()}]], [[${reviewDto.getContent()}]]);"
-                       data-target="#modal" data-toggle="modal">수정</a>
+                       data-target="#modal" data-toggle="modal" th:text="#{button.edit}">수정</a>
                 </td>
                 <td>
                     <form id="reviewRemoveForm" th:action="@{/lectures/{lectureId}/removeReview/{reviewId}(lectureId=${lectureId}, reviewId=${reviewDto.getReviewId()})}" method="post">
-                        <button type="button" onclick="removeCheck()" class="btn btn-danger" role="button">삭제</button>
+                        <button type="button" onclick="removeCheck()" class="btn btn-danger" role="button" th:text="#{button.delete}">삭제</button>
                     </form>
                 </td>
             </tr>
@@ -95,24 +93,24 @@
     <hr>
     <form role="form" method="post" th:object="${reviewForm}">
         <div class="form-group col-md-3">
-            <label for="formMemberSelect">회원선택</label>
+            <label for="formMemberSelect" th:text="#{label.review.member}">회원선택</label>
             <select id="formMemberSelect" th:field="*{memberName}" class="form-control">
                 <option value="" disabled>==회원선택==</option>
                 <option th:each="memberDto : ${memberDtos}" th:text="${memberDto.getUserName()}" th:value="${memberDto.getUserName()}">동호</option>
             </select>
         </div>
         <div class="form-group col-md-4">
-            <label for="formStarRating">별점</label>
+            <label for="formStarRating" th:text="#{label.review.starRating}">별점</label>
             <select id="formStarRating" th:field="*{rating}" class="form-control">
                 <option th:each="rating : ${ratings}" th:value="${rating.key}" th:text="${rating.value}"></option>
             </select>
         </div>
         <div class="form-group col-md-12">
-            <label>후기: </label>
+            <label th:text="#{label.review.content}">후기: </label>
             <textarea class="form-control" rows="5" id="commentContent" placeholder="후기를 입력해 주세요"
                       name="commentContent" maxlength="255" th:field="*{content}"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary pull-right" role="button">등록</button>
+        <button type="submit" class="btn btn-primary pull-right" role="button" th:text="#{button.save}">등록</button>
     </form>
 </div>
 <br>
