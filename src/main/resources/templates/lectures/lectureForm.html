@@ -4,6 +4,7 @@
 <style>
     .fieldError {
         border-color: #bd2130;
+        color: #bd2130;
     }
     .container-center {
         max-width: 560px;
@@ -19,15 +20,19 @@
           method="post", enctype="multipart/form-data">
         <div class="form-group">
             <label th:for="lectureName" th:text="#{label.lecture.name}">강의제목</label>
-            <input type="text" th:field="*{lectureName}" class="form-control" placeholder="강의제목을 입력하세요"
-                   th:class="${#fields.hasErrors('lectureName')}? 'form-control fieldError' : 'form-control'">
-            <p th:if="${#fields.hasErrors('lectureName')}" th:errors="*{lectureName}">Incorrect date</p>
+            <input type="text" th:field="*{lectureName}"
+                   th:errorclass="fieldError" class="form-control" placeholder="강의제목을 입력하세요.">
+            <div class="fieldError" th:errors="*{lectureName}">
+                강의명 오류
+            </div>
         </div>
         <div class="form-group">
             <label th:for="teacherName" th:text="#{label.lecture.teacher}">강의자 이름</label>
-            <input type="text" th:field="*{teacherName}" class="form-control" placeholder="강의자를 입력하세요"
-                   th:class="${#fields.hasErrors('teacherName')}? 'form-control fieldError' : 'form-control'">
-            <p th:if="${#fields.hasErrors('teacherName')}" th:errors="*{teacherName}">Incorrect date</p>
+            <input type="text" th:field="*{teacherName}"
+                   th:errorclass="fieldError" class="form-control" placeholder="강의자를 입력하세요.">
+            <div class="fieldError" th:errors="*{teacherName}">
+                강의자명 오류
+            </div>
         </div>
         <div class="form-group">
             <label th:for="content" th:text="#{label.lecture.content}">강의 내용 소개</label>
@@ -39,11 +44,20 @@
         </div>
         <div class="form-group">
             <label th:for="siteName" th:text="#{label.lecture.siteName}">강의 사이트 이름</label>
-            <input type="text" th:field="*{siteName}" class="form-control" placeholder="강의 사이트의 이름을 입력해주세요">
+            <input type="text" th:field="*{siteName}"
+                   th:errorclass="fieldError" class="form-control" placeholder="강의 사이트의 이름을 입력해주세요.">
+            <div class="fieldError" th:errors="*{siteName}">
+                강의 사이트명 오류
+            </div>
         </div>
         <div class="form-group">
             <label th:for="uri" th:text="#{label.lecture.siteUrl}">강의 사이트 주소</label>
             <input type="url" th:field="*{uri}" class="form-control" placeholder="강의 사이트의 주소를 입력해주세요">
+<!--            <input type="text" th:field="*{uri}"-->
+<!--                   th:errorclass="fieldError" class="form-control" placeholder="강의 사이트의 주소를 입력해주세요.">-->
+<!--            <div class="fieldError" th:errors="*{uri}">-->
+<!--                강의 사이트 url 오류-->
+<!--            </div>-->
         </div>
         <div class="text-center">
             <button type="submit" class="btn btn-primary" th:text="#{button.save}">등록하기</button>
