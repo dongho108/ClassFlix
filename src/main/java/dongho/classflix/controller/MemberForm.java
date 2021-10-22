@@ -4,16 +4,22 @@ import dongho.classflix.domain.Gender;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 public class MemberForm {
 
-    @NotEmpty(message = "회원 이름은 필수 입니다")
+    @NotBlank(message = "회원 이름을 입력해 주세요.")
     private String name;
 
-    private int age;
+    @NotNull(message = "나이를 입력해 주세요.")
+    private Integer age;
+
+    @NotNull(message = "성별을 선택해 주세요.")
     private Gender gender;
+
+    @NotBlank(message = "직업을 입력해 주세요.")
     private String career;
 }
