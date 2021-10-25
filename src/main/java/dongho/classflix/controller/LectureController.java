@@ -60,7 +60,7 @@ public class LectureController {
         log.info("path : {}, size : {}, name : {}", fileInfo.getFilePath(), fileInfo.getFileSize(), fileInfo.getFileName());
 
         Lecture lecture = new Lecture(form.getLectureName(), form.getTeacherName(),
-                form.getContent(), fileInfo.getFilePath(), fileInfo.getFileSize(), fileInfo.getFileName(), form.getSiteName(), form.getUri());
+                form.getContent(), fileInfo.getFilePath(), fileInfo.getFileSize(), fileInfo.getFileName(), form.getSiteName(), form.convertStrToUri(form.getUri()));
 
         lectureService.join(lecture);
         return "redirect:/";

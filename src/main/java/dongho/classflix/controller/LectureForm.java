@@ -2,6 +2,7 @@ package dongho.classflix.controller;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
@@ -22,7 +23,11 @@ public class LectureForm {
     @NotBlank(message = "강의가 올려져 있는 사이트를 입력해 주세요.")
     private String siteName;
 
-//    @URL(message = "URL을 제대로 입력했는지 확인해 주세요.")
-//    private String uri;
-    private URI uri;
+    @NotBlank(message = "URL을 입력해주세요.")
+    @URL(message = "URL을 제대로 입력했는지 확인해 주세요.")
+    private String uri;
+
+    URI convertStrToUri(String url) {
+        return URI.create(url);
+    }
 }
